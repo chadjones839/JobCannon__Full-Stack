@@ -1,0 +1,144 @@
+@import url(https://fonts.googleapis.com/css?family=Montserrat:900|Raleway:400,400i,700,700i);
+
+@import "../styles/UserResume.css";
+@import "../styles/WorkHistory.css";
+@import "../styles/SchoolForm.css";
+
+.backBtnContainer {
+  width: 25%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.skillsContainer {
+  height: 707px;
+  overflow-y: scroll;
+}
+
+.skillsContainer::-webkit-scrollbar {
+  width: 5px;
+}
+
+.skillsContainer::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+.skillsContainer::-webkit-scrollbar-thumb {
+  background: rgb(190, 190, 190); 
+}
+
+.skillsContainer::-webkit-scrollbar-thumb:hover {
+  background:rgb(138, 137, 137); 
+}
+
+.editJobDetails {
+  margin-top: 20px;
+}
+
+.skillSet {
+  display: block;
+}
+
+.skillList {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.skillList > span {
+  background: #1DBBD6;
+  border-radius: 16px;
+  font-size: 20px;
+  padding: 5px 10px;
+  margin: 10px 5px;
+  font-family: 'Inter', sans-serif;
+}
+
+.viewSkillList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.viewSkillList > span {
+  background: #1DBBD6;
+  border-radius: 16px;
+  font-size: 20px;
+  padding: 5px 10px;
+  margin: 10px 5px;
+  font-family: 'Inter', sans-serif;
+  
+}
+
+.viewSectionTitle {
+  font-family: 'Comfortaa', sans-serif;
+  font-weight: 700;
+  letter-spacing:3px;
+  font-size: 32px;
+  padding: 5px 0;
+  margin: 40px 0 0;
+  text-align: center;
+  color: #000000;
+  border-radius: 5px;
+  width: 100%;
+  text-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.resumesHeader {
+  font-family: 'Roboto', cursive;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  box-shadow: 0px 3px 5px -2px #333;
+  text-align: center;
+  background: #ffffff;
+  position: -webkit-sticky;
+  position: sticky; top: 19px;
+  margin-bottom: 15px;
+}
+
+.resumesContainer {
+  padding: 0px 10px 10px;
+  display: grid;
+  grid-template-columns: 2fr 50%;
+  grid-template-rows: 26% 26%;
+  height: 590px;
+  overflow-y: scroll;
+}
+
+.resumesContainer::-webkit-scrollbar {
+  width: 5px;
+}
+
+.resumesContainer::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+.resumesContainer::-webkit-scrollbar-thumb {
+  background: rgb(190, 190, 190); 
+}
+
+.resumesContainer::-webkit-scrollbar-thumb:hover {
+  background:rgb(138, 137, 137); 
+}
+
+.skillFormHeaderContainer {
+  display: flex;
+  padding: 0px 0 10px 0px;
+  background: #FFFFFF;
+  position: -webkit-sticky;
+  position: sticky; top: 19px;
+  box-shadow: 0px 3px 5px -2px #333;
+  height: 95px;
+}
+
+.addSkillHeader {
+  position: relative;
+  top: 50px;
+}
+
+.skill__backButton {
+  position: relative;
+  top: 15px;
+  padding-left: 10px;
+  padding-right: 20px;
+}

@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500&display=swap');
+@import "./ChatList.css";
+
+
+
+.chatContainer {
+  padding: 0px 10px 10px;
+  overflow-y: scroll;
+  height: 680px;
+}
+
+.chatContainer::-webkit-scrollbar {
+  width: 5px;
+}
+
+.chatContainer::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+.chatContainer::-webkit-scrollbar-thumb {
+  background: rgb(190, 190, 190); 
+}
+
+.chatContainer::-webkit-scrollbar-thumb:hover {
+  background:rgb(138, 137, 137); 
+}

@@ -1,0 +1,179 @@
+.jobType__box {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  margin: 10px 10px 20px;
+  padding-top: 10px;
+}
+
+.job__header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.jobType__pill {
+  border-radius: 16px;
+  padding: 5px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  color: white;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+#Part-Time {
+  background: #1074B3;
+}
+
+#Full-Time {
+  background: #0d9c49;
+}
+
+#Temp {
+  background: #d3b11a;
+  color: #000000;
+}
+
+.listingHeader {
+  padding: 20px 0 10px 10px;
+  background: #FFFFFF;
+  position: -webkit-sticky;
+  position: sticky; top: 19px;
+  margin-bottom: 10px;
+  box-shadow: 0px 3px 5px -2px #333;
+  display: flex;
+}
+
+.job__backButton {
+  padding-right: 10px;
+  position: relative;
+  bottom: 5px;
+}
+
+.detailedJobListing {
+  border-radius: 3px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  margin: 20px;
+  height: 617px;
+  overflow-y: scroll;
+}
+
+.detailedJobListing::-webkit-scrollbar {
+  width: 5px;
+}
+
+.detailedJobListing::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+.detailedJobListing::-webkit-scrollbar-thumb {
+  background: rgb(190, 190, 190); 
+}
+
+.detailedJobListing::-webkit-scrollbar-thumb:hover {
+  background:rgb(138, 137, 137); 
+}
+
+.jobDetailHeader {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 8px 8px 0;
+}
+
+.jobDetails {
+  padding: 0px 20px 20px;
+}
+
+.details__postDate {
+  margin-left: 10px;
+}
+
+.detailsPostDate__contents {
+  font-family: 'Roboto', sans-serif;
+  color: red;
+  font-weight: 500;
+  padding: 5px 5px 0;
+  font-size: 12px;
+}
+
+.jobDetailBtnContainer {
+  display: flex; 
+  flex-direction: row;
+  justify-content: flex-end;
+  padding: 0px;
+  margin: 0px;
+}
+
+.jobBtn__Edit,
+.jobBtn__Delete {
+  padding: 0 3px;
+}
+
+.jobSalary > h5,
+.jobRequirements > h5,
+.jobSummary > h5 {
+  margin: 20px 0 5px 0px;
+}
+
+.jobSalary > p,
+.jobRequirements > p,
+.jobSummary > p {
+  margin: 0px 0 5px 0px;
+}
+
+.jobListing__header {
+  display: flex;
+  flex-direction: row;
+}
+
+.jobImage > img {
+  width: 50px;
+  height: auto;
+  border-radius: 50%;;
+}
+
+.headerRight {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 0 0 10px;
+}
+
+.jobCompany > h3 {
+  margin: 0 0 3px 0;
+  font-family: 'Inter', sans-serif;
+}
+
+.jobtitle > h2 {
+  font-family: 'Comfortaa', cursive;
+  margin: 5px 0;
+  padding-left: 5px;
+}
+
+.jobLocation > h4 {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  font-weight: 300;
+  font-style: italic;
+  font-size: 14px;
+}
+
+
+
+.applyBtnContainer {
+  text-align: center;
+  margin-top: 30px
+}
+
+.applyBtn {
+  font-family: 'Pathway Gothic One', sans-serif;
+  font-size: 24px;
+  padding: 20px 10px 10px;
+  outline: none;
+  border: none;
+  background: none;
+  border-top: 1px #8d8c8c solid;
+  cursor: pointer;
+}

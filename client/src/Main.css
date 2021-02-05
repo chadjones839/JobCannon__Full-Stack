@@ -1,0 +1,41 @@
+/***FONT IMPORTS********************************************/
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pathway+Gothic+One&display=swap');
+
+/****************/
+
+:root {
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  top: 10px
+}
+
+#root-wrapper {
+  width: 375px;
+  height: 812px;
+  border: 5px solid black;
+  border-top: 20px solid black;
+  border-bottom: 40px solid black;
+  border-radius: 5px;
+}
+
+/***CSS IMPORTS********************************************/
+
+@import "./Buttons.css";
+@import "./Fields.css";
+@import "./components/auth/styles/Home.css";
+@import "./components/auth/styles/Login.css";
+@import "./components/auth/styles/Register.css";
+@import "./components/discovery/styles/Discovery.css";
+@import "./components/nav/styles/Navbar.css";
+@import "./components/chat/styles/Chat.css";
+@import "./components/profile/styles/Profile.css";
+@import "./components/messages/styles/Message.css";
+@import "./components/jobs/styles/Jobs.css";
+@import "./components/resumes/styles/Resume.css";
+
+/****************/

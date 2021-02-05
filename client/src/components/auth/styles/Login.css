@@ -1,0 +1,73 @@
+body {
+  height: 100%;
+  margin: 0;
+}
+
+.statusBar {
+  margin: 0;
+  padding:0;
+  width: 100%;
+}
+
+.backButton > button {
+  width: 10%;
+  padding: 10px;
+  margin-top: 20px;
+}
+
+.backbutton {
+  border: none;
+  background: none;
+  outline: none;
+  width: 50%;
+}
+
+.backToHome {
+  width: 10px;
+  height: auto;
+}
+
+.loginContainer {
+  margin: 10px;
+  height: 100%;
+}
+
+.loginHeader {
+  font-family: 'Comfortaa', cursive;
+  padding-top: 0;
+  padding-bottom: 15px;
+}
+
+.container-login-form-btn {
+  width: 100%;
+  position: relative;
+  bottom: -40px;
+}
+
+.createAccountBtn {
+  width: 100%;
+  position: relative;
+  bottom: -30px;
+}
+
+.loginForm {
+  width: 100%;
+}
+
+.form-input {
+  width: 100%;
+
+}
+
+.inputField {
+  margin: 10px;
+  padding: 0.5rem 0.3rem;
+  width: 90%;
+  color: inherit;
+  font-family: 'Roboto', sans-serif;
+  font-weight: inherit;
+  line-height: 1.8;
+  border: #000000 solid 1px;
+  border-radius: 0.4rem;
+}
+

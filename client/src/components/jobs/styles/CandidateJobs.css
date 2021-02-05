@@ -1,0 +1,95 @@
+
+
+.jobsContainer {
+  padding: 0px 10px 10px;
+  display: grid;
+  grid-template-columns: 2fr 50%;
+  grid-template-rows: 26% 26%;
+  height: 590px;
+  overflow-y: scroll;
+}
+
+.jobsContainer::-webkit-scrollbar {
+  width: 5px;
+}
+
+.jobsContainer::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+.jobsContainer::-webkit-scrollbar-thumb {
+  background: rgb(190, 190, 190); 
+}
+
+.jobsContainer::-webkit-scrollbar-thumb:hover {
+  background:rgb(138, 137, 137); 
+}
+
+.jobsHeader {
+  font-family: 'Roboto', cursive;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  box-shadow: 0px 3px 5px -2px #333;
+  text-align: center;
+  background: #ffffff;
+  position: -webkit-sticky;
+  position: sticky; top: 19px;
+  margin-bottom: 15px;
+}
+
+.chooseJobs {
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+}
+
+.jobsCard {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 15px;
+  justify-content: center;
+  margin: 0 5px 15px 5px;
+  text-decoration: none;
+  text-align: center;
+  align-items: center;
+}
+
+.chatHeader > h3 {
+  margin: 10px 0;
+}
+
+.jobsUserImageContainer {
+  width: 60%;
+  height: auto;
+}
+
+.jobsUserImage > img {
+  width: 100%;
+  height: auto;
+  border-radius: 50%;
+  text-align: center
+}
+
+.messageDetailsContainer {
+  width: 100%;
+}
+
+.jobsUserName > h4 {
+  margin: 0;
+  font-family: "Roboto", sans-serif;
+  font-weight: 600px;
+  
+}
+
+.messagePreview {
+  font-family: "Roboto", sans-serif;
+  font-size: 13px;
+  margin: 2px 0 0px 10px;
+  padding-right: 10px;
+}
+
+.chatButton {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

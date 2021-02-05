@@ -1,0 +1,187 @@
+.jobListing__container {
+  margin: 10px 10px 40px;
+  padding: 20px 20px 10px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3);
+  border-radius: 5px;
+  font-family: 'Inter', sans-serif;
+}
+
+.jobListing__employerContainer {
+  margin: 10px 10px 40px;
+  padding: 0 0 0 0;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3);
+  border-radius: 5px;
+  font-family: 'Inter', sans-serif
+}
+
+.detailsContainer {
+  margin: 0;
+  padding: 20px 20px 10px;
+  border-radius: 5px 5px 0 0 ;
+  font-family: 'Inter', sans-serif
+}
+
+.addListingContainer {
+  text-align: center;
+}
+
+.job__header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.jobType__pill {
+  border-radius: 16px;
+  padding: 5px;
+  color: white;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+#Part-Time {
+  background: #1074B3;
+}
+
+#Full-Time {
+  background: #0d9c49;
+}
+
+#Temp {
+  background: #d3b11a;
+  color: #000000;
+}
+
+.jobType {
+  padding: 0 5px
+}
+
+.postDate__contents {
+  font-weight: 500;
+  padding: 5px 5px 0;
+  font-size: 12px;
+}
+
+.position__box {
+  text-align: center;
+}
+
+.positionTitle > h3 {
+  margin-bottom: 0;
+}
+
+.positionLocation > h4 {
+  margin-top: 5px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  color: #1074B3;
+}
+
+.topSkills__box {
+  display: flex;
+  justify-content: center;
+  width: 100%
+}
+
+.topSkill{
+  border: 1px solid #373737;
+  border-radius: 16px;
+  padding: 5px;
+  color: #373737;
+  font-weight: 500;
+  font-size: 13px;
+  margin: 0 5px;
+}
+
+.topSkill > h5 {
+  padding: 0 5px;
+  margin: 0;
+}
+
+.jobDescription__box {
+  text-align: center;
+  font-size: 14px
+}
+
+.jobDescription > p {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.jobListing__footer {
+  text-align: center;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.footerBtn {
+  text-align: center;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.viewJob {
+  font-family: 'Pathway Gothic One', sans-serif;
+  font-size: 24px;
+  padding: 20px 10px 10px;
+  outline: none;
+  border: none;
+  background: none;
+  border-top: 1px #8d8c8c solid
+}
+
+.jobListing {
+  background: #f8f6f6;
+  border-radius: 3px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  padding: 10px 20px;
+  margin-top: 10px;
+}
+
+.jobDetails {
+  font-family: 'Inter'
+}
+
+.jobTitle > h2 {
+  margin: 5px 0;
+}
+
+.jobLocation > h4 {
+  margin: 5px 0;
+}
+
+.jobBtnContainer {
+  display: flex; 
+  flex-direction: row;
+  justify-content: center;
+  margin: 0;
+  box-shadow: inset 0px 8px 15px rgba(0, 0, 0, 0.3);
+}
+
+.jobBtn__details,
+.jobBtn__edit,
+.jobBtn__delete {
+  padding: 10px 0;
+  width: 100%;
+  text-align: center;
+  cursor: pointer;
+}
+
+.jobEditBtn {
+  border-radius: 0;
+  border-left: 1px #373737 solid;
+  border-right: 1px #373737 solid;
+  cursor: pointer;
+}
+
+.jobDeleteBtn,
+.jobDetailBtn {
+  cursor: pointer;
+}
+
+.viewJob {
+  cursor: pointer;
+}

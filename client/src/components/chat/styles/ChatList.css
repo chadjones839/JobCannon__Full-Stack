@@ -1,0 +1,68 @@
+
+
+.chatHeader {
+  font-family: 'Roboto', cursive;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  box-shadow: 0px 3px 5px -2px #333;
+  text-align: center;
+  background: #ffffff;
+  position: -webkit-sticky;
+  position: sticky; top: 0px;
+  border-radius: 5px 5px 0 0;
+  
+}
+
+.chatCard {
+  display: flex;
+  flex-direction: row;
+  padding-bottom: 15px;
+  justify-content: center;
+  margin: 15px 5px 0px 5px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.chatHeader > h3 {
+  margin: 10px 0;
+}
+
+.userImageContainer {
+  width: 20%;
+  height: auto;
+  align-items: center;
+}
+
+.userImage > img {
+  width: 100%;
+  height: auto;
+  border-radius: 50%;
+}
+
+.messageDetailsContainer {
+  width: 100%;
+}
+
+.messageUserName > h4 {
+  margin: 0 0 0 10px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 600px;
+  
+}
+
+.messagePreview {
+  font-family: "Roboto", sans-serif;
+  font-size: 13px;
+  margin: 2px 0 0px 10px;
+  padding-right: 10px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.chatButton {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

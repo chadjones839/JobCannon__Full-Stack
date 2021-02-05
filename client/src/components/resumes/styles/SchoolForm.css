@@ -1,0 +1,61 @@
+.schoolForm__container {
+  padding: 20px 0 10px 10px;
+  background: #FFFFFF;
+  position: -webkit-sticky;
+  position: sticky; top: 19px;
+  margin-bottom: 10px;
+  box-shadow: 0px 3px 5px -2px #333;
+}
+
+
+.schoolDateFields {
+  display: flex;
+  justify-content: space-between;
+}
+
+.resume__backButton {
+  width: 15%;
+}
+
+.backBtn {
+  margin: 10px 0px 0;
+  padding: 5px;
+  height: 100%;
+  width: 100%;
+  outline: none;
+  border: none;
+  background: none;
+}
+
+.backBtn > img {
+  height: 25px;
+  width: auto;
+  padding: 0;
+  margin: 0;
+}
+
+.addSchoolHeader,
+.editSchoolHeader {
+  padding: 0px 0 10px 30px;
+  background: #FFFFFF;
+  position: -webkit-sticky;
+  position: sticky; top: 19px;
+  margin-bottom: 10px;
+  box-shadow: 0px 3px 5px -2px #333;
+}
+
+.schoolForm__header > h2 {
+  font-family: 'Comfortaa', sans-serif;
+  margin: 10px 0;
+}
+
+
+.createSchool,
+.editSchool {
+  margin: 30px 10px 0px 10px;
+}
+
+#startYear,
+#endYear {
+  width: 81%;
+}

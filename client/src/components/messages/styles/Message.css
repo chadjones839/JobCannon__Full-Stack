@@ -1,0 +1,183 @@
+.chatHeader {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.backButton,
+.rightChat {
+  width: 15%;
+  padding: 0;
+  margin: 0;
+}
+
+.backButton > img {
+  width: 25px;
+  height: auto;
+  padding: 10px 10px 0;
+}
+
+.chatName { 
+  width: 70%;
+}
+
+.chatName > h3 { 
+  margin: 10px  0;
+}
+
+.messageInput {
+  display: flex;
+  flex-direction: row;
+  width: 375px;
+  height: 75px;
+  position: relative; 
+  bottom: 0px;
+  background: white;
+}
+
+.messageInput__compose {
+  width: 90%;
+  margin-left: 0;
+  padding-top: 0px;
+  background: white;
+}
+
+.messageForm__button {
+  width: 15%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-right: 5px;
+  position: relative;
+  bottom: 7px;
+}
+
+.messageForm__fieldset {
+  padding: 0;
+  border: none;
+}
+
+.messageForm__form {
+  border-radius: 0 0 5px 5px;
+}
+
+.messageForm__content {
+  width: 95%;
+  height: 30px;
+  padding: 5px;
+  margin: 0;
+  margin-left: 10px;
+  resize: none;
+  font-size: 16px;
+  font-family: 'Roboto';
+  border: none;
+  outline: none;
+  position: relative;
+  bottom: -23px;
+}
+
+.messageForm__submit {
+  position: relative;
+  bottom: -5px;
+}
+
+#msgSend {
+  font-size: 34px;
+  color: #1074B3;
+  border: none;
+  background: transparent;
+}
+
+.userDetails {
+  display: flex;
+  flex-direction: row;
+  align-items: left;
+  margin: 10px 0;
+  width: 100%;
+  font-family: 'Roboto';
+}
+
+.outboundUserDetails {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.userDetailsContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: flex-end;
+  margin: 10px 0;
+  width: 90%;
+  font-family: 'Roboto';
+}
+
+.outboundUserImage {
+  width: 50px;
+  height: auto;
+  float: right;
+}
+
+.outboundUserImage > img {
+  width: 50px;
+  border-radius: 50%;
+}
+
+.inboundUserMessage {
+  background: #1074B3;
+  color: white;
+  padding: 5px 10px;
+  margin-left: 10px;
+  margin-right: 20px;
+  border-radius: 12px;
+  float: right;
+}
+
+.outboundUserMessage {
+  background: none;
+  padding: 0px 10px;
+  margin-left: 10px;
+  margin-right: 20px;
+  border-radius: 12px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.userMessage {
+  padding: 5px 10px;
+  margin-left: 20px;
+  margin-right: 10px;
+}
+
+.userImage,
+.outboundUserImage {
+  width: 50px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center
+}
+
+.userImage > img {
+  width: 50px;
+}
+
+.userDetails {
+  width: 100%;
+  height: auto;
+}
+
+.outboundUser {
+  display: flex;
+  justify-content: right;
+  width: 100%;
+}
+
+.userContainer {
+  display: flex;
+  align-items: right;
+  width: 100%;
+}

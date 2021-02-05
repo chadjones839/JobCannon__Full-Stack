@@ -1,0 +1,479 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "email": "charlie@paddyspub.com",
+      "password": "nitecroller",
+      "accountType": "candidate",
+      "image": "https://res.cloudinary.com/dhduglm4j/image/upload/v1596558133/techtok/bcbqqfhwt4hm9jfvkaup.jpg",
+      "companyName": "",
+      "industry": "Restaurant",
+      "userLocation": "Philadelphia, PA",
+      "firstName": "Charlie",
+      "lastName": "Kelly",
+      "jobTitle": "Wise Janitor",
+      "bio": "I’m proficient in many lines of work like, you know,  basement stuff, cleaning urinals, uh, blood stuff, your basic slimes, your sludges, anything dead, or decay, you know - I'm on it, I'm dealing with it. The rest of the gang likes to call it Charlie work like its some sort of bad thing, but I actually enjoy the work I do! Can’t get anyone else to do the job? I’m your guy!"
+    },
+    {
+      "id": 2,
+      "email": "warren.vidic@abstergo.com",
+      "password": "templar",
+      "accountType": "employer",
+      "image": "https://res.cloudinary.com/dhduglm4j/image/upload/v1596489955/Users/abstergo_m77gwf.jpg",
+      "companyName": "Abstergo Industries",
+      "industry": "World Domination",
+      "userLocation": "Nashville, TN",
+      "firstName": "",
+      "lastName": "",
+      "jobTitle": "",
+      "bio": "The destruction of the Assassin Order, the procurement of advanced technologies originally created by the First Civilization, and establishing a New World Order is our primary goal. Then on Fridays, we have our Hawaiian shirt days. If you want to you can go ahead and wear a Hawaiian shirt and jeans."
+    },
+    {
+      "id": 3,
+      "email": "RogerSterling@sterlingcooper.com",
+      "password": "luckystrike",
+      "accountType": "employer",
+      "image": "https://res.cloudinary.com/dhduglm4j/image/upload/v1596489955/Users/sterlingcooper_ridmxe.jpg",
+      "companyName": "Sterling Cooper",
+      "industry": "Advertising",
+      "userLocation": "Nashville, TN",
+      "firstName": "",
+      "lastName": "",
+      "jobTitle": "",
+      "bio": "Sterling Cooper is committed to providing excellence in deliverance of results, public relations, and marketing to our clients by excelling in customer services and providing innovative marketing concepts."
+    },
+    {
+      "id": 4,
+      "email": "harveyslotnick@gmail.com",
+      "password": "bigchungus",
+      "accountType": "candidate",
+      "image": "https://res.cloudinary.com/dhduglm4j/image/upload/v1596489955/Users/harvey_q0xyqv.jpg",
+      "companyName": "",
+      "industry": "Blogger",
+      "userLocation": "Nashville, TN",
+      "firstName": "Harvey",
+      "lastName": "Slotnick",
+      "jobTitle": "Foodie",
+      "bio": "There are only two things in life that a man needs to survive... a warm supper every night and a side-flask of Wild Turkey on hand at any given time. I've both enjoyed and suffered through many-a warm supper, and even some cold ones, and I've amassed a following over over 10 folks on the internet with my food blog 'Harvey Eats'."
+    },
+    {
+      "id": 5,
+      "email": "theworm@gmail.com",
+      "password": "bigchungus",
+      "accountType": "employer",
+      "image": "https://res.cloudinary.com/dhduglm4j/image/upload/v1596489955/Users/theworm_r5ceym.png",
+      "companyName": "101.3-FM The WORM",
+      "industry": "Radio",
+      "userLocation": "Nashville, TN",
+      "firstName": "",
+      "lastName": "",
+      "jobTitle": "",
+      "bio": "Pabst man bun beard cronut actually. Tattooed chia polaroid dreamcatcher mlkshk kombucha. Chartreuse food truck blue bottle authentic migas +1. Shabby chic neutra chia, succulents celiac vinyl tbh direct trade tumeric unicorn. DIY 3 wolf moon forage cred tofu ugh cold-pressed helvetica cornhole. Flexitarian selvage swag wolf iceland."
+    },
+    {
+      "id": 6,
+      "email": "tedlebaunge@gmail.com",
+      "password": "bigchungus",
+      "accountType": "candidate",
+      "image": "https://res.cloudinary.com/dhduglm4j/image/upload/v1596489955/Users/lebaunge_y1qy0h.jpg",
+      "companyName": "",
+      "industry": "Real Estate",
+      "userLocation": "Nashville, TN",
+      "firstName": "Ted",
+      "lastName": "LeBaunge",
+      "jobTitle": "Real Estate Agent",
+      "bio": "I built my real estate empire on the holy trinity of affordability, reliability, and spaciousness offered by the unassuming split-level ranch. Now I'm looking to bring my skills to your corral! I'm Ted, and I'm your next ace in the hole. Click that Let's Talk Button and we'll get to gettin'!"
+    },
+    {
+      "id": 7,
+      "email": "hiring@spacerschoice.com",
+      "password": "spacer",
+      "accountType": "employer",
+      "image": "https://res.cloudinary.com/dhduglm4j/image/upload/v1596506450/icons/spacerschoice_cxy8oi.png",
+      "companyName": "Spacer's Choice",
+      "industry": "Universal Defense Logistics",
+      "userLocation": "Emerald Vale, Terra 2",
+      "firstName": "",
+      "lastName": "",
+      "jobTitle": "",
+      "bio": "When life gives you lemons, consider it a free trial from your friends at Spacer's Choice!"
+    },
+    {
+      "id": 8,
+      "email": "hr@rizzos.com",
+      "password": "rizzos",
+      "accountType": "employer",
+      "image": "https://res.cloudinary.com/dhduglm4j/image/upload/v1596569212/techtok/boepdlvpjauosmdxz6po.png",
+      "companyName": "Rizzo's",
+      "industry": "Food Manufacturing",
+      "userLocation": "Cascadia, Monarch",
+      "firstName": "",
+      "lastName": "",
+      "jobTitle": "",
+      "bio": "Woah, Woah, Woah, it's Rizzo's!\nRizzos is a foodstuffs corporation based out of the Halcyon Colony. Their primary products are alcoholic drinks, cereals, and confectionery, such as Rizzo's Lemon Slapp, Spectrum Vodka, and Purpleberry Bunch."
+    },
+    {
+      "id": 9,
+      "email": "mac@paddyspub.com",
+      "password": "occularpatdown",
+      "accountType": "candidate",
+      "image": "https://res.cloudinary.com/dhduglm4j/image/upload/v1596815789/techtok/h00ybg8pdvs1ztvbbkp8.jpg",
+      "companyName": "",
+      "industry": "Bars",
+      "userLocation": "Philadelphia, PA",
+      "firstName": "Mac",
+      "lastName": "McDonald",
+      "jobTitle": "Bodyguard",
+      "bio": "I do backflips every single day of my life."
+    },
+    {
+      "id": 10,
+      "email": "sublight@sublightsalvage.com",
+      "password": "outer",
+      "accountType": "employer",
+      "image": "https://res.cloudinary.com/dhduglm4j/image/upload/v1596815630/techtok/eek8hqkxlsjjfnirsw3e.png",
+      "companyName": "Sublight Salvage & Shipping",
+      "industry": "Transportation & Logistics",
+      "userLocation": "The GroundBreaker",
+      "firstName": "",
+      "lastName": "",
+      "jobTitle": "",
+      "bio": "Sublight Salvage and Shipping is a corporation which operates from the Groundbreaker. Sublight is a network of \"salvagers\" with business ties to \"transportation\" and \"waste disposal\". A tangled web of contractors and secretive vice presidents make up their official hierarchy, leaving no one to speak on the record about Sublight's more legally dubious activities."
+    },
+    {
+      "id": 11,
+      "email": "frank@paddyspub.com",
+      "password": "roxy",
+      "accountType": "candidate",
+      "image": "https://res.cloudinary.com/dhduglm4j/image/upload/v1596815885/techtok/srou9uau8gxgzc6zzubc.jpg",
+      "companyName": "",
+      "industry": "Shenanigans",
+      "userLocation": "Philadelphia, PA",
+      "firstName": "Frak",
+      "lastName": "Reynolds",
+      "jobTitle": "Financier",
+      "bio": "A few days ago, three thugs tried to mug me. And I want to be very clear about something. These pieces of garbage, they don't know who the hell they're dealing with. I don't know if they wanted money or they wanted something more sexual.  But it's a lucky thing I had my pieces. Anyway, I started blasting. Bah! Bah! Now, I don't see so good, so I missed, then they ran away, I ran after them. Bang! Tried to shoot them in the back, but I don't run so good either. Anyway, you guys all think I'm a hero, and I'll accept that responsibility."
+    },
+    {
+      "id": 12,
+      "email": "richard@piedpiper.com",
+      "password": "tabsonly",
+      "accountType": "employer",
+      "image": "https://res.cloudinary.com/dhduglm4j/image/upload/v1596816363/techtok/zwl5gb8tentnej7hcipp.png",
+      "companyName": "Pied Piper",
+      "industry": "Tech",
+      "userLocation": "Silicon Valley, CA",
+      "firstName": "",
+      "lastName": "",
+      "jobTitle": "",
+      "bio": "The company was started when Richard Hendricks, a software engineer who was working at Hooli, created a songwriter-oriented music app called Pied Piper that made it easier for songwriters to determine if their work infringed on other's copyright."
+    },
+    {
+      "id": 13,
+      "email": "dennis@paddyspub.com",
+      "password": "golden",
+      "accountType": "candidate",
+      "image": "https://res.cloudinary.com/dhduglm4j/image/upload/v1596824382/techtok/af2j3msotmr4sx3ax3ng.jpg",
+      "companyName": "",
+      "industry": "Bar",
+      "userLocation": "Philadelphia, PA",
+      "firstName": "Dennis",
+      "lastName": "Reynolds",
+      "jobTitle": "Owner of a bar",
+      "bio": "I am the golden god."
+    }
+  ],
+  "friends": [
+    {
+      "userId": 1,
+      "activeUserId": 2,
+      "mutualInterest": true,
+      "id": 1
+    },
+    {
+      "userId": 1,
+      "activeUserId": 3,
+      "mutualInterest": true,
+      "id": 2
+    },
+    {
+      "userId": 1,
+      "activeUserId": 5,
+      "mutualInterest": false,
+      "id": 3
+    },
+    {
+      "userId": 2,
+      "activeUserId": 11,
+      "mutualInterest": true,
+      "id": 4
+    },
+    {
+      "userId": 7,
+      "activeUserId": 1,
+      "mutualInterest": false,
+      "id": 5
+    },
+    {
+      "userId": 1,
+      "activeUserId": 7,
+      "mutualInterest": null,
+      "id": 6
+    },
+    {
+      "userId": 1,
+      "activeUserId": 8,
+      "mutualInterest": false,
+      "id": 7
+    }
+  ],
+  "chats": [
+    {
+      "activeUserId": 1,
+      "userId": 2,
+      "id": 1
+    },
+    {
+      "activeUserId": 3,
+      "userId": 1,
+      "id": 2
+    },
+    {
+      "activeUserId": 11,
+      "userId": 2,
+      "id": 3
+    }
+  ],
+  "messages": [
+    {
+      "id": 1,
+      "chatId": 1,
+      "userId": 2,
+      "content": "Are you ready to join the Templar Brotherhood and rid the world of the Assassins order? Let’s grab coffee next week."
+    },
+    {
+      "id": 2,
+      "chatId": 1,
+      "userId": 1,
+      "content": "Yes! I would be more than happy to meet next week to hear about your plans for world domination!"
+    },
+    {
+      "id": 3,
+      "chatId": 1,
+      "userId": 2,
+      "content": "Excellent! How about Tuesday @ 2pm?"
+    },
+    {
+      "id": 4,
+      "chatId": 2,
+      "userId": 1,
+      "content": "Whats up Roggy boi??"
+    },
+    {
+      "chatId": 1,
+      "userId": 1,
+      "content": "before I decide, can you elaborate on your company spaghetti policy? Can't be too careful, you know?",
+      "id": 7
+    },
+    {
+      "chatId": 1,
+      "userId": 2,
+      "content": "Our spaghetti policy...?",
+      "id": 8
+    },
+    {
+      "chatId": 1,
+      "userId": 1,
+      "content": "Yes, what is your stance on spaghetti in the office? And while we're at it, why don't we cover the crow egg policy? ",
+      "id": 9
+    },
+    {
+      "chatId": 1,
+      "userId": 2,
+      "content": "Well Charlie, I don't see any issue with spaghetti so long as it's consumed in the breakroom during your allotted half hour lunch break",
+      "id": 10
+    },
+    {
+      "chatId": 1,
+      "userId": 2,
+      "content": "But crows eggs? I'm going to have to check with my supervisor on that one...",
+      "id": 11
+    },
+    {
+      "chatId": 3,
+      "userId": 11,
+      "content": "I just parted ways with my old crew, and I'm looking for a new one. I'm a financier of fun things like schemes and pranks and such.",
+      "id": 12
+    }
+  ],
+  "jobs": [
+    {
+      "id": 1,
+      "userId": 7,
+      "postDate": 1596472456159,
+      "jobTitle": "Saltuna Canner",
+      "jobLocation": "Edgewater, Terra 2",
+      "salaryActual": "15",
+      "rate": "Hr",
+      "requirements": "Must be a warm body with a pulse",
+      "jobSummary": "The Saltuna Cannery is Edgewater's main source of employment. The factory is suffering from supply problems since much of the saltuna came from Stellar Bay. In order to continue providing food to the city, the factory has begun mixing the saltuna with minerals and crushed stones.",
+      "type": "Part-Time",
+      "keyword1": "assembly",
+      "keyword2": "tools",
+      "keyword3": "tuna"
+    },
+    {
+      "id": 2,
+      "userId": 2,
+      "postDate": 1596643651000,
+      "jobTitle": "Game Tester",
+      "jobLocation": "Montreal, Quebec",
+      "salaryActual": "25,000",
+      "rate": "Sal",
+      "requirements": "Must demonstrate ability to blindly follow orders",
+      "jobSummary": "Echo park dreamcatcher food truck kitsch. Readymade kogi humblebrag, waistcoat pop-up cronut helvetica asymmetrical butcher cliche literally salvia church-key XOXO. Vexillologist bespoke tacos retro palo santo lyft. 90's bitters pour-over, sustainable cred biodiesel aesthetic iPhone try-hard celiac.",
+      "type": "Part-Time",
+      "keyword1": "gaming",
+      "keyword2": "testing",
+      "keyword3": "sleeping"
+    },
+    {
+      "id": 3,
+      "userId": 7,
+      "postDate": 1596632371000,
+      "jobTitle": "Factory Security Manager",
+      "jobLocation": "Emerald Vale Saltuna Factory",
+      "salaryActual": "25,000",
+      "rate": "Sal",
+      "requirements": "- Deadly with a variety of Spacer's Choice weapons.\n- 5 years experience managing a team of at least 4 security officers\n- Preference given to any candidate that can recite the Spacer's Choice jingle on command.",
+      "jobSummary": "Our prestigious Saltuna factory on Terra 2 has an immediate opening for a Factory Security Manager! Due to increased turnover for reasons beyond our control, we're prepared to make an offer today. \n\nDuties include:\n- protecting the saltuna factory from local traitor factions.\n- Submitting daily incident reports\n- Ensuring factory workers are reaching their daily quotas\n- Patrolling grounds around factory\n\nIf you think you're the right fit for Spacer's Choice, apply today!",
+      "type": "Full-Time",
+      "keyword1": "Weapons",
+      "keyword2": "Microsoft Word",
+      "keyword3": "Sandwiches"
+    },
+    {
+      "id": 4,
+      "userId": 7,
+      "postDate": 1596903887000,
+      "jobTitle": "Moon Man",
+      "jobLocation": "The Groundbreaker",
+      "salaryActual": "15",
+      "rate": "Hr",
+      "requirements": "Must be able to spend 24/7 wearing Spacer's Choice moon man mask. Must be friendly. Must have experience with Spacer's Choice products.",
+      "jobSummary": "I'm baby paleo edison bulb street art iceland woke polaroid four loko church-key YOLO williamsburg try-hard subway tile. Everyday carry lyft meditation pork belly vegan austin asymmetrical YOLO literally four dollar toast franzen keffiyeh subway tile plaid squid. Readymade selfies palo santo plaid. Butcher mlkshk vegan shoreditch fam synth deep v trust fund photo booth roof party tattooed knausgaard microdosing. Vexillologist enamel pin next level, austin iceland disrupt plaid XOXO wolf.\n\nAuthentic schlitz pickled, viral hexagon pop-up kogi hot chicken jianbing man bun meggings skateboard. Deep v brooklyn copper mug, 3 wolf moon semiotics sriracha raclette waistcoat sustainable pitchfork 8-bit yuccie vaporware chia. Twee bitters leggings helvetica cornhole enamel pin brunch lumbersexual asymmetrical occupy pork belly. Whatever ethical knausgaard shabby chic, ramps church-key chartreuse edison bulb pork belly tumblr mixtape before they sold out williamsburg pug gentrify. Waistcoat iceland next level, chartreuse XOXO everyday carry swag snackwave DIY. Echo park offal forage cred biodiesel distillery. Leggings semiotics disrupt etsy dreamcatcher mumblecore tacos.\n\nMixtape try-hard salvia, bespoke hot chicken occupy fingerstache. Hammock air plant artisan sartorial, glossier banjo pitchfork. Portland gastropub seitan palo santo franzen. Plaid marfa etsy crucifix affogato vexillologist echo park locavore cronut.",
+      "type": "Full-Time",
+      "keyword1": "Mask",
+      "keyword2": "Obedience",
+      "keyword3": "Sales"
+    }
+  ],
+  "resumes": [
+    {
+      "id": 1,
+      "userId": 1,
+      "workHistoryId": 1,
+      "skillsId": 1,
+      "schoolsId": 1
+    }
+  ],
+  "workHistory": [
+    {
+      "id": 1,
+      "userId": 1,
+      "jobTitle": "Wild Card",
+      "company": "Paddys Pub",
+      "startMonth": "January",
+      "startYear": 2012,
+      "endMonth": "",
+      "endYear": "",
+      "current": true,
+      "description": "I’m proficient in many lines of work like, you know, basement stuff, cleaning urinals, uh, blood stuff, your basic slimes, your sludges, anything dead, or decay, you know - I'm on it, I'm dealing with it. The rest of the gang likes to call it Charlie work like its some sort of bad thing, but I actually enjoy the work I do! Can’t get anyone else to do the job? I’m your guy!"
+    },
+    {
+      "id": 2,
+      "userId": 4,
+      "jobTitle": "Wild Card",
+      "company": "Paddys Pub",
+      "startMonth": "January",
+      "startYear": 2012,
+      "endMonth": "",
+      "endYear": "",
+      "current": true,
+      "description": "I’m proficient in many lines of work like, you know, basement stuff, cleaning urinals, uh, blood stuff, your basic slimes, your sludges, anything dead, or decay, you know - I'm on it, I'm dealing with it. The rest of the gang likes to call it Charlie work like its some sort of bad thing, but I actually enjoy the work I do! Can’t get anyone else to do the job? I’m your guy!"
+    },
+    {
+      "id": 3,
+      "userId": 1,
+      "jobTitle": "Fight Milk Sales Rep",
+      "company": "Franks Fluids",
+      "startMonth": "June",
+      "startYear": 2015,
+      "endMonth": "June",
+      "endYear": 2015,
+      "current": false,
+      "description": "Oh man, can I tell you about Fight Milk? I'm dying to tell you about Fight Milk! Fight Milk is the only drink made for bodyguards, by bodyguards. Mac and I got a couple of the UFC guys to drink it exclusively, and we almost became the official drink sponsor for the UFC!"
+    },
+    {
+      "id": 4,
+      "userId": 4,
+      "jobTitle": "Wild Card",
+      "company": "Paddys Pub",
+      "startMonth": "January",
+      "startYear": 2012,
+      "endMonth": "",
+      "endYear": "",
+      "current": true,
+      "description": "I’m proficient in many lines of work like, you know, basement stuff, cleaning urinals, uh, blood stuff, your basic slimes, your sludges, anything dead, or decay, you know - I'm on it, I'm dealing with it. The rest of the gang likes to call it Charlie work like its some sort of bad thing, but I actually enjoy the work I do! Can’t get anyone else to do the job? I’m your guy!"
+    }
+  ],
+  "skills": [
+    {
+      "userId": 1,
+      "skill1": "Cleaning",
+      "skill2": "Slimes",
+      "skill3": "Sludges",
+      "skill4": "Ghouls",
+      "skill5": "Litigation",
+      "skill6": "Crows Eggs",
+      "skill7": "Boiling Denim",
+      "skill8": "Crabs",
+      "skill9": "Milksteak",
+      "skill10": "Denim Chicken",
+      "id": 1
+    }
+  ],
+  "schools": [
+    {
+      "userId": 1,
+      "schoolName": "Uncle Jack's Institute of Law",
+      "field": "Bird Law",
+      "degree": "J.D.",
+      "startMonth": "September",
+      "startYear": 2011,
+      "endMonth": "October",
+      "endYear": 2015,
+      "current": false,
+      "id": 1
+    },
+    {
+      "userId": 1,
+      "schoolName": "Janitor School",
+      "field": "Sweeping",
+      "degree": "Certification",
+      "startMonth": "January",
+      "startYear": 2016,
+      "endMonth": "August",
+      "endYear": 2016,
+      "current": false,
+      "id": 2
+    }
+  ],
+  "applicants": [
+    {
+      "jobId": 1,
+      "userId": 7,
+      "applicantId": 1
+    }
+  ]
+}

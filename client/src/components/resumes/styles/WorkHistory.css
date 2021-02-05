@@ -1,0 +1,181 @@
+.dateFields {
+  display: flex;
+  justify-content: space-between;
+}
+
+.addJobHistoryHeader,
+.editJobHistoryHeader {
+  padding: 0px 0 10px 30px;
+  background: #FFFFFF;
+  position: -webkit-sticky;
+  position: sticky; top: 19px;
+  box-shadow: 0px 3px 5px -2px #333;
+}
+
+.jobHistory__header > h2 {
+  font-family: 'Comfortaa', sans-serif;
+  margin: 10px 0;
+}
+
+.createWorkHistory,
+.editWorkHistory {
+  margin: 30px 10px 0px 10px;
+}
+
+.start1,
+.end1 {
+  width: 60%;
+}
+
+.start2,
+.end2 {
+  width: 30%;
+  padding-right: 10px;
+}
+
+.titleContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.jobTitle > h2 {
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-size: 22px;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.bodyContainer > h3 {
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  color: #1074B3;
+  font-weight: 600;
+  margin: 3px 0;
+}
+
+.bodyContainer > h4 {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  margin: 20px 0 0 0 ;
+}
+
+.bodyContainer > p {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  margin: 5px 0;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+}
+
+.skillsList {
+  padding: 10px;
+  margin-top: 15px;
+  border-radius: 3px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.skillsList > h2 {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  margin: 5px 0;
+}
+
+.degreeContainer > h3 {
+  font-family: "Roboto", sans-serif;
+  margin: 5px 0;
+}
+
+.degreeType {
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+}
+
+.timelineContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.bar {
+  text-align: center;
+  font-size: 44px;
+}
+
+.nextJob,
+.nextSchool {
+  text-align: center;
+  width: 100%;
+}
+
+.nextJob > h5 {
+  margin: 5px 0 0;
+  font-family: 'Roboto', sans-serif;
+  font-size: 15px;
+  padding: 5px 0;
+  font-weight: 300;
+  background: #0D253F;
+  color: #FFFFFF;
+  border-radius: 5px 5px 0 0;
+}
+
+.nextSchool > h5 {
+  margin: 5px 0 0;
+  font-family: 'Roboto', sans-serif;
+  font-size: 15px;
+  padding: 5px 0;
+  font-weight: 300;
+  background: #1074B3;
+  color: #FFFFFF;
+  border-radius: 5px 5px 0 0;
+}
+
+.experienceCard {
+  padding: 20px;
+  margin-top: 0;
+  border-radius: 5px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.editInputTextarea#description {
+  margin: 5px 0 15px 0;
+  padding: 8px 12px 8px 12px;
+  border: 1px #686666 solid;
+  border-radius: 8px 0 0 8px;
+  background: #fff;
+  font-size: 15px;
+  font-family: 'Roboto', sans-serif;
+  width: 91%;
+  font-size: 15px;
+  line-height: 1.8;
+  outline: none;
+  line-height: 1.8;
+  resize: none;
+  height: 145px;
+}
+
+.editInputTextarea::-webkit-scrollbar {
+  width: 5px;
+}
+
+.editInputTextarea::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+.editInputTextarea::-webkit-scrollbar-thumb {
+  background: rgb(190, 190, 190); 
+}
+
+.editInputTextarea::-webkit-scrollbar-thumb:hover {
+  background:rgb(138, 137, 137); 
+}

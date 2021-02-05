@@ -1,0 +1,96 @@
+.formHeaderContainer {
+  position: -webkit-sticky;
+  position: sticky; top: 21px;
+}
+
+.editLabel {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  margin-top: 15px;
+  margin-bottom: 5px;
+  padding-top: 10px;
+}
+
+.editCheckboxLabel {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  margin-top: 14px;
+  margin-bottom: 5px;
+  padding-top: 10px;
+}
+
+.editInput {
+  margin: 5px 0 15px 0;
+  padding: 8px 12px 8px 12px;
+  border: 1px #686666 solid;
+  border-radius: 8px;
+  background: #fff;
+  font-size: 15px;
+  font-family: 'Roboto', sans-serif;
+  width: 91%;
+  font-size: 15px;
+  line-height: 1.8;
+  outline: none;
+}
+
+.editInput:focus {
+  border-color: #1074B3;
+  border-width: 2px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3); 
+}
+
+.editSelect {
+  margin: 5px 0 15px 0;
+  padding: 8px 12px 8px 12px;
+  width: 100%;
+  border: 1px #686666 solid;
+  border-radius: 8px;
+  background: #fff;
+  font-size: 15px;
+  font-family: 'Roboto', sans-serif;
+  min-height: 44px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  transition: box-shadow .3s ease;
+  outline: none;
+}
+
+.editSelect:focus,
+.editSelect:active {
+  border-color: #1074B3;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3); 
+}
+
+.editInputRate {
+  margin: 0;
+  /* margin-bottom: 10px; */
+  padding: 0.7rem 0.3rem;
+  font-size: 15px;
+  color: inherit;
+  font-family: 'Roboto', sans-serif;
+  font-weight: inherit;
+  line-height: 1.8;
+  border: #000000 solid 1px;
+  border-radius: 0.4rem;
+  width: 90%
+}
+
+.editInputTextarea {
+  margin: 5px 0 15px 0;
+  padding: 8px 12px 8px 12px;
+  border: 1px #686666 solid;
+  border-radius: 8px;
+  background: #fff;
+  font-size: 15px;
+  font-family: 'Roboto', sans-serif;
+  width: 91%;
+  font-size: 15px;
+  line-height: 1.8;
+  outline: none;
+  line-height: 1.8;
+  resize: none;
+  height: 145px;
+}
+
+.editCheckbox {
+  margin-right: 10px;
+}

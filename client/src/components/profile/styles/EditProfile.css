@@ -1,0 +1,56 @@
+.editProfileForm {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+}
+
+.editProfileForm > fieldset {
+  border: none;
+}
+
+.imageUpload {
+  display: flex;
+  flex-direction: row;
+}
+
+.imageUploadInput {
+  width: 80%;
+}
+
+.imageLoading > h4 {
+  margin: 15px 0 0;
+  font-family: 'Inter', sans-serif;
+  color: #b60b0b;
+}
+
+.asterisk {
+  font-size: 13px;
+  color: red;
+}
+
+option {
+  font-size: 15px;
+}
+
+#uploadImage {
+  outline: none;
+  border: none;
+}
+
+.editProfileHeader {
+  font-family: 'Inter', cursive;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: #0D253F;
+}
+
+.backbutton > img{
+  width: 40px;
+  height: auto;
+}
+
+#bio {
+  height: 100px;
+  margin-bottom: 30px;
+  resize: none;
+}

@@ -1,0 +1,61 @@
+#navbar {
+  position: relative; 
+  bottom: 0px;
+}
+
+.navContainer {
+  list-style-type: none;
+  display: flex;
+  justify-content: center;
+  padding: 10px 20px;
+  height: 6%;
+  width: 335px;
+  background: #FFFFFF;
+  margin: 0;
+  bottom: 0;
+  box-shadow: 0 -2px 5px -2px #333;
+}
+
+.navContainer > li {
+  display: flex;
+  width: 30px;
+  padding: 0 25px;
+  height: auto;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav-link > img {
+  width: 20px;
+  height: auto;
+  list-style-type: none;
+}
+
+.center-nav-link > img {
+  width: 45px;
+  height: auto;
+  list-style-type: none;
+}
+
+.discoveryNavButton {
+  font-size: 24px;
+  text-decoration: none;
+  color: #FFFFFF;
+  border-radius: 30px;
+  align-items: center;
+  height: 48px;
+  width: 80px;
+  border: none;
+  padding-right: 5px;
+  cursor: pointer;
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
+  background: #6a7dfe;
+  background: -webkit-linear-gradient(to left, #1DBBD6, #0D253F);
+  background: -o-linear-gradient(to left, #1DBBD6, #0D253F);
+  background: -moz-linear-gradient(to left, #1DBBD6, #0D253F);
+  background: linear-gradient(to left, #1DBBD6, #0D253F);
+}
+

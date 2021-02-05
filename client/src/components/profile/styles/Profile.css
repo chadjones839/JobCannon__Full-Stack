@@ -1,0 +1,10 @@
+@import "./UserProfile.css";
+@import "./EditProfile.css";
+
+.editBtnContainer {
+  text-align: center;
+}
+
+.sendMessageButton {
+  text-align: center;
+}

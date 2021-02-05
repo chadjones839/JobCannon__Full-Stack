@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@700&display=swap');
+
+
+html {
+  height: 100%;
+  width: 100%;
+}
+
+.loginBoxContainer {
+  height: 812px;
+}
+
+.loginBox {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  position: relative;
+  top: -200px;
+  justify-content: center;
+}
+
+.loginImages {
+  width: 100%;
+  height: 812px;
+}
+
+.loginMain {
+  width: 100%;
+  height: 812px;
+}
+
+.backgroundImg {
+  width: 100%;
+  height: 812px;
+}
+
+.backgroundImg > img {
+  width: 100%;
+  height: 100%;
+}
+
+.loginLogo {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  top: -620px;
+}
+
+.logoContainer {
+  width: 90%;
+  height: auto;
+}
+
+.logoContainer > img {
+  width: 100%;
+  height: auto;
+}
+
+/* .authButtons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  padding-top: 15px;
+} */
+
+.authButtons {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 60%;
+  height: auto;
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 15px;
+  padding: 20px;
+}
+
+.loginButton {
+  width: 100%;
+  padding-bottom: 20px;
+}
+
+.registerButton {
+  width: 100%;
+}
+
+/* .loginButton {
+  width: 45%;
+  padding-left: 10px;
+}
+
+.registerButton {
+  width: 45%;
+  text-align: right;
+  padding-right: 10px;
+} */

@@ -1,0 +1,57 @@
+.jobListing__header > h2 {
+  font-family: 'Comfortaa', sans-serif;
+  margin-bottom: 10px;
+}
+
+.editJobListing {
+  overflow-y: scroll;
+  height: 715px;
+}
+
+.editJobListing::-webkit-scrollbar {
+  width: 5px;
+}
+
+.editJobListing::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+.editJobListing::-webkit-scrollbar-thumb {
+  background: rgb(190, 190, 190); 
+}
+
+.editJobListing::-webkit-scrollbar-thumb:hover {
+  background:rgb(138, 137, 137); 
+}
+
+.editJobDetails {
+  padding: 5px 20px 0px;
+}
+
+.saveEditChanges {
+  margin: 0 30px;
+  position: relative;
+  bottom: 70px;
+}
+
+.saveEditChanges > button{
+  width: 95%;
+}
+
+.salaryFields {
+  display: flex;
+  justify-content: space-between;
+}
+
+.salaryEdit {
+  width: 60%;
+}
+
+.rateEdit {
+  width: 35%;
+}
+
+#type {
+  width: 99%;
+}
+

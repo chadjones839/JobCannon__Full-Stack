@@ -1,0 +1,12 @@
+.registerContainer {
+  padding: 20px;
+}
+
+.registerContainer > h1 {
+  font-family: 'Comfortaa', cursive;
+  padding-top: 20px;
+  padding-bottom: 15px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+

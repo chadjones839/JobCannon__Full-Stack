@@ -1,0 +1,113 @@
+.discoveryContainer {
+  padding: 0px 10px 10px;
+  height: 667px; 
+  overflow-y: scroll;
+}
+
+.discoveryContainer::-webkit-scrollbar {
+  width: 5px;
+}
+
+.discoveryContainer::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+.discoveryContainer::-webkit-scrollbar-thumb {
+  background: rgb(190, 190, 190); 
+}
+
+.discoveryContainer::-webkit-scrollbar-thumb:hover {
+  background:rgb(138, 137, 137); 
+}
+
+.discoveryHeader {
+  font-family: 'Comfortaa', cursive;
+  padding: 20px 0 10px 10px;
+  background: #FFFFFF;
+  position: -webkit-sticky;
+  position: sticky; top: 0px;
+  margin: 0px;
+  border-radius: 5px 5px 0 0;
+  box-shadow: 0px 3px 5px -2px #333;
+}
+
+.employerCard__image {
+  width: 100%;
+  height: auto;
+}
+
+.employerCard__image > img {
+  width: 100%;
+  height: auto;
+}
+
+.employerCard__name {
+  font-family: 'Roboto', sans-serif;
+  margin: 10px 0 5px 0;
+}
+
+.employerCard__industry {
+  font-family: 'Roboto', sans-serif;
+  margin: 5px 0 20px 0;
+}
+
+.industry {
+  font-weight: 400;
+  font-style: italic;
+}
+
+.employerCard__body {
+  font-family: 'Roboto', sans-serif;
+}
+
+.interestButtons {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.interestButtons__container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.interestBtn__false,
+.interestBtn__true {
+  width: 48%;
+  height: auto;
+}
+
+.cardBreak {
+  border-bottom: 2px #373737 solid;
+}
+
+.endOfList {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  height: 100%;
+  width: auto;
+  background: #cecdcd;
+  border-radius: 12px;
+}
+
+.endOfList__message {
+  text-align: center;
+  width: 90%;
+}
+
+.endOfList__message > h2 {
+  font-family: 'Roboto', sans-serif;
+}
+
+.subtitle {
+  font-family: 'Roboto', sans-serif;
+  color: black;
+  font-size: 18px;
+}
+
+.subtext {
+  font-family: 'Roboto', sans-serif;
+  color: #373737;
+  font-size: 14px;
+}
