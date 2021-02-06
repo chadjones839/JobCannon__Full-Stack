@@ -8,7 +8,7 @@ namespace JobCannon.Models
 {
     public class Employer
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
 
         [StringLength(75)]
         public string Name { get; set; }

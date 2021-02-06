@@ -8,18 +8,18 @@ namespace JobCannon.Models
 {
     public class Candidate
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
 
         [StringLength(25)]
-        public string FirstName { get; set; }
+        public string? FirstName { get; set; }
 
         [StringLength(25)]
-        public string LastName { get; set; }
+        public string? LastName { get; set; }
 
         [StringLength(35)]
-        public string Location { get; set; }
+        public string? Location { get; set; }
 
         [StringLength(50)]
-        public string JobTitle { get; set; }
+        public string? JobTitle { get; set; }
     }
 }

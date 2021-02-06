@@ -52,6 +52,7 @@ namespace JobCannon.Utils
             return reader.GetInt32(ordinal);
         }
 
+
         public static DateTime? GetNullableDateTime(SqlDataReader reader, string column)
         {
             var ordinal = reader.GetOrdinal(column);
