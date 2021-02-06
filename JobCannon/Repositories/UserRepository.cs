@@ -26,7 +26,7 @@ namespace JobCannon.Repositories
                     Id = DbUtils.GetNullableInt(reader, "CandidateId"),
                     FirstName = DbUtils.GetNullableString(reader, "FirstName"),
                     LastName = DbUtils.GetNullableString(reader, "LastName"),
-                    Location = DbUtils.GetNullableString(reader, "Location"),
+                    Location = DbUtils.GetNullableString(reader, "CandidateLocation"),
                     JobTitle = DbUtils.GetNullableString(reader, "JobTitle"),
                 },
                 EmployerId = DbUtils.GetNullableInt(reader, "EmployerId"),
@@ -35,7 +35,7 @@ namespace JobCannon.Repositories
                     Id = DbUtils.GetNullableInt(reader, "EmployerId"),
                     Name = DbUtils.GetNullableString(reader, "Name"),
                     Industry = DbUtils.GetNullableString(reader, "Industry"),
-                    Location = DbUtils.GetNullableString(reader, "Location"),
+                    Location = DbUtils.GetNullableString(reader, "EmployerLocation"),
                 }
             };
         }
@@ -50,9 +50,9 @@ namespace JobCannon.Repositories
                     cmd.CommandText = @"
                        SELECT u.Id, u.Email, u.FirebaseUserId, u.ImageUrl, u.Bio, u.CandidateId, u.EmployerId,
 
-                              c.Id, c.FirstName, c.LastName, c.Location, c.JobTitle,
+                              c.Id, c.FirstName, c.LastName, c.Location AS CandidateLocation, c.JobTitle,
 
-                              e.Id, e.Name, e.Industry, e.Location
+                              e.Id, e.Name, e.Industry, e.Location AS EmployerLocation
                          FROM Users u
                               LEFT JOIN Candidates c ON u.CandidateId = c.Id
                               LEFT JOIN Employers e ON u.EmployerId = e.Id";
@@ -72,7 +72,7 @@ namespace JobCannon.Repositories
             };
         }
 
-        /* public List<UserProfile> GetAllSalesUsers()
+        public List<User> GetAllCandidates()
         {
             using (var conn = Connection)
             {
@@ -80,16 +80,18 @@ namespace JobCannon.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                       SELECT u.Id, u.FirebaseUserId, u.FirstName, u.LastName, u.Email,
-                              u.UserTypeId, u.ImageUrl,
+                       SELECT u.Id, u.Email, u.FirebaseUserId, u.ImageUrl, u.Bio, u.CandidateId, u.EmployerId,
 
-                              ut.Id, ut.[Name] AS UserTypeName
-                         FROM UserProfile u
-                              LEFT JOIN UserType ut ON u.UserTypeId = ut.Id
-                         WHERE u.UserTypeId = 2";
+                              c.Id, c.FirstName, c.LastName, c.Location AS CandidateLocation, c.JobTitle,
+
+                              e.Id, e.Name, e.Industry, e.Location AS EmployerLocation
+                         FROM Users u
+                              LEFT JOIN Candidates c ON u.CandidateId = c.Id
+                              LEFT JOIN Employers e ON u.EmployerId = e.Id
+                         WHERE u.EmployerId IS NULL";
                     var reader = cmd.ExecuteReader();
 
-                    var users = new List<UserProfile>();
+                    var users = new List<User>();
 
                     while (reader.Read())
                     {
@@ -102,8 +104,8 @@ namespace JobCannon.Repositories
                 }
             };
         }
-
-        public List<UserProfile> GetAllManagerUsers()
+        
+        public List<User> GetAllEmployers()
         {
             using (var conn = Connection)
             {
@@ -111,16 +113,18 @@ namespace JobCannon.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                       SELECT u.Id, u.FirebaseUserId, u.FirstName, u.LastName, u.Email,
-                              u.UserTypeId, u.ImageUrl,
+                       SELECT u.Id, u.Email, u.FirebaseUserId, u.ImageUrl, u.Bio, u.CandidateId, u.EmployerId,
 
-                              ut.Id, ut.[Name] AS UserTypeName
-                         FROM UserProfile u
-                              LEFT JOIN UserType ut ON u.UserTypeId = ut.Id
-                         WHERE u.UserTypeId = 1";
+                              c.Id, c.FirstName, c.LastName, c.Location AS CandidateLocation, c.JobTitle,
+
+                              e.Id, e.Name, e.Industry, e.Location AS EmployerLocation
+                         FROM Users u
+                              LEFT JOIN Candidates c ON u.CandidateId = c.Id
+                              LEFT JOIN Employers e ON u.EmployerId = e.Id
+                         WHERE u.CandidateId IS NULL";
                     var reader = cmd.ExecuteReader();
 
-                    var users = new List<UserProfile>();
+                    var users = new List<User>();
 
                     while (reader.Read())
                     {
@@ -133,8 +137,8 @@ namespace JobCannon.Repositories
                 }
             };
         }
-
-        public UserProfile GetByFirebaseUserId(string firebaseUserId)
+        
+        public User GetByFirebaseUserId(string firebaseUserId)
         {
             using (var conn = Connection)
             {
@@ -142,17 +146,19 @@ namespace JobCannon.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                       SELECT u.Id, u.FirebaseUserId, u.FirstName, u.LastName, u.Email,
-                              u.UserTypeId, u.ImageUrl,
+                       SELECT u.Id, u.Email, u.FirebaseUserId, u.ImageUrl, u.Bio, u.CandidateId, u.EmployerId,
 
-                              ut.Id, ut.[Name] AS UserTypeName
-                         FROM UserProfile u
-                              LEFT JOIN UserType ut ON u.UserTypeId = ut.Id
+                              c.Id, c.FirstName, c.LastName, c.Location AS CandidateLocation, c.JobTitle,
+
+                              e.Id, e.Name, e.Industry, e.Location AS EmployerLocation
+                         FROM Users u
+                              LEFT JOIN Candidates c ON u.CandidateId = c.Id
+                              LEFT JOIN Employers e ON u.EmployerId = e.Id
                          WHERE u.FirebaseUserId = @FirebaseUserId";
 
                     DbUtils.AddParameter(cmd, "@FirebaseUserId", firebaseUserId);
 
-                    UserProfile user = null;
+                    User user = null;
 
                     var reader = cmd.ExecuteReader();
                     if (reader.Read())
@@ -165,8 +171,8 @@ namespace JobCannon.Repositories
                 }
             }
         }
-
-        public UserProfile GetUserById(int id)
+        
+        public User GetUserById(int id)
         {
             using (var conn = Connection)
             {
@@ -174,17 +180,19 @@ namespace JobCannon.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                       SELECT u.Id, u.FirebaseUserId, u.FirstName, u.LastName, u.Email,
-                              u.UserTypeId, u.ImageUrl,
+                       SELECT u.Id, u.Email, u.FirebaseUserId, u.ImageUrl, u.Bio, u.CandidateId, u.EmployerId,
 
-                              ut.Id, ut.[Name] AS UserTypeName
-                         FROM UserProfile u
-                              LEFT JOIN UserType ut ON u.Id = ut.Id
+                              c.Id, c.FirstName, c.LastName, c.Location AS CandidateLocation, c.JobTitle,
+
+                              e.Id, e.Name, e.Industry, e.Location AS EmployerLocation
+                         FROM Users u
+                              LEFT JOIN Candidates c ON u.CandidateId = c.Id
+                              LEFT JOIN Employers e ON u.EmployerId = e.Id
                         WHERE u.Id = @Id";
 
                     DbUtils.AddParameter(cmd, "@Id", id);
 
-                    UserProfile user = null;
+                    User user = null;
 
                     var reader = cmd.ExecuteReader();
                     if (reader.Read())
@@ -198,31 +206,31 @@ namespace JobCannon.Repositories
             }
         }
 
-        public void Add(UserProfile user)
+        public void Add(User user)
         {
             using (var conn = Connection)
             {
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"INSERT INTO UserProfile (FirebaseUserId, FirstName, 
-                                                          LastName, Email, ImageUrl, UserTypeId)
+                    cmd.CommandText = @"INSERT INTO User (FirebaseUserId, Email, 
+                                                          ImageUrl, Bio, CandidateId, EmployerId)
                                         OUTPUT INSERTED.ID
-                                        VALUES (@FirebaseUserId, @FirstName, @LastName, 
-                                                @Email, @ImageUrl, @UserTypeId)";
+                                        VALUES (@FirebaseUserId, @Email, @ImageUrl, 
+                                                @Bio, @CandidateId, @EmployerId)";
                     DbUtils.AddParameter(cmd, "@FirebaseUserId", user.FirebaseUserId);
-                    DbUtils.AddParameter(cmd, "@FirstName", user.FirstName);
-                    DbUtils.AddParameter(cmd, "@LastName", user.LastName);
                     DbUtils.AddParameter(cmd, "@Email", user.Email);
                     DbUtils.AddParameter(cmd, "@ImageUrl", user.ImageUrl);
-                    DbUtils.AddParameter(cmd, "@UserTypeId", user.UserTypeId);
+                    DbUtils.AddParameter(cmd, "@Bio", user.Bio);
+                    DbUtils.AddParameter(cmd, "@CandidateId", user.CandidateId);
+                    DbUtils.AddParameter(cmd, "@EmployerId", user.EmployerId);
 
                     user.Id = (int)cmd.ExecuteScalar();
                 }
             }
         }
 
-        public void Update(UserProfile user)
+        public void Update(User user)
         {
             using (var conn = Connection)
             {
@@ -230,21 +238,22 @@ namespace JobCannon.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                            UPDATE UserProfile
+                            UPDATE User
                             SET 
+                                FirebaseUserId = @FirebaseUserId,
                                 Email = @email, 
-                                FirebaseUserId = @firebaseUserId,
-                                FirstName = @firstName, 
-                                LastName = @lastName,
-		                        UserTypeId = @userTypeId
-                            WHERE Id = @id";
-                    cmd.Parameters.AddWithValue("@id", user.Id);
-                    cmd.Parameters.AddWithValue("@email", user.Email);
-                    cmd.Parameters.AddWithValue("@firebaseUserId", user.FirebaseUserId);
-                    cmd.Parameters.AddWithValue("@firstName", user.FirstName);
-                    cmd.Parameters.AddWithValue("@lastName", user.LastName);
+                                ImageUrl = @ImageUrl, 
+                                Bio = @Bio,
+                                CandidateId = @CandidateId,
+                                EmployerId = @EmployerId
+                            WHERE Id = @Id";
+                    cmd.Parameters.AddWithValue("@Id", user.Id);
+                    cmd.Parameters.AddWithValue("@Email", user.Email);
+                    cmd.Parameters.AddWithValue("@FirebaseUserId", user.FirebaseUserId);
                     cmd.Parameters.AddWithValue("@ImageUrl", user.ImageUrl);
-                    cmd.Parameters.AddWithValue("@userTypeId", user.UserTypeId);
+                    cmd.Parameters.AddWithValue("@Bio", user.Bio);
+                    cmd.Parameters.AddWithValue("@CandidateId", user.CandidateId);
+                    cmd.Parameters.AddWithValue("@EmployerId", user.EmployerId);
                     cmd.ExecuteNonQuery();
                 }
             }
@@ -257,14 +266,14 @@ namespace JobCannon.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                            DELETE FROM UserProfile
-                            WHERE Id = @id
+                            DELETE FROM User
+                            WHERE Id = @Id
                         ";
-                    DbUtils.AddParameter(cmd, "@id", id);
+                    DbUtils.AddParameter(cmd, "@Id", id);
                     cmd.ExecuteNonQuery();
 
                 }
             }
-        }*/
+        }
     }
 }
