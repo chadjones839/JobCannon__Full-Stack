@@ -16,9 +16,9 @@ namespace JobCannon.Repositories
             return new Employer()
             {
                 Id = DbUtils.GetNullableInt(reader, "Id"),
-                Name = DbUtils.GetNullableString(reader, "FirstName"),
-                Location = DbUtils.GetNullableString(reader, "LastName"),
-                Industry = DbUtils.GetNullableString(reader, "Location")
+                Name = DbUtils.GetNullableString(reader, "Name"),
+                Location = DbUtils.GetNullableString(reader, "Location"),
+                Industry = DbUtils.GetNullableString(reader, "Industry")
             };
         }
 
