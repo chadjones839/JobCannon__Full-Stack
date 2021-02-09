@@ -1,6 +1,8 @@
 import React from "react"
-
+import { useHistory } from "react-router-dom";
+  
 const Register = props => {
+  const history = useHistory();
 
   return (
     <div id="root-wrapper">
@@ -8,7 +10,7 @@ const Register = props => {
         <button
           type="submit"
           className="backbutton"
-          onClick={() => props.history.push("/")}>
+          onClick={() => history.push("/")}>
           <img src="https://res.cloudinary.com/dhduglm4j/image/upload/v1596490014/icons/backarrow_lfdpzw.png" className="backToHome" alt="back" />
         </button>
       </div>
@@ -21,7 +23,7 @@ const Register = props => {
             <button
               type="submit"
               className="reg-candidateBtn"
-              onClick={() => props.history.push("/register-candidate")}>
+              onClick={() => history.push("/register-candidate")}>
               Looking for Work
             </button>
           </div>
@@ -30,7 +32,7 @@ const Register = props => {
             <button
               type="submit"
               className="reg-employerBtn"
-              onClick={() => props.history.push("/register-employer")}>
+              onClick={() => history.push("/register-employer")}>
               Looking for Talent
             </button>
           </div>

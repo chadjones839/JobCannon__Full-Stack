@@ -28,6 +28,7 @@ namespace JobCannon.Controllers
         [HttpPost]
         public IActionResult Post(Candidate candidate)
         {
+
             _candidateRepo.Add(candidate);
             return CreatedAtAction("GetCandidate", new { id = candidate.Id }, candidate);
         }

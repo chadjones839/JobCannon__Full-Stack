@@ -213,7 +213,7 @@ namespace JobCannon.Repositories
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"INSERT INTO User (FirebaseUserId, Email, 
+                    cmd.CommandText = @"INSERT INTO Users (FirebaseUserId, Email, 
                                                           ImageUrl, Bio, CandidateId, EmployerId)
                                         OUTPUT INSERTED.ID
                                         VALUES (@FirebaseUserId, @Email, @ImageUrl, 
@@ -238,7 +238,7 @@ namespace JobCannon.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                            UPDATE User
+                            UPDATE Users
                             SET 
                                 FirebaseUserId = @FirebaseUserId,
                                 Email = @email, 
@@ -266,7 +266,7 @@ namespace JobCannon.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                            DELETE FROM User
+                            DELETE FROM Users
                             WHERE Id = @Id
                         ";
                     DbUtils.AddParameter(cmd, "@Id", id);
