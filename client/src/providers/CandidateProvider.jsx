@@ -43,7 +43,7 @@ export const CandidateProvider = (props) => {
                 .then(setCandidates));
     }
 
-    const getById = (id) => {
+    const getCandidateById = (id) => {
         getToken().then((token) =>
             fetch(`${apiUrl}/${id}`, {
                 method: "GET",
@@ -91,7 +91,7 @@ export const CandidateProvider = (props) => {
 
     return (
         <CandidateContext.Provider value={{
-            candidate, candidates, getAllCandidates, getAllLeads, getById, addCandidate, updateCandidate, deleteCandidate, setCandidate, getAllCandidatesByUser
+            candidate, candidates, getAllCandidates, getAllLeads, getCandidateById, addCandidate, updateCandidate, deleteCandidate, setCandidate, getAllCandidatesByUser
         }}>
             {props.children}
         </CandidateContext.Provider>

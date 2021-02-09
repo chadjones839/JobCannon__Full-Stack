@@ -1,28 +1,60 @@
 /* eslint-disable jsx-a11y/alt-text */
-import React, { useState, useEffect } from 'react';
-import LoginManager from "../modules/LoginManager";
+import React, { useState, useEffect, useContext } from 'react';
+import { useHistory, useParams } from "react-router-dom";
+import { UserProfileContext } from "../../providers/UserProfileProvider.jsx";
+import { CandidateContext } from "../../providers/CandidateProvider.jsx";
 import { Link } from "react-router-dom";
 import Navbar from "../nav/Navbar.jsx"
 
 
-const EditCandidate = props => {
+export default function EditCandidate() {
+
+  const history = useHistory();
+  const sessionUser = JSON.parse(sessionStorage.getItem("userProfile"));
+  const { id } = useParams();
+  const { user, getLocalUser, updateUser } = useContext(UserProfileContext);
+  const { candidate, getCandidateById, updateCandidate } = useContext(CandidateContext);
 
   const [image, setImage] = useState("")
   const [isLoading, setIsLoading] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [user, setUser] = useState({
+
+  useEffect(() => {
+    getLocalUser(id)
+  }, [id]);
+
+  const [editedUser, setEditedUser] = useState({
+    id: sessionUser.id,
     email: "",
-    password: "",
-    accountType: "candidate",
-    image: "",
-    companyName: "",
-    industry: "",
-    userLocation: "",
+    imageUrl: "",
+    bio: "",
+    firebaseUserId: user.firebaseUserId,
+    candidateId: user.candidateId,
+    employerId: user.employerId
+  })
+  
+  const [editedCandidate, setEditedCandidate] = useState({
+    id: user.candidateId,
+    location: "",
     firstName: "",
     lastName: "",
-    jobTitle: "",
-    bio: ""
+    jobTitle: ""
   })
+  
+  
+  useEffect(() => {
+    setEditedUser(user)
+  }, [user]);
+
+  useEffect(() => {
+    getCandidateById(sessionUser.candidateId)
+  }, [sessionUser.candidateId]);
+
+  useEffect(() => {
+    setEditedCandidate(candidate)
+  }, [candidate]);
+
+  
 
   const uploadImage = async e => {
     const files = e.target.files
@@ -45,46 +77,48 @@ const EditCandidate = props => {
   }
 
 
-  const handleFieldChange = event => {
-    const stateToChange = { ...user };
-    stateToChange[event.target.id] = event.target.value
-    setUser(stateToChange)
+  const handleUserFieldChange = e => {
+    const stateToChange = { ...editedUser };
+    stateToChange[e.target.id] = e.target.value;
+    setEditedUser(stateToChange);
   };
 
-  const updateProfile = event => {
-    event.preventDefault();
-    setIsLoading(true)
+  const handleCandidateFieldChange = e => {
+    const stateToChange = { ...editedCandidate };
+    stateToChange[e.target.id] = e.target.value;
+    setEditedCandidate(stateToChange);
+  };
 
-    const editedUser = {
-      id: props.match.params.userId,
-      email: user.email,
-      password: user.password,
-      accountType: "candidate",
-      image: user.image,
-      companyName: "",
-      industry: user.industry,
-      userLocation: user.userLocation,
-      firstName: user.firstName,
-      lastName: user.lastName,
-      jobTitle: user.jobTitle,
-      bio: user.bio
-    }
+  const updateProfile = (e) => {
+    e.preventDefault();
+    updateUser({
+      email: editedUser.email,
+      imageUrl: editedUser.imageUrl,
+      bio: editedUser.bio,
+      firebaseUserId: editedUser.firebaseUserId,
+      candidateId: editedUser.candidateId,
+      employerId: editedUser.employerId
+    })
 
-
-    LoginManager.editUser(editedUser)
-      .then(() => {
-        props.history.push("/profile")
+    updateCandidate({
+    location: editedCandidate.location,
+    firstName: editedCandidate.firstName,
+    lastName: editedCandidate.lastName,
+    jobTitle: editedCandidate.jobTitle
+    })
+    
+    updateUser(id, editedUser)
+    .then(() => {
+      updateCandidate(editedUser.candidateId, editedCandidate)
+      .then(() =>{
+        history.push("/profile")
       })
-
+    })
   }
 
-  useEffect(() => {
-    LoginManager.getUser(props.match.params.userId)
-      .then((user) => {
-        setUser(user)
-        setIsLoading(false)
-      })
-  }, [props.match.params.userId]);
+  if (!user || !candidate) {
+    return null
+  }
 
   return (
     <div id="root-wrapper">
@@ -102,7 +136,7 @@ const EditCandidate = props => {
           </div>
           <div className="userProfile__image">
             <div className="userImage__container">
-              <img src={user.image} alt="logo" />
+              <img src={user.imageUrl} alt="logo" />
             </div>
           </div>
           <div className="userProfile__right">
@@ -110,10 +144,10 @@ const EditCandidate = props => {
         </section>
         <section className="userProfile__details">
           <div className="userProfile__name">
-            <h2>{user.firstName}</h2>
+            <h2>{candidate.firstName}</h2>
           </div>
           <div className="userProfile__location">
-            {user.userLocation}
+            {user.location}
           </div>
         </section>
         <section className="editProfileButton">
@@ -168,9 +202,9 @@ const EditCandidate = props => {
               type="text"
               required
               className="editInput"
-              onChange={handleFieldChange}
+              onChange={handleCandidateFieldChange}
               id="firstName"
-              value={user.firstName}
+              defaultValue={candidate.firstName}
             />
 
 
@@ -183,9 +217,9 @@ const EditCandidate = props => {
               type="text"
               required
               className="editInput"
-              onChange={handleFieldChange}
+              onChange={handleCandidateFieldChange}
               id="lastName"
-              value={user.lastName}
+              defaultValue={candidate.lastName}
             />
 
             <label
@@ -197,23 +231,9 @@ const EditCandidate = props => {
               type="text"
               required
               className="editInput"
-              onChange={handleFieldChange}
+              onChange={handleCandidateFieldChange}
               id="jobTitle"
-              value={user.jobTitle}
-            />
-
-            <label
-              className="editLabel"
-              htmlFor="industry">
-              Industry
-              </label>
-            <input
-              type="text"
-              required
-              className="editInput"
-              onChange={handleFieldChange}
-              id="industry"
-              value={user.industry}
+              defaultValue={candidate.jobTitle}
             />
 
             <label
@@ -225,9 +245,9 @@ const EditCandidate = props => {
               type="text"
               required
               className="editInput"
-              onChange={handleFieldChange}
-              id="userLocation"
-              value={user.userLocation}
+              onChange={handleCandidateFieldChange}
+              id="location"
+              defaultValue={candidate.location}
             />
 
             <label
@@ -239,9 +259,9 @@ const EditCandidate = props => {
               type="text"
               required
               className="editInput"
-              onChange={handleFieldChange}
+              onChange={handleUserFieldChange}
               id="bio"
-              value={user.bio}
+              defaultValue={user.bio}
             />
 
 
@@ -256,9 +276,9 @@ const EditCandidate = props => {
               type="email"
               required
               className="editInput"
-              onChange={handleFieldChange}
+              onChange={handleUserFieldChange}
               id="email"
-              value={user.email}
+              defaultValue={user.email}
             />
 
             <label
@@ -270,11 +290,11 @@ const EditCandidate = props => {
               type="password"
               required
               className="editInput"
-              onChange={handleFieldChange}
+              // onChange={handleUserFieldChange}
               id="password"
             />
 
-            <label
+            {/* <label
               className="editLabel"
               htmlFor="passwordConfirm">
               Confirm New Password
@@ -283,9 +303,9 @@ const EditCandidate = props => {
               type="password"
               required
               className="editInput"
-              onChange={handleFieldChange}
+              onChange={handleUserFieldChange}
               id="passwordConfirm"
-            />
+            /> */}
           </fieldset>
         </form>
         <br />
@@ -298,7 +318,4 @@ const EditCandidate = props => {
       </div>
     </div>
   )
-}
-
-
-export default EditCandidate;
+};

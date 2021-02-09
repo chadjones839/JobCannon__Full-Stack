@@ -1,37 +1,39 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { useHistory, Link } from "react-router-dom";
 import Navbar from "../nav/Navbar.jsx"
-import UserManager from "../modules/UserManager";
+import { UserProfileContext } from "../../providers/UserProfileProvider.jsx";
 
-const EmployerProfile = props => {
+const EmployerProfile = () => {
 
-  const sessionUser = JSON.parse(sessionStorage.getItem("user"))
-  const [user, setUser] = useState({});
+  const sessionUser = JSON.parse(sessionStorage.getItem("userProfile"));
+  const history = useHistory();
+  const { user, getLocalUser, deleteUser } = useContext(UserProfileContext);  
 
-  const getUsers = () => {
-    return UserManager.getUser(sessionUser.id)
-  };
+  useEffect(() => {
+    getLocalUser(sessionUser.id)
+  }, []);
 
   const clearUser = () => {
     sessionStorage.clear()
-    props.history.push("/")
+    history.push("/")
   }
 
   const deleteAccount = id => {
     if (window.confirm("Are you sure you want to delete your account? This cannot be undone.")) {
-      UserManager.deleteUser(id)
+      deleteUser(id)
         .then(() => {
           clearUser()
         })
     }
   };
 
-  useEffect(() => {
-    getUsers()
-      .then(usersFromAPI => {
-        setUser(usersFromAPI)
-      })
-  }, [user, sessionUser]);
+
+  console.log(user)
+  
+  if (!user || !user.employer) {
+    return null
+  }
 
   return (
     <div id="root-wrapper">
@@ -48,7 +50,7 @@ const EmployerProfile = props => {
           </div>
           <div className="userProfile__image">
             <div className="userImage__container">
-              <img src={user.image} alt={user.companyName} />
+              <img src={user.imageUrl} alt={user.employer.name} />
             </div>
           </div>
           <div className="userProfile__right">
@@ -56,31 +58,33 @@ const EmployerProfile = props => {
         </section>
         <section className="userProfile__details">
           <div className="userProfile__name">
-            <h2>{user.companyName}</h2>
+            <h2>{user.employer.name}</h2>
           </div>
           <div className="userProfile__location">
-            {user.userLocation}
+            {user.employer.location}
           </div>
         </section>
         <section className="editProfileButton">
           <div className="editBtnContainer">
-            <button
-              onClick={() => props.history.push(`/users/${user.id}/edit`)}
+            <Link
+              // onClick={() => history.push(`/user/edit/${user.id}`)}
               className="blueBtn90"
-              type="button"
+              style={{textDecoration: 'none'}}
+              to={`/user/edit/${user.id}`}
+              // type="button"
             >
               Edit Profile
-              </button>
+              </Link>
           </div>
         </section>
         <section className="profileDetails">
           <dl>
             <dt>Company Name</dt>
-            <dd>{user.companyName}</dd>
+            <dd>{user.employer.name}</dd>
             <dt>Industry</dt>
-            <dd>{user.industry}</dd>
+            <dd>{user.employer.industry}</dd>
             <dt>Location</dt>
-            <dd>{user.userLocation}</dd>
+            <dd>{user.employer.location}</dd>
             <dt>Bio</dt>
             <dd>{user.bio}</dd>
           </dl>

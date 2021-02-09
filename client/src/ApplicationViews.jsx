@@ -71,27 +71,15 @@ const ApplicationViews = (props) => {
       <Route exact path="/profile">
           {!isLoggedIn ? <Redirect to="/"/> : 
           sessionUser.candidateId != null ?
-          <CandidateProfile/> : <EmployerProfile/>
-          }
+          <CandidateProfile/> : <EmployerProfile/>}
       </Route>
 
-      {/* <Route
-        exact
-          path="/users/:userId(\d+)/edit"
-          render={props => {
-            if (hasUser && sessionUser.accountType === "employer") {
-              return <EditEmployer 
-                {...props} 
-                userId={props.match.params.userId} />
-            }
-            else if (hasUser && sessionUser.accountType === "candidate") {
-              return <EditCandidate 
-                {...props} 
-                userId={props.match.params.userId} />
-            } 
-      }}
-      />
-      <Route
+       <Route
+        exact path="/user/edit/:id">
+          {!isLoggedIn ? <Redirect to="/"/> : sessionUser.candidateId === null ? <EditEmployer/> : <EditCandidate/>}
+      </Route>
+
+      {/*<Route
         exact
           path="/users/:userId(\d+)/details"
           render={props => {

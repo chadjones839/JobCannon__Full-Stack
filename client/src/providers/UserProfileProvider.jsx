@@ -10,8 +10,10 @@ export function UserProfileProvider(props) {
 
   const userProfile = sessionStorage.getItem("userProfile");
   const [isLoggedIn, setIsLoggedIn] = useState(userProfile != null);
+  const [user, setUser] = useState({});
   const [users, setUsers] = useState([]);
   const [candidates, setCandidates] = useState([]);
+  const [candidate, setCandidate] = useState({});
   const [employers, setEmployers] = useState([]);
 
   const [isFirebaseReady, setIsFirebaseReady] = useState(false);
@@ -96,7 +98,8 @@ export function UserProfileProvider(props) {
         headers: {
           Authorization: `Bearer ${token}`
         }
-      }).then(resp => resp.json()));
+      }).then(resp => resp.json())
+      .then(setUser));
   };
 
   const addUser = (userProfile) => {
@@ -134,18 +137,55 @@ export function UserProfileProvider(props) {
 
         }))
 
-  const addCandidate = (candidate) => {
-      return fetch("/api/candidate", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(candidate)
-      }).then(resp => resp.json());
-  };
+
+  // const getCandidateById = (id) => {
+  //   getToken().then((token) =>
+  //     fetch(`/api/candidate/${id}`, {
+  //         method: "GET",
+  //         headers: {
+  //             Authorization: `Bearer ${token}`
+  //         }
+  //     })).then((resp) => resp.json())
+  //     .then(setCandidate);
+  // };
+
+  // const addCandidate = (candidate) => {
+  //     return fetch("/api/candidate", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json"
+  //       },
+  //       body: JSON.stringify(candidate)
+  //     }).then(resp => resp.json());
+  // };
+
+  // const updateCandidate = (id, candidate) => {
+  //   return getToken().then((token) =>
+  //       fetch(`/api/candidate/edit/${id}`, {
+  //           method: "PUT",
+  //           headers: {
+  //               Authorization: `Bearer ${token}`,
+  //               "Content-Type": "application/json"
+  //           },
+  //           body: JSON.stringify(candidate)
+  //       }))
+  // };
+
+  // const deleteCandidate = (id) =>
+  //     getToken().then((token) =>
+  //         fetch(`/api/candidate/delete/${id}`, {
+  //             method: "DELETE",
+  //             headers: {
+  //                 Authorization: `Bearer ${token}`,
+  //                 "Content-Type": "application/json"
+  //             },
+
+  //         }))
 
   return (
-    <UserProfileContext.Provider value={{ users, candidates, employers, isLoggedIn, userProfile, login, logout, register, getToken, setUsers, getAllUsers, getAllCandidates, getAllEmployers, getFirebaseUser, getLocalUser, addUser, updateUser, deleteUser, addCandidate }}>
+    <UserProfileContext.Provider value={{ user, users, candidates, employers, isLoggedIn, userProfile, login, logout, register, getToken, setUsers, getAllUsers, getAllCandidates, getAllEmployers, getFirebaseUser, getLocalUser, addUser, updateUser, deleteUser, 
+    // getCandidateById, addCandidate, updateCandidate, deleteCandidate 
+    }}>
       {isFirebaseReady
         ? props.children
         : <Spinner className="app-spinner dark" />}
