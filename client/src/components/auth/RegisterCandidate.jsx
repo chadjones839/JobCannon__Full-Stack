@@ -1,66 +1,58 @@
 /* eslint-disable array-callback-return */
-import React, { useState } from "react";
-import UserManager from "../modules/UserManager";
+import React, { useState, useContext } from "react";
+import { useHistory } from "react-router-dom";
+import { UserProfileContext } from "../../providers/UserProfileProvider.jsx";
+import { CandidateContext } from "../../providers/CandidateProvider.jsx";
 
 
 const RegisterCandidate = props => {
+  
+  const history = useHistory();
+  const { register, addCandidate } = useContext(UserProfileContext);
+  // const { addCandidate } = useContext(CandidateContext);
+  const [firstName, setFirstName] = useState();
+  const [lastName, setLastName] = useState();
+  const [location, setLocation] = useState();
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const [confirmPassword, setConfirmPassword] = useState();
+  const [candidateId, setCandidateId] = useState();
+  const imageUrl = "https://res.cloudinary.com/dhduglm4j/image/upload/v1596490031/icons/profileNav_lord6y.png";
+  const bio = "";
+  const employerId = null;
 
-  const [user, setNewUser] = useState({
-    email: "",
-    password: "",
-    accountType: "candidate",
-    image: "https://res.cloudinary.com/dhduglm4j/image/upload/v1596490031/icons/profileNav_lord6y.png",
-    companyName: "",
-    industry: "",
-    userLocation: "",
-    firstName: "",
-    lastName: "",
-    jobTitle: "",
-    bio: "d"
-  })
+  const candidate = {
+    firstName: firstName,
+    lastName: lastName,
+    location: location,
+    jobTitle: ""
+  }
 
-  const setUser = props.setUser
-  const [isLoading, setIsLoading] = useState(false);
+  const user = {
+    email: email,
+    imageUrl: imageUrl,
+    bio: bio,
+    candidateId: candidateId,
+    employerId: employerId
+  }
 
-  const handleFieldChange = evt => {
-    const stateToChange = { ...user };
-    stateToChange[evt.target.id] = evt.target.value;
-    setNewUser(stateToChange);
-  };
-
-  const constructNewUser = evt => {
-    evt.preventDefault();
-    let passwordConfirm = document.querySelector("#passwordConfirm").value
-    if (user.email === "" || user.password === "" || user.firstName === "" || user.lastName === "" || user.userLocation === "") {
-      window.alert("Missing fields")
-    }
-    else if (user.password !== passwordConfirm) {
-      window.alert("Your password does not match")
+  const registerUser = (e) => {
+    e.preventDefault();
+    if (password && password !== confirmPassword) {
+      alert("Passwords don't match. Do better.");
+    } 
+    else if (firstName === "" || lastName === "" || email === "" || location === "") {
+      alert("Missing fields.");
     }
     else {
-      setIsLoading(true);
-      sessionStorage.setItem("user", JSON.stringify(user))
-      setNewUser(user)
-      setUser(user)
-      UserManager.postUser(user)
-        .then(() => {
-          UserManager.getAllUsers()
-            .then(arr => {
-              arr.find(obj => {
-                if (obj.email === user.email) {
-                  sessionStorage.setItem("user", JSON.stringify(obj))
-                  setNewUser(obj)
-                  setUser(obj)
-                }
-              })
-            })
-        })
-        .then(() => {
-          props.history.push("/discovery")
-        })
-        .then(() => {
-          window.location.reload(true)
-        })
+      // debugger
+      addCandidate(candidate)
+      .then((c) => {
+        console.log(c)
+        setCandidateId(c.id)
+        register(user, password)
+          .then(() => history.push("/discovery"));
+      })
     }
   };
 
@@ -86,7 +78,7 @@ const RegisterCandidate = props => {
                 id="firstName"
                 type="text"
                 placeholder="First Name"
-                onChange={handleFieldChange} />
+                onChange={e => setFirstName(e.target.value)} />
             </div>
 
             <div className="form-input">
@@ -96,7 +88,7 @@ const RegisterCandidate = props => {
                 id="lastName"
                 type="text"
                 placeholder="Last Name"
-                onChange={handleFieldChange} />
+                onChange={e => setLastName(e.target.value)} />
             </div>
 
             <div className="form-input">
@@ -106,7 +98,7 @@ const RegisterCandidate = props => {
                 id="userLocation"
                 type="text"
                 placeholder="Location (i.e. Nashville, TN)"
-                onChange={handleFieldChange} />
+                onChange={e => setLocation(e.target.value)} />
             </div>
 
             <div className="form-input">
@@ -116,7 +108,7 @@ const RegisterCandidate = props => {
                 id="email"
                 type="text"
                 placeholder="Email"
-                onChange={handleFieldChange} />
+                onChange={e => setEmail(e.target.value)} />
             </div>
 
             <div className="form-input">
@@ -126,7 +118,7 @@ const RegisterCandidate = props => {
                 type="password"
                 id="password"
                 placeholder="Password"
-                onChange={handleFieldChange} />
+                onChange={e => setPassword(e.target.value)} />
             </div>
 
             <div className="form-input">
@@ -135,14 +127,14 @@ const RegisterCandidate = props => {
                 className="inputField"
                 type="password"
                 placeholder="Confirm Password"
-                id="passwordConfirm" />
+                id="passwordConfirm"
+                onChange={e => setConfirmPassword(e.target.value)} />
             </div>
             <div className="createAccountBtn">
               <button
                 type="submit"
                 className="loginBtn"
-                disabled={isLoading}
-                onClick={constructNewUser}>
+                onClick={registerUser}>
                 Create Account
                 </button>
             </div>

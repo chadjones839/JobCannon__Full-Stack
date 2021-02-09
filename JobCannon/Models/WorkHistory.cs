@@ -19,19 +19,27 @@ namespace JobCannon.Models
 
         [Required]
         [StringLength(50)]
-        public string JobTitle { get; set; }
+        public string Company { get; set; }
 
         [Required]
         [StringLength(50)]
-        public string JobTitle { get; set; }
+        public string Location { get; set; }
 
         [Required]
-        [StringLength(50)]
-        public string JobTitle { get; set; }
+        [StringLength(10)]
+        public string StartMonth { get; set; }
 
-        [StringLength(50)]
-        public string JobTitle { get; set; }
+        [Required]
+        public int StartYear { get; set; }
 
+        [StringLength(10)]
+        public string EndMonth { get; set; }
 
+        public int EndYear { get; set; }
+
+        [Required]
+        public bool Current { get; set; }
+
+        public string Description { get; set; }
     }
 }

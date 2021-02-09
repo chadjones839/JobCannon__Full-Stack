@@ -1,61 +1,43 @@
 /* eslint-disable array-callback-return */
-import React, { useState } from "react"
-import LoginManager from "../modules/LoginManager";
+import React, { useState, useContext } from "react"
+import { useHistory } from "react-router-dom";
+import { UserProfileContext } from "../../providers/UserProfileProvider.jsx";
 
 
-const Login = props => {
 
-  const [credentials, setCredentials] = useState({ email: "", password: "" });
+export default function Login() {
 
-  // const setUser = props.setUser
+  const history = useHistory();
+  const { login } = useContext(UserProfileContext);
 
-  const handleFieldChange = (evt) => {
-    const stateToChange = { ...credentials };
-    stateToChange[evt.target.id] = evt.target.value;
-    setCredentials(stateToChange);
-  };
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
 
-  const handleLogin = (e) => {
+  const loginSubmit = (e) => {
     e.preventDefault();
-    let email = document.querySelector("#email").value
-    let password = document.querySelector("#password").value
-    LoginManager.getAll()
-      .then(users => {
-        users.find(user => {
-          if (user.email === email && user.password === password) {
-            sessionStorage.setItem('user', JSON.stringify(user))
-            setCredentials(user);
-            props.setUser(user)
-          }
-        })
-      })
-      .then(() =>
-        props.history.push("/discovery")
-      )
-      .then(() =>
-        window.location.reload(true)
-      )
-  }
+    login(email, password)
+      .then(() => history.push("/profile"))
+      .catch(() => alert("Invalid email or password"));
+  };
 
 
   return (
     <div id="root-wrapper">
-
       <div className="backButton">
         <button
           type="submit"
           className="backbutton"
-          onClick={() => props.history.push("/")}>
+          onClick={() => history.push("/")}>
           <img src="https://res.cloudinary.com/dhduglm4j/image/upload/v1596490014/icons/backarrow_lfdpzw.png" className="backToHome" alt="back" />
         </button>
       </div>
       <main className="loginContainer">
         <h1 className="loginHeader">Login</h1>
 
-        <form className="loginForm" onSubmit={handleLogin}>
+        <form className="loginForm" onSubmit={loginSubmit}>
 
           <div className="form-input">
-            <input onChange={handleFieldChange}
+            <input onChange={e => setEmail(e.target.value)}
               className="inputField"
               type="text"
               id="email"
@@ -63,7 +45,7 @@ const Login = props => {
           </div>
 
           <div className="form-input">
-            <input onChange={handleFieldChange}
+            <input onChange={e => setPassword(e.target.value)}
               className="inputField"
               type="password"
               id="password"
@@ -85,5 +67,3 @@ const Login = props => {
 
   );
 };
-
-export default Login;

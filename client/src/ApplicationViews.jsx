@@ -1,5 +1,6 @@
-import React from "react";
-import { Route, Redirect } from "react-router-dom";
+import React, { useContext } from "react";
+import { Switch, Route, Redirect } from "react-router-dom";
+import { UserProfileContext } from "./providers/UserProfileProvider";
 
 import Home from "./components/auth/Home.jsx";
 import Register from "./components/auth/Register.jsx";
@@ -39,69 +40,47 @@ import SchoolEdit from "./components/resumes/SchoolEdit.jsx";
 
 const ApplicationViews = (props) => {
 
-  const sessionUser = JSON.parse(sessionStorage.getItem("user"));
-  const hasUser = props.hasUser;
-  const setUser = props.setUser;
+  const { isLoggedIn } = useContext(UserProfileContext);
+  const sessionUser = JSON.parse(sessionStorage.getItem("userProfile"));
 
   return (
-    <React.Fragment>
-      <Route 
-        exact
-        path="/" 
-        render={props => {
-          return <Home />
-      }} 
-      />
-      <Route 
-        exact
-        path="/register" 
-        render={props => {
-          return <Register {...props} />
-      }} 
-      />
-      <Route 
-        exact
-        path="/register-employer" 
-        render={props => {
-          return <RegisterEmployer 
-            setUser={setUser} 
-            {...props} />
-      }} 
-      />
-      <Route 
-        exact
-        path="/register-candidate" 
-        render={props => {
-          return <RegisterCandidate 
-            setUser={setUser} 
-            {...props} />
-      }} 
-      />
-      <Route 
-        exact
-        path="/login" 
-        render={props => {
-          return <Login 
-            setUser={setUser} 
-            {...props} />
-      }} 
-      />
-      <Route 
-        exact
-        path="/profile" 
-        render={props => {
-          if (hasUser && sessionUser.accountType === "employer") {
-            return <EmployerProfile {...props} />
-          } 
-          if (hasUser && sessionUser.accountType === "candidate") {
-            return <CandidateProfile {...props} />
-          } 
-          else {
-            return <Redirect to="/" />
+    <main>
+      <Switch>
+
+      <Route exact path="/">
+        {isLoggedIn ?
+        <Home /> : <Redirect to="/login" />} 
+      </Route> 
+
+      <Route exact path="/register"> 
+        <Register />
+      </Route>
+
+      <Route exact path="/register-employer">
+        <RegisterEmployer />
+      </Route> 
+
+      <Route exact path="/register-candidate">
+        <RegisterCandidate />
+      </Route> 
+
+      <Route exact path="/login">
+        <Login /> 
+      </Route>
+
+      <Route exact path="/profile">
+          {!isLoggedIn ?
+          <CandidateProfile/> : <Redirect to="/"/> }
+      </Route>
+
+      {/* <Route exact path="/profile">
+          {!isLoggedIn ? <Redirect to="/"/> : 
+          sessionUser.candidateId != null ?
+          <CandidateProfile/> : <EmployerProfile/>
           }
-      }} 
-      />
-      <Route
+      </Route> */}
+
+      {/* <Route
         exact
           path="/users/:userId(\d+)/edit"
           render={props => {
@@ -298,8 +277,10 @@ const ApplicationViews = (props) => {
             {...props} 
             userId={props.match.params.userId} />
         }} 
-      />
-    </React.Fragment>
+      /> */}
+
+      </Switch>
+    </main>
   )
 }
 
