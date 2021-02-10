@@ -4,7 +4,7 @@ import { useHistory, useParams } from "react-router-dom";
 import { UserProfileContext } from "../../providers/UserProfileProvider.jsx";
 import { CandidateContext } from "../../providers/CandidateProvider.jsx";
 import { Link } from "react-router-dom";
-import Navbar from "../nav/Navbar.jsx"
+import Navbar from "../nav/Navbar.jsx";
 
 
 export default function EditCandidate() {
@@ -24,7 +24,7 @@ export default function EditCandidate() {
   }, [id]);
 
   const [editedUser, setEditedUser] = useState({
-    id: sessionUser.id,
+    id: id,
     email: "",
     imageUrl: "",
     bio: "",
@@ -92,6 +92,7 @@ export default function EditCandidate() {
   const updateProfile = (e) => {
     e.preventDefault();
     updateUser({
+      id: id,
       email: editedUser.email,
       imageUrl: editedUser.imageUrl,
       bio: editedUser.bio,
@@ -101,15 +102,16 @@ export default function EditCandidate() {
     })
 
     updateCandidate({
+    id: user.candidateId,
     location: editedCandidate.location,
     firstName: editedCandidate.firstName,
     lastName: editedCandidate.lastName,
     jobTitle: editedCandidate.jobTitle
     })
-    
+
     updateUser(id, editedUser)
     .then(() => {
-      updateCandidate(editedUser.candidateId, editedCandidate)
+      updateCandidate(user.candidateId, editedCandidate)
       .then(() =>{
         history.push("/profile")
       })
@@ -122,9 +124,6 @@ export default function EditCandidate() {
 
   return (
     <div id="root-wrapper">
-      <div className="statusBar">
-        <img src="http://res.cloudinary.com/dhduglm4j/image/upload/v1596490037/icons/statusbar_ix00oi.png" alt="status" />
-      </div>
       <main className="profileContainer">
         <section className="profileHeader">
           <div className="logoutButton">
@@ -147,7 +146,7 @@ export default function EditCandidate() {
             <h2>{candidate.firstName}</h2>
           </div>
           <div className="userProfile__location">
-            {user.location}
+            {candidate.location}
           </div>
         </section>
         <section className="editProfileButton">

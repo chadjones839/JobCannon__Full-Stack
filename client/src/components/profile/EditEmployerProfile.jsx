@@ -1,28 +1,56 @@
 /* eslint-disable jsx-a11y/alt-text */
-import React, { useState, useEffect } from 'react';
-import LoginManager from "../modules/LoginManager";
+import React, { useState, useEffect, useContext } from 'react';
+import { useHistory, useParams } from "react-router-dom";
+import { UserProfileContext } from "../../providers/UserProfileProvider.jsx";
+import { EmployerContext } from "../../providers/EmployerProvider.jsx";
 import { Link } from "react-router-dom";
-import Navbar from "../nav/Navbar.jsx"
-
+import Navbar from "../nav/Navbar.jsx";
 
 const EditEmployer = props => {
+
+  const history = useHistory();
+  const sessionUser = JSON.parse(sessionStorage.getItem("userProfile"));
+  const { id } = useParams();
+  const { user, getLocalUser, updateUser } = useContext(UserProfileContext);
+  const { employer, getEmployerById, updateEmployer } = useContext(EmployerContext);
 
   const [image, setImage] = useState("")
   const [isLoading, setIsLoading] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [user, setUser] = useState({
+
+  useEffect(() => {
+    getLocalUser(id)
+  }, [id]);
+
+  const [editedUser, setEditedUser] = useState({
+    id: id,
     email: "",
-    password: "",
-    accountType: "employer",
-    image: "",
-    companyName: "",
-    industry: "",
-    userLocation: "",
-    firstName: "",
-    lastName: "",
-    jobTitle: "",
-    bio: ""
+    imageUrl: "",
+    bio: "",
+    firebaseUserId: user.firebaseUserId,
+    candidateId: user.candidateId,
+    employerId: user.employerId
   })
+  
+  const [editedEmployer, setEditedEmployer] = useState({
+    id: employer.employerId,
+    name: "",
+    location: "",
+    industry: ""
+  })
+  
+  
+  useEffect(() => {
+    setEditedUser(user)
+  }, [user]);
+
+  useEffect(() => {
+    getEmployerById(sessionUser.employerId)
+  }, [sessionUser.employerId]);
+
+  useEffect(() => {
+    setEditedEmployer(employer)
+  }, [employer]);
 
   const uploadImage = async e => {
     const files = e.target.files
@@ -44,44 +72,51 @@ const EditEmployer = props => {
     user.image = file.secure_url
   }
 
-  const handleFieldChange = event => {
-    const stateToChange = { ...user };
-    stateToChange[event.target.id] = event.target.value
-    setUser(stateToChange)
+  const handleUserFieldChange = e => {
+    const stateToChange = { ...editedUser };
+    stateToChange[e.target.id] = e.target.value;
+    setEditedUser(stateToChange);
   };
 
-  const updateProfile = event => {
-    event.preventDefault();
-    setIsLoading(true)
+  const handleEmployerFieldChange = e => {
+    const stateToChange = { ...editedEmployer };
+    stateToChange[e.target.id] = e.target.value;
+    setEditedEmployer(stateToChange);
+  };
 
-    const editedUser = {
-      id: props.match.params.userId,
-      email: user.email,
-      password: user.password,
-      accountType: "employer",
-      image: user.image,
-      companyName: user.companyName,
-      industry: user.industry,
-      userLocation: user.userLocation,
-      firstName: "",
-      lastName: "",
-      jobTitle: "",
-      bio: user.bio
-    }
+  const updateProfile = (e) => {
+    e.preventDefault();
+    updateUser({
+      id: id,
+      email: editedUser.email,
+      imageUrl: editedUser.imageUrl,
+      bio: editedUser.bio,
+      firebaseUserId: editedUser.firebaseUserId,
+      candidateId: editedUser.candidateId,
+      employerId: editedUser.employerId
+    })
 
-    LoginManager.editUser(editedUser)
-      .then(() => {
-        props.history.push("/profile")
+    updateEmployer({
+    id: user.employerId,
+    name: editedEmployer.name,
+    location: editedEmployer.location,
+    industry: editedEmployer.industry
+    })
+
+    updateUser(id, editedUser)
+    .then(() => {
+      updateEmployer(user.employerId, editedEmployer)
+      .then(() =>{
+        history.push("/profile")
       })
+    })
   }
 
-  useEffect(() => {
-    LoginManager.getUser(props.match.params.userId)
-      .then((user) => {
-        setUser(user)
-        setIsLoading(false)
-      })
-  }, [props.match.params.userId]);
+  if (!user || !employer) {
+    return null
+  }
+
+  
 
   return (
     <div id="root-wrapper">
@@ -96,7 +131,7 @@ const EditEmployer = props => {
           </div>
           <div className="userProfile__image">
             <div className="userImage__container">
-              <img src={user.image} alt="logo" />
+              <img src={user.imageUrl} alt="logo" />
             </div>
           </div>
           <div className="userProfile__right">
@@ -104,10 +139,10 @@ const EditEmployer = props => {
         </section>
         <section className="userProfile__details">
           <div className="userProfile__name">
-            <h2>{user.companyName}</h2>
+            <h2>{employer.name}</h2>
           </div>
           <div className="userProfile__location">
-            {user.userLocation}
+            {employer.location}
           </div>
         </section>
         <section className="editProfileButton">
@@ -155,16 +190,16 @@ const EditEmployer = props => {
             <h3 className="editProfileHeader">Profile Details</h3>
             <label
               className="editLabel"
-              htmlFor="companyName">
+              htmlFor="name">
               Company Name
               </label>
             <input
               type="text"
               required
               className="editInput"
-              onChange={handleFieldChange}
-              id="companyName"
-              value={user.companyName}
+              onChange={handleEmployerFieldChange}
+              id="name"
+              defaultValue={employer.name}
             />
 
             <label
@@ -176,23 +211,23 @@ const EditEmployer = props => {
               type="text"
               required
               className="editInput"
-              onChange={handleFieldChange}
+              onChange={handleEmployerFieldChange}
               id="industry"
-              value={user.industry}
+              defaultValue={employer.industry}
             />
 
             <label
               className="editLabel"
-              htmlFor="userLocation">
+              htmlFor="location">
               Location
               </label>
             <input
               type="text"
               required
               className="editInput"
-              onChange={handleFieldChange}
-              id="userLocation"
-              value={user.userLocation}
+              onChange={handleEmployerFieldChange}
+              id="location"
+              defaultValue={employer.location}
             />
 
             <label
@@ -204,9 +239,9 @@ const EditEmployer = props => {
               type="text"
               required
               className="editInput"
-              onChange={handleFieldChange}
+              onChange={handleUserFieldChange}
               id="bio"
-              value={user.bio}
+              defaultValue={user.bio}
             />
 
 
@@ -221,9 +256,9 @@ const EditEmployer = props => {
               type="email"
               required
               className="editInput"
-              onChange={handleFieldChange}
+              onChange={handleUserFieldChange}
               id="email"
-              value={user.email}
+              defaultValue={user.email}
             />
 
             <label
@@ -235,9 +270,9 @@ const EditEmployer = props => {
               type="password"
               required
               className="editInput"
-              onChange={handleFieldChange}
+              // onChange={handleFieldChange}
               id="password"
-              value={user.password}
+              // defaultValue={user.password}
             />
 
             <label
@@ -249,7 +284,7 @@ const EditEmployer = props => {
               type="password"
               required
               className="editInput"
-              onChange={handleFieldChange}
+              // onChange={handleFieldChange}
               id="passwordConfirm"
             />
           </fieldset>

@@ -27,9 +27,6 @@ const EmployerProfile = () => {
         })
     }
   };
-
-
-  console.log(user)
   
   if (!user || !user.employer) {
     return null
@@ -66,15 +63,12 @@ const EmployerProfile = () => {
         </section>
         <section className="editProfileButton">
           <div className="editBtnContainer">
-            <Link
-              // onClick={() => history.push(`/user/edit/${user.id}`)}
+            <button
+              onClick={() => history.push(`/user/edit/${user.id}`)}
               className="blueBtn90"
-              style={{textDecoration: 'none'}}
-              to={`/user/edit/${user.id}`}
-              // type="button"
-            >
+              type="button">
               Edit Profile
-              </Link>
+            </button>
           </div>
         </section>
         <section className="profileDetails">

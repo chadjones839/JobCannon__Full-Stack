@@ -114,9 +114,9 @@ export function UserProfileProvider(props) {
       }).then(resp => resp.json()));
   };
 
-  const updateUser = (userProfile) => {
+  const updateUser = (id, userProfile) => {
     return getToken().then((token) =>
-      fetch(`${apiUrl}/${userProfile.id}`, {
+      fetch(`${apiUrl}/edit/${id}`, {
         method: "PUT",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -137,55 +137,8 @@ export function UserProfileProvider(props) {
 
         }))
 
-
-  // const getCandidateById = (id) => {
-  //   getToken().then((token) =>
-  //     fetch(`/api/candidate/${id}`, {
-  //         method: "GET",
-  //         headers: {
-  //             Authorization: `Bearer ${token}`
-  //         }
-  //     })).then((resp) => resp.json())
-  //     .then(setCandidate);
-  // };
-
-  // const addCandidate = (candidate) => {
-  //     return fetch("/api/candidate", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json"
-  //       },
-  //       body: JSON.stringify(candidate)
-  //     }).then(resp => resp.json());
-  // };
-
-  // const updateCandidate = (id, candidate) => {
-  //   return getToken().then((token) =>
-  //       fetch(`/api/candidate/edit/${id}`, {
-  //           method: "PUT",
-  //           headers: {
-  //               Authorization: `Bearer ${token}`,
-  //               "Content-Type": "application/json"
-  //           },
-  //           body: JSON.stringify(candidate)
-  //       }))
-  // };
-
-  // const deleteCandidate = (id) =>
-  //     getToken().then((token) =>
-  //         fetch(`/api/candidate/delete/${id}`, {
-  //             method: "DELETE",
-  //             headers: {
-  //                 Authorization: `Bearer ${token}`,
-  //                 "Content-Type": "application/json"
-  //             },
-
-  //         }))
-
   return (
-    <UserProfileContext.Provider value={{ user, users, candidates, employers, isLoggedIn, userProfile, login, logout, register, getToken, setUsers, getAllUsers, getAllCandidates, getAllEmployers, getFirebaseUser, getLocalUser, addUser, updateUser, deleteUser, 
-    // getCandidateById, addCandidate, updateCandidate, deleteCandidate 
-    }}>
+    <UserProfileContext.Provider value={{ user, users, candidates, employers, isLoggedIn, userProfile, login, logout, register, getToken, setUsers, getAllUsers, getAllCandidates, getAllEmployers, getFirebaseUser, getLocalUser, addUser, updateUser, deleteUser }}>
       {isFirebaseReady
         ? props.children
         : <Spinner className="app-spinner dark" />}

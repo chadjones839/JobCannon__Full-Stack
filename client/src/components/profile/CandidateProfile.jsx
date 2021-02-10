@@ -66,8 +66,7 @@ const CandidateProfile = () => {
             <button
               onClick={() => history.push(`/user/edit/${user.id}`)}
               className="blueBtn90"
-              type="button"
-            >
+              type="button">
               Edit Profile
             </button>
           </div>
