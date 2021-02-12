@@ -19,10 +19,10 @@ export default function EmployerDiscovery() {
       <h1 className="discoveryHeader">Discovery</h1>
       <main className="discoveryContainer">
       <br/>
-        {employers.map(user =>
+        {employers.map(employer =>
           <EmployerDiscoveryCard
-            key={user.id}
-            user={user} />
+            key={employer.id}
+            employer={employer} />
         )}
       </main>
       <div className="navpanel">

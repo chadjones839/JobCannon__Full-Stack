@@ -16,7 +16,14 @@ namespace JobCannon.Models
         [Required]
         public int ReciprocatingUserId { get; set; }
 
-        public bool? MutualInterest { get; set; }
+        [Required]
+        public string MutualInterest { get; set; }
+
+        [Required]
+        public bool InitiatingInterested { get; set; }
+
+        [Required]
+        public bool ReciprocatingInterested { get; set; }
 
     }
 }

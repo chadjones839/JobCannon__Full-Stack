@@ -16,10 +16,10 @@ export default function CandidateDiscovery() {
       <h1 className="discoveryHeader">Discovery</h1>
       <main className="discoveryContainer">
       <br/>
-        {candidates.map(user =>
+        {candidates.map(candidate =>
           <CandidateDiscoveryCard
-            key={user.id}
-            user={user} />
+            key={candidate.id}
+            candidate={candidate} />
         )}
       </main>
       <div className="navpanel">
