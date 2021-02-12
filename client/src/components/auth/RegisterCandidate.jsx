@@ -16,6 +16,7 @@ const RegisterCandidate = props => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [confirmPassword, setConfirmPassword] = useState();
+  const [candidateId, setCandidateId] = useState();
   const imageUrl = "https://res.cloudinary.com/dhduglm4j/image/upload/v1596490031/icons/profileNav_lord6y.png";
   const bio = "";
   const employerId = null;
@@ -31,6 +32,7 @@ const RegisterCandidate = props => {
     email: email,
     imageUrl: imageUrl,
     bio: bio,
+    candidateId: candidateId,
     employerId: employerId
   }
 
@@ -47,8 +49,7 @@ const RegisterCandidate = props => {
       addCandidate(candidate)
       .then((c) => {
         console.log(c)
-        debugger
-        user.candidateId = c.id;
+        setCandidateId(c.id)
         register(user, password)
           .then(() => history.push("/discovery"));
       })

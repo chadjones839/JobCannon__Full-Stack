@@ -10,10 +10,8 @@ export function UserProfileProvider(props) {
 
   const userProfile = sessionStorage.getItem("userProfile");
   const [isLoggedIn, setIsLoggedIn] = useState(userProfile != null);
-  const [user, setUser] = useState({});
   const [users, setUsers] = useState([]);
   const [candidates, setCandidates] = useState([]);
-  const [candidate, setCandidate] = useState({});
   const [employers, setEmployers] = useState([]);
 
   const [isFirebaseReady, setIsFirebaseReady] = useState(false);
@@ -56,9 +54,11 @@ export function UserProfileProvider(props) {
         .then(setEmployers));
 
   const login = (email, pw) => {
+    debugger
     return firebase.auth().signInWithEmailAndPassword(email, pw)
       .then((signInResponse) => getFirebaseUser(signInResponse.user.uid))
       .then((userProfile) => {
+        debugger
         sessionStorage.setItem("userProfile", JSON.stringify(userProfile));
         setIsLoggedIn(true);
       });
@@ -98,8 +98,7 @@ export function UserProfileProvider(props) {
         headers: {
           Authorization: `Bearer ${token}`
         }
-      }).then(resp => resp.json())
-      .then(setUser));
+      }).then(resp => resp.json()));
   };
 
   const addUser = (userProfile) => {
@@ -114,9 +113,9 @@ export function UserProfileProvider(props) {
       }).then(resp => resp.json()));
   };
 
-  const updateUser = (id, userProfile) => {
+  const updateUser = (userProfile) => {
     return getToken().then((token) =>
-      fetch(`${apiUrl}/edit/${id}`, {
+      fetch(`${apiUrl}/${userProfile.id}`, {
         method: "PUT",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -137,8 +136,18 @@ export function UserProfileProvider(props) {
 
         }))
 
+  const addCandidate = (candidate) => {
+      return fetch("/api/candidate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(candidate)
+      }).then(resp => resp.json());
+  };
+
   return (
-    <UserProfileContext.Provider value={{ user, users, candidates, employers, isLoggedIn, userProfile, login, logout, register, getToken, setUsers, getAllUsers, getAllCandidates, getAllEmployers, getFirebaseUser, getLocalUser, addUser, updateUser, deleteUser }}>
+    <UserProfileContext.Provider value={{ users, candidates, employers, isLoggedIn, userProfile, login, logout, register, getToken, setUsers, getAllUsers, getAllCandidates, getAllEmployers, getFirebaseUser, getLocalUser, addUser, updateUser, deleteUser, addCandidate }}>
       {isFirebaseReady
         ? props.children
         : <Spinner className="app-spinner dark" />}

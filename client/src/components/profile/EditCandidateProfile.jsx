@@ -1,60 +1,28 @@
 /* eslint-disable jsx-a11y/alt-text */
-import React, { useState, useEffect, useContext } from 'react';
-import { useHistory, useParams } from "react-router-dom";
-import { UserProfileContext } from "../../providers/UserProfileProvider.jsx";
-import { CandidateContext } from "../../providers/CandidateProvider.jsx";
+import React, { useState, useEffect } from 'react';
+import LoginManager from "../modules/LoginManager";
 import { Link } from "react-router-dom";
-import Navbar from "../nav/Navbar.jsx";
+import Navbar from "../nav/Navbar.jsx"
 
 
-export default function EditCandidate() {
-
-  const history = useHistory();
-  const sessionUser = JSON.parse(sessionStorage.getItem("userProfile"));
-  const { id } = useParams();
-  const { user, getLocalUser, updateUser } = useContext(UserProfileContext);
-  const { candidate, getCandidateById, updateCandidate } = useContext(CandidateContext);
+const EditCandidate = props => {
 
   const [image, setImage] = useState("")
   const [isLoading, setIsLoading] = useState(false);
   const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    getLocalUser(id)
-  }, [id]);
-
-  const [editedUser, setEditedUser] = useState({
-    id: id,
+  const [user, setUser] = useState({
     email: "",
-    imageUrl: "",
-    bio: "",
-    firebaseUserId: user.firebaseUserId,
-    candidateId: user.candidateId,
-    employerId: user.employerId
-  })
-  
-  const [editedCandidate, setEditedCandidate] = useState({
-    id: user.candidateId,
-    location: "",
+    password: "",
+    accountType: "candidate",
+    image: "",
+    companyName: "",
+    industry: "",
+    userLocation: "",
     firstName: "",
     lastName: "",
-    jobTitle: ""
+    jobTitle: "",
+    bio: ""
   })
-  
-  
-  useEffect(() => {
-    setEditedUser(user)
-  }, [user]);
-
-  useEffect(() => {
-    getCandidateById(sessionUser.candidateId)
-  }, [sessionUser.candidateId]);
-
-  useEffect(() => {
-    setEditedCandidate(candidate)
-  }, [candidate]);
-
-  
 
   const uploadImage = async e => {
     const files = e.target.files
@@ -77,53 +45,52 @@ export default function EditCandidate() {
   }
 
 
-  const handleUserFieldChange = e => {
-    const stateToChange = { ...editedUser };
-    stateToChange[e.target.id] = e.target.value;
-    setEditedUser(stateToChange);
+  const handleFieldChange = event => {
+    const stateToChange = { ...user };
+    stateToChange[event.target.id] = event.target.value
+    setUser(stateToChange)
   };
 
-  const handleCandidateFieldChange = e => {
-    const stateToChange = { ...editedCandidate };
-    stateToChange[e.target.id] = e.target.value;
-    setEditedCandidate(stateToChange);
-  };
+  const updateProfile = event => {
+    event.preventDefault();
+    setIsLoading(true)
 
-  const updateProfile = (e) => {
-    e.preventDefault();
-    updateUser({
-      id: id,
-      email: editedUser.email,
-      imageUrl: editedUser.imageUrl,
-      bio: editedUser.bio,
-      firebaseUserId: editedUser.firebaseUserId,
-      candidateId: editedUser.candidateId,
-      employerId: editedUser.employerId
-    })
+    const editedUser = {
+      id: props.match.params.userId,
+      email: user.email,
+      password: user.password,
+      accountType: "candidate",
+      image: user.image,
+      companyName: "",
+      industry: user.industry,
+      userLocation: user.userLocation,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      jobTitle: user.jobTitle,
+      bio: user.bio
+    }
 
-    updateCandidate({
-    id: user.candidateId,
-    location: editedCandidate.location,
-    firstName: editedCandidate.firstName,
-    lastName: editedCandidate.lastName,
-    jobTitle: editedCandidate.jobTitle
-    })
 
-    updateUser(id, editedUser)
-    .then(() => {
-      updateCandidate(user.candidateId, editedCandidate)
-      .then(() =>{
-        history.push("/profile")
+    LoginManager.editUser(editedUser)
+      .then(() => {
+        props.history.push("/profile")
       })
-    })
+
   }
 
-  if (!user || !candidate) {
-    return null
-  }
+  useEffect(() => {
+    LoginManager.getUser(props.match.params.userId)
+      .then((user) => {
+        setUser(user)
+        setIsLoading(false)
+      })
+  }, [props.match.params.userId]);
 
   return (
     <div id="root-wrapper">
+      <div className="statusBar">
+        <img src="http://res.cloudinary.com/dhduglm4j/image/upload/v1596490037/icons/statusbar_ix00oi.png" alt="status" />
+      </div>
       <main className="profileContainer">
         <section className="profileHeader">
           <div className="logoutButton">
@@ -135,7 +102,7 @@ export default function EditCandidate() {
           </div>
           <div className="userProfile__image">
             <div className="userImage__container">
-              <img src={user.imageUrl} alt="logo" />
+              <img src={user.image} alt="logo" />
             </div>
           </div>
           <div className="userProfile__right">
@@ -143,10 +110,10 @@ export default function EditCandidate() {
         </section>
         <section className="userProfile__details">
           <div className="userProfile__name">
-            <h2>{candidate.firstName}</h2>
+            <h2>{user.firstName}</h2>
           </div>
           <div className="userProfile__location">
-            {candidate.location}
+            {user.userLocation}
           </div>
         </section>
         <section className="editProfileButton">
@@ -201,9 +168,9 @@ export default function EditCandidate() {
               type="text"
               required
               className="editInput"
-              onChange={handleCandidateFieldChange}
+              onChange={handleFieldChange}
               id="firstName"
-              defaultValue={candidate.firstName}
+              value={user.firstName}
             />
 
 
@@ -216,9 +183,9 @@ export default function EditCandidate() {
               type="text"
               required
               className="editInput"
-              onChange={handleCandidateFieldChange}
+              onChange={handleFieldChange}
               id="lastName"
-              defaultValue={candidate.lastName}
+              value={user.lastName}
             />
 
             <label
@@ -230,9 +197,23 @@ export default function EditCandidate() {
               type="text"
               required
               className="editInput"
-              onChange={handleCandidateFieldChange}
+              onChange={handleFieldChange}
               id="jobTitle"
-              defaultValue={candidate.jobTitle}
+              value={user.jobTitle}
+            />
+
+            <label
+              className="editLabel"
+              htmlFor="industry">
+              Industry
+              </label>
+            <input
+              type="text"
+              required
+              className="editInput"
+              onChange={handleFieldChange}
+              id="industry"
+              value={user.industry}
             />
 
             <label
@@ -244,9 +225,9 @@ export default function EditCandidate() {
               type="text"
               required
               className="editInput"
-              onChange={handleCandidateFieldChange}
-              id="location"
-              defaultValue={candidate.location}
+              onChange={handleFieldChange}
+              id="userLocation"
+              value={user.userLocation}
             />
 
             <label
@@ -258,9 +239,9 @@ export default function EditCandidate() {
               type="text"
               required
               className="editInput"
-              onChange={handleUserFieldChange}
+              onChange={handleFieldChange}
               id="bio"
-              defaultValue={user.bio}
+              value={user.bio}
             />
 
 
@@ -275,9 +256,9 @@ export default function EditCandidate() {
               type="email"
               required
               className="editInput"
-              onChange={handleUserFieldChange}
+              onChange={handleFieldChange}
               id="email"
-              defaultValue={user.email}
+              value={user.email}
             />
 
             <label
@@ -289,11 +270,11 @@ export default function EditCandidate() {
               type="password"
               required
               className="editInput"
-              // onChange={handleUserFieldChange}
+              onChange={handleFieldChange}
               id="password"
             />
 
-            {/* <label
+            <label
               className="editLabel"
               htmlFor="passwordConfirm">
               Confirm New Password
@@ -302,9 +283,9 @@ export default function EditCandidate() {
               type="password"
               required
               className="editInput"
-              onChange={handleUserFieldChange}
+              onChange={handleFieldChange}
               id="passwordConfirm"
-            /> */}
+            />
           </fieldset>
         </form>
         <br />
@@ -317,4 +298,7 @@ export default function EditCandidate() {
       </div>
     </div>
   )
-};
+}
+
+
+export default EditCandidate;

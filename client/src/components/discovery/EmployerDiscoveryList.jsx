@@ -1,17 +1,22 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from "../nav/Navbar.jsx"
-import { UserProfileContext } from "../../providers/UserProfileProvider.jsx";
+import UserManager from "../modules/UserManager";
 import EmployerDiscoveryCard from "../discovery/EmployerDiscoveryCard";
 
-export default function EmployerDiscovery() {
+const EmployerDiscovery = props => {
 
-  const { employers, getAllEmployers } = useContext(UserProfileContext);
+  const [users, setUsers] = useState([]);
+
+  const getUsers = () => {
+    return UserManager.getWithFriends()
+  };
 
   useEffect(() => {
-    getAllEmployers();
-  }, []);
-  
-  console.log(employers)
+    getUsers()
+      .then((userResponse) => {
+        setUsers(userResponse)
+      })
+  }, [])
 
   return (
     <div id="root-wrapper">
@@ -19,10 +24,11 @@ export default function EmployerDiscovery() {
       <h1 className="discoveryHeader">Discovery</h1>
       <main className="discoveryContainer">
       <br/>
-        {employers.map(user =>
+        {users.map(user =>
           <EmployerDiscoveryCard
             key={user.id}
-            user={user} />
+            user={user}
+            {...props} />
         )}
       </main>
       <div className="navpanel">
@@ -31,3 +37,5 @@ export default function EmployerDiscovery() {
     </div>
   );
 };
+
+export default EmployerDiscovery;

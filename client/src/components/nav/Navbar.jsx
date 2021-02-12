@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const NavBar = props => {
 
-  const sessionUser = JSON.parse(sessionStorage.getItem("userProfile"));
+  const sessionUser = JSON.parse(sessionStorage.getItem("user"));
 
   return (
     <nav id="navbar">
@@ -14,7 +14,7 @@ const NavBar = props => {
           </Link>
         </li>
         <li>
-          {sessionUser.employerId !== null 
+          {sessionUser.accountType === "employer"
           ? <Link className="nav-link" to="/jobs"> 
               <img src="https://res.cloudinary.com/dhduglm4j/image/upload/v1596585155/icons/suitcase_x8vwp8.png" alt="jobs" /> 
           </Link>
@@ -28,7 +28,7 @@ const NavBar = props => {
           </Link>
         </li>
         <li>
-        {sessionUser.candidateId !== null
+        {sessionUser.accountType === "candidate"
         ? <Link className="nav-link" to="/resume"> 
             <img src="https://res.cloudinary.com/dhduglm4j/image/upload/v1596585153/icons/resume_pqehbk.png" alt="resume" />
           </Link>

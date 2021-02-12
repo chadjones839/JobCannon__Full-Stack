@@ -69,17 +69,34 @@ const ApplicationViews = (props) => {
       </Route>
 
       <Route exact path="/profile">
+          {!isLoggedIn ?
+          <CandidateProfile/> : <Redirect to="/"/> }
+      </Route>
+
+      {/* <Route exact path="/profile">
           {!isLoggedIn ? <Redirect to="/"/> : 
           sessionUser.candidateId != null ?
-          <CandidateProfile/> : <EmployerProfile/>}
-      </Route>
+          <CandidateProfile/> : <EmployerProfile/>
+          }
+      </Route> */}
 
-       <Route
-        exact path="/user/edit/:id">
-          {!isLoggedIn ? <Redirect to="/"/> : sessionUser.candidateId === null ? <EditEmployer/> : <EditCandidate/>}
-      </Route>
-
-      {/*<Route
+      {/* <Route
+        exact
+          path="/users/:userId(\d+)/edit"
+          render={props => {
+            if (hasUser && sessionUser.accountType === "employer") {
+              return <EditEmployer 
+                {...props} 
+                userId={props.match.params.userId} />
+            }
+            else if (hasUser && sessionUser.accountType === "candidate") {
+              return <EditCandidate 
+                {...props} 
+                userId={props.match.params.userId} />
+            } 
+      }}
+      />
+      <Route
         exact
           path="/users/:userId(\d+)/details"
           render={props => {
@@ -87,16 +104,23 @@ const ApplicationViews = (props) => {
               {...props} 
               userId={props.match.params.userId} />
           }}
-      />*/}
-
-      <Route exact path="/discovery">
-          {!isLoggedIn ? <Redirect to="/"/> : 
-          sessionUser.employerId === null ?
-          <EmployerDiscovery/> : <CandidateDiscovery/>
+      />
+      <Route 
+        exact
+        path="/discovery" 
+        render={props => {
+          if (hasUser && sessionUser.accountType === "employer") {
+            return <CandidateDiscovery {...props} />
+          } 
+          if (hasUser && sessionUser.accountType === "candidate") {
+            return <EmployerDiscovery {...props} />
+          } 
+          else {
+            return <Redirect to="/" />
           }
-      </Route>
-
-      {/* <Route 
+      }} 
+      />
+      <Route 
         exact
         path="/chat" 
         render={props => {
