@@ -241,7 +241,7 @@ namespace JobCannon.Repositories
                             UPDATE Users
                             SET 
                                 FirebaseUserId = @FirebaseUserId,
-                                Email = @email, 
+                                Email = @Email, 
                                 ImageUrl = @ImageUrl, 
                                 Bio = @Bio,
                                 CandidateId = @CandidateId,
@@ -252,8 +252,8 @@ namespace JobCannon.Repositories
                     cmd.Parameters.AddWithValue("@FirebaseUserId", user.FirebaseUserId);
                     cmd.Parameters.AddWithValue("@ImageUrl", user.ImageUrl);
                     cmd.Parameters.AddWithValue("@Bio", user.Bio);
-                    cmd.Parameters.AddWithValue("@CandidateId", user.CandidateId);
-                    cmd.Parameters.AddWithValue("@EmployerId", user.EmployerId);
+                    DbUtils.AddParameter(cmd, "@CandidateId", user.CandidateId);
+                    DbUtils.AddParameter(cmd, "@EmployerId", user.EmployerId);
                     cmd.ExecuteNonQuery();
                 }
             }

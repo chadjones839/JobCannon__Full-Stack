@@ -1,16 +1,16 @@
 import React, { useState, useContext } from "react";
 import { UserProfileContext } from "./UserProfileProvider";
 
-export const CandidateContext = React.createContext();
+export const EmployerContext = React.createContext();
 
-export const CandidateProvider = (props) => {
-    const apiUrl = "/api/candidate";
+export const EmployerProvider = (props) => {
+    const apiUrl = "/api/employer";
     const { getToken } = useContext(UserProfileContext);
 
-    const [candidates, setCandidates] = useState([]);
-    const [candidate, setCandidate] = useState({});
+    const [employers, setEmployers] = useState([]);
+    const [employer, setEmployer] = useState({});
 
-    const getAllCandidates = () => {
+    const getAllEmployers = () => {
         getToken().then((token) =>
             fetch(apiUrl, {
                 method: "GET",
@@ -18,7 +18,7 @@ export const CandidateProvider = (props) => {
                     Authorization: `Bearer ${token}`
                 }
             }).then(resp => resp.json())
-                .then(setCandidates));
+                .then(setEmployers));
     };
 
     const getAllLeads = () => {
@@ -29,21 +29,21 @@ export const CandidateProvider = (props) => {
                     Authorization: `Bearer ${token}`
                 }
             }).then(resp => resp.json())
-                .then(setCandidates));
+                .then(setEmployers));
     };
 
-    const getAllCandidatesByUser = (id) => {
+    const getAllEmployersByUser = (id) => {
         return getToken().then((token) =>
-            fetch(`/api/candidate/mycandidates${id}`, {
+            fetch(`/api/employer/myemployers${id}`, {
                 method: "GET",
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
             }).then((resp) => resp.json())
-                .then(setCandidates));
+                .then(setEmployers));
     }
 
-    const getCandidateById = (id) => {
+    const getEmployerById = (id) => {
         getToken().then((token) =>
             fetch(`${apiUrl}/${id}`, {
                 method: "GET",
@@ -51,10 +51,10 @@ export const CandidateProvider = (props) => {
                     Authorization: `Bearer ${token}`
                 }
             })).then((resp) => resp.json())
-            .then(setCandidate);
+            .then(setEmployer);
     };
 
-    const addCandidate = (candidate) => {
+    const addEmployer = (employer) => {
       return getToken().then((token) =>
         fetch(apiUrl, {
           method: "POST",
@@ -62,11 +62,11 @@ export const CandidateProvider = (props) => {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json"
           },
-          body: JSON.stringify(candidate)
+          body: JSON.stringify(employer)
         }).then(resp => resp.json()));
     };
 
-    const updateCandidate = (id, candidate) => {
+    const updateEmployer = (id, employer) => {
         return getToken().then((token) =>
             fetch(`${apiUrl}/edit/${id}`, {
                 method: "PUT",
@@ -74,11 +74,11 @@ export const CandidateProvider = (props) => {
                     Authorization: `Bearer ${token}`,
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify(candidate)
+                body: JSON.stringify(employer)
             }))
     };
 
-    const deleteCandidate = (id) =>
+    const deleteEmployer = (id) =>
         getToken().then((token) =>
             fetch(`${apiUrl}/delete/${id}`, {
                 method: "DELETE",
@@ -90,11 +90,11 @@ export const CandidateProvider = (props) => {
             }))
 
     return (
-        <CandidateContext.Provider value={{
-            candidate, candidates, getAllCandidates, getAllLeads, getCandidateById, addCandidate, updateCandidate, deleteCandidate, setCandidate, getAllCandidatesByUser
+        <EmployerContext.Provider value={{
+            employer, employers, getAllEmployers, getAllLeads, getEmployerById, addEmployer, updateEmployer, deleteEmployer, setEmployer, getAllEmployersByUser
         }}>
             {props.children}
-        </CandidateContext.Provider>
+        </EmployerContext.Provider>
     );
 
 }

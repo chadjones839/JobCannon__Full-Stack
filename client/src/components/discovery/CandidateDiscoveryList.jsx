@@ -1,34 +1,25 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useContext } from "react"
 import Navbar from "../nav/Navbar.jsx"
-import UserManager from "../modules/UserManager";
+import { UserProfileContext } from "../../providers/UserProfileProvider.jsx";
 import CandidateDiscoveryCard from "../discovery/CandidateDiscoveryCard";
 
-const CandidateDiscovery = props => {
+export default function CandidateDiscovery() {
 
-  const [users, setUsers] = useState([]);
-
-
-  const getUsers = () => {
-    return UserManager.getWithFriends()
-  };
+  const { candidates, getAllCandidates } = useContext(UserProfileContext);
 
   useEffect(() => {
-    getUsers()
-      .then((userResponse) => {
-        setUsers(userResponse)
-      })
-  }, [])
+    getAllCandidates();
+  }, []);
 
   return (
     <div id="root-wrapper">
       <h1 className="discoveryHeader">Discovery</h1>
       <main className="discoveryContainer">
       <br/>
-        {users.map(user =>
+        {candidates.map(user =>
           <CandidateDiscoveryCard
             key={user.id}
-            user={user}
-            {...props} />
+            user={user} />
         )}
       </main>
       <div className="navpanel">
@@ -37,5 +28,3 @@ const CandidateDiscovery = props => {
     </div>
   );
 };
-
-export default CandidateDiscovery;
