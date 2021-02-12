@@ -48,8 +48,7 @@ const ApplicationViews = (props) => {
       <Switch>
 
       <Route exact path="/">
-        {isLoggedIn ?
-        <Home /> : <Redirect to="/login" />} 
+        <Home />
       </Route> 
 
       <Route exact path="/register"> 
@@ -96,19 +95,12 @@ const ApplicationViews = (props) => {
           }
       </Route>
 
+      <Route exact path="/chat">
+         {isLoggedIn ?
+         <Chat/> : <Redirect to="/" />
+         }
+      </Route>
       {/* <Route 
-        exact
-        path="/chat" 
-        render={props => {
-          if (hasUser) {
-            return <Chat {...props} />
-          }
-          else {
-            return <Redirect to="/" />
-          }
-      }} 
-      />
-      <Route 
         exact
         path="/chats/:chatId(\d+)" 
         render={props => {

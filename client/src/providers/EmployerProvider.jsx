@@ -21,28 +21,6 @@ export const EmployerProvider = (props) => {
                 .then(setEmployers));
     };
 
-    const getAllLeads = () => {
-        getToken().then((token) =>
-            fetch(`${apiUrl}/leads`, {
-                method: "GET",
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            }).then(resp => resp.json())
-                .then(setEmployers));
-    };
-
-    const getAllEmployersByUser = (id) => {
-        return getToken().then((token) =>
-            fetch(`/api/employer/myemployers${id}`, {
-                method: "GET",
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            }).then((resp) => resp.json())
-                .then(setEmployers));
-    }
-
     const getEmployerById = (id) => {
         getToken().then((token) =>
             fetch(`${apiUrl}/${id}`, {
@@ -78,20 +56,20 @@ export const EmployerProvider = (props) => {
             }))
     };
 
-    const deleteEmployer = (id) =>
-        getToken().then((token) =>
-            fetch(`${apiUrl}/delete/${id}`, {
-                method: "DELETE",
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                    "Content-Type": "application/json"
-                },
-
-            }))
+    const deleteEmployer = (id) => {
+      getToken().then((token) =>
+        fetch(`${apiUrl}/delete/${id}`, {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json"
+        },
+      }))
+    };
 
     return (
         <EmployerContext.Provider value={{
-            employer, employers, getAllEmployers, getAllLeads, getEmployerById, addEmployer, updateEmployer, deleteEmployer, setEmployer, getAllEmployersByUser
+            employer, employers, getAllEmployers, getEmployerById, addEmployer, updateEmployer, deleteEmployer
         }}>
             {props.children}
         </EmployerContext.Provider>

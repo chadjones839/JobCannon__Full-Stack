@@ -1,21 +1,14 @@
-import React, { useState, useEffect } from "react";
-import ChatManager from "../modules/ChatManager";
+import React, { useState, useEffect, useContext } from "react";
+import { ChatContext } from "../../providers/ChatProvider.jsx";
 import Navbar from "../nav/Navbar.jsx"
 import ChatCard from "../chat/ChatCard";
 
-const ChatList = props => {
+export default function ChatList() {
 
-  const [chats, setChats] = useState([]);
-
-  const getChats = () => {
-    return ChatManager.getWithUsers()
-  }
+  const { chats, getAllChats } = useContext(ChatContext);
 
   useEffect(() => {
-    getChats()
-      .then((chatResponse) => {
-        setChats(chatResponse)
-      })
+    getAllChats()
   }, []);
 
   return (
@@ -30,7 +23,6 @@ const ChatList = props => {
           <ChatCard
             key={chat.id}
             chat={chat}
-            {...props}
           />
         )}
 
@@ -41,5 +33,3 @@ const ChatList = props => {
     </div>
   )
 };
-
-export default ChatList;

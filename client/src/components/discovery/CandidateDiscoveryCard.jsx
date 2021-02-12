@@ -1,154 +1,166 @@
 /* eslint-disable array-callback-return */
-import React, { useState, useEffect } from 'react';
-import FriendManager from "../modules/FriendManager.jsx";
-import ChatManager from "../modules/ChatManager.jsx";
+import React, { useEffect, useContext } from 'react';
+import { ChatContext } from "../../providers/ChatProvider.jsx";
 
 /*END IMPORTS*****************************************************************/
 
-export default function CandidateDiscoveryCard({ user }) {
+export default function CandidateDiscoveryCard({ candidate }) {
   
-  const sessionUser = JSON.parse(sessionStorage.getItem("userProfile")) 
-  // const [friends, setFriends] = useState([]) 
-  // const [newFriend, setNewFriend] = useState({ 
-  //   userId: "", 
-  //   activeUserId: "", 
-  //   mutualInterest: false})
+  const sessionUser = JSON.parse(sessionStorage.getItem("userProfile"));
+  const { chats, getAllChats, addChat, updateChat } = useContext(ChatContext);
 
-  // const mapFriend = friends.find(obj => {
-  //   if ((user.id === obj.userId && sessionUser.id === obj.activeUserId && obj.mutualInterest === true) || (user.id === obj.activeUserId && sessionUser.id === obj.userId && obj.mutualInterest === true))  {
-  //     return obj
-  //   }
-  // });
+  const removeMatched = chats.find(chat => {
+    if (
+      chat.initiatingUserId === candidate.id && 
+      chat.reciprocatingUserId === sessionUser.id && 
+      chat.mutualInterest === "matched") {
+      return chat
+      }
+    else if (
+      chat.reciprocatingUserId === candidate.id && 
+      chat.initiatingUserId === sessionUser.id && 
+      chat.mutualInterest === "matched")  {
+      return chat
+    }
+    else if (
+      chat.reciprocatingUserId === candidate.id && 
+      chat.initiatingUserId === sessionUser.id && 
+      chat.mutualInterest === "holding") {
+      return chat
+    }
+    else if (
+      chat.initiatingUserId === candidate.id && 
+      chat.reciprocatingUserId === sessionUser.id && 
+      chat.mutualInterest === "noMatch" &&
+      chat.reciprocatingInterested === true
+      ) {
+      return chat
+    }
+  });
+
+  const letsTalkHandler = (id) => { 
+    const existingChat = chats.find(chat => {
+      if (id === chat.initiatingUserId && sessionUser.id === chat.reciprocatingUserId) {
+        return chat
+      }
+    });
+
+    if (existingChat === undefined) {
+      const newChat = ({
+        initiatingUserId: sessionUser.id,
+        reciprocatingUserId: id,
+        mutualInterest: "holding",
+        initiatingInterested: true,
+        reciprocatingInterested: false
+      })
+      addChat(newChat)
+    }
+    else if (
+    existingChat.initiatingUserId === id && 
+    existingChat.initiatingInterested === true &&
+    existingChat.reciprocatingUserId === sessionUser.id ) {
+
+      const editChat = ({
+        id: existingChat.id,
+        initiatingUserId: existingChat.initiatingUserId,
+        reciprocatingUserId: sessionUser.id,
+        mutualInterest: "matched",
+        initiatingInterested: existingChat.initiatingInterested,
+        reciprocatingInterested: true
+      })
+      updateChat(existingChat.id, editChat)
+    }
+    else if (
+    existingChat.initiatingUserId === id && 
+    existingChat.mutualInterest === "noMatch" &&
+    existingChat.reciprocatingUserId === sessionUser.id ) {
+      const editChat = ({
+        id: existingChat.id,
+        initiatingUserId: id,
+        reciprocatingUserId: sessionUser.id,
+        mutualInterest: "noMatch",
+        initiatingInterested: false,
+        reciprocatingInterested: true
+      })
+      updateChat(existingChat.id, editChat)
+    };     
+  };
+
+ 
+   const passHandler = (id) => {
+    const existingChat = chats.find(chat => {
+      if (candidate.id === chat.initiatingUserId && sessionUser.id === chat.reciprocatingUserId) {
+        return chat
+      }
+    })
+
+    if(existingChat === undefined) {
+      const newChat = ({
+        initiatingUserId: sessionUser.id,
+        reciprocatingUserId: id,
+        mutualInterest: "holding",
+        initiatingInterested: true,
+        reciprocatingInterested: false
+      })
+      addChat(newChat)
+    }
+    else {
+      const editChat = ({
+        id: existingChat.id,
+        initiatingUserId: sessionUser.id,
+        reciprocatingUserId: id,
+        mutualInterest: "noMatch",
+        initiatingInterested: false,
+        reciprocatingInterested: true
+      })
+      updateChat(existingChat.id, editChat)
+    }
+  };
+
+  useEffect(() => {
+    getAllChats();
+  }, []);
   
-  // const halfFriend = friends.find(obj => {
-  //   if ((user.id === obj.activeUserId && sessionUser.id === obj.userId && obj.mutualInterest === false) || (user.id === obj.activeUserId && sessionUser.id === obj.userId && obj.mutualInterest === null)) {
-  //     return obj
-  //   }
-  // });
-
-  // const passHandler = (id) => {
-  //   newFriend.userId = sessionUser.id
-  //   newFriend.activeUserId = id
-  //   newFriend.mutualInterest = null
-  //   FriendManager.postFriend(newFriend)
-  // }
-
-  // const friendHandler = () => { 
-
-  //   // Used to update the friends table to set mutualInterest to "true" when there is an exisiting match in the database.
-  //   const editedFriend = {
-  //     userId: user.id,
-  //     activeUserId: sessionUser.id,
-  //     mutualInterest: true
-  //   };
-
-  //   // Variable holds key/value pairs for the users in a chat after a match is made
-  //   const newChat = {
-  //     activeUserId: sessionUser.id,
-  //     userId: user.id
-  //   };
-
-  //   // When the current user clicks "Let's Chat", the friendHandler function first looks for an existing match in the database where the clicked cards's user Id matches the userId key AND the activeUserId matches the sessionUser's Id.
-  //   const friend = friends.find(friend => {
-  //     if (user.id === friend.userId && sessionUser.id === friend.activeUserId) {
-  //       // if an object is found, it returns the friend object.
-  //       return friend
-  //     }
-  //   });
-    
-  //   // If no friend object is found with the specified conditionals, the friend is undefined, and a new friend is created with the mutualInterest set as "false"
-  //   if (friend === undefined) {
-  //     createFriend(user.id)
-  //     setNewFriend()
-  //     return newFriend
-  //   }
-  //   //If a friend object is found, and the mutual interest is set to "false", then the friend object is edited using the 'editedFriend' variable model, which updates to true
-  //   else if (
-  //   friend.userId === user.id && 
-  //   friend.mutualInterest === false &&
-  //   friend.activeUserId === sessionUser.id ) {
-  //     editedFriend.id = friend.id
-  //     FriendManager.editFriend(editedFriend)
-  //     .then(()=> {
-  //       // When the friend is updated with a mutualInterest of "true", then a new chat is also created using the 'newChat' variable model, giving the two users the option to have a private chat with one another.
-  //       ChatManager.postChat(newChat)
-  //       return friend
-  //     })
-  //   }
-  //   // A user can click 'Hard Pass' if they aren't interested in the user card, which runs the passHandler function. The passHandler function creates an object with both userId's stored and a mutualInterest value "null" (for the purpose of filtering out  passed users from the discovery list). This conditional creates a new friend object and removes that card from their list.
-  //   else if (
-  //     friend.userId === user.id && 
-  //     friend.mutualInterest === null &&
-  //     friend.activeUserId === sessionUser.id ) {
-  //       createFriend(user.id)
-  //       setNewFriend()
-  //       return newFriend
-  //     };     
-  // };
-  
-  // const createFriend = (id) => {
-  //   newFriend.userId = sessionUser.id
-  //   newFriend.activeUserId = id
-  //   newFriend.mutualInterest = false
-  //   FriendManager.postFriend(newFriend)
-  // }
-  
-  // useEffect(() => {
-  //   FriendManager.getAllFriends()
-  //     .then((response) => {
-  //       setFriends(response)
-  //   })
-  // }, [friends])
-  
-  // if (user.accountType === "candidate") {
-  //   if (mapFriend) {
-  //     return null
-  //   }
-  //   else if (halfFriend) {
-  //     return null
-  //   }
-  //   else {
-      return (
-        <React.Fragment>
-          <section className="employerCard">
-            <div className="employerCard__image">
-              <img src={user.imageUrl} alt={user.candidate.firstName} className="employerCard__logo"/>
-            </div>
-            <div className="employerDetails">
-              <h2 className="employerCard__name">{user.candidate.firstName}</h2>
-              <h4 className="employerCard__industry">{user.candidate.jobTitle}</h4>
-            </div>
-            <div className="employerCard__body">
-              {user.bio}
-            </div>
-            <br />
-          </section>
-          <section className="interestButtons">
+  if (removeMatched) {
+    return null
+  }
+  else {
+    return (
+      <React.Fragment>
+        <section className="candidateCard">
+          <div className="candidateCard__image">
+            <img src={candidate.imageUrl} alt={candidate.candidate.firstName} className="candidateCard__logo"/>
+          </div>
+          <div className="candidateDetails">
+            <h2 className="candidateCard__name">{candidate.candidate.firstName}</h2>
+            <h4 className="candidateCard__industry">{candidate.candidate.jobTitle}</h4>
+          </div>
+          <div className="candidateCard__body">
+            {candidate.bio}
+          </div>
+          <br />
+        </section>
+        <section className="interestButtons">
+        <button 
+            type="submit" 
+            className="falseBtn" 
+            onClick={() => passHandler(candidate.id)}
+            >
+              Hard Pass
+          </button>
           <button 
-              type="submit" 
-              className="falseBtn" 
-              // onClick={() => passHandler(user.id)}
-              >
-                Hard Pass
-            </button>
-            <button 
-              type="submit" 
-              className="trueBtn" 
-              // onClick={() => friendHandler(user.id)}
-              >
-                Let's Talk
-            </button> 
-          </section>
-          <br />
-          <br />
-          <br />
-          <br />
-        </React.Fragment>
-      )
-  //   }
-  // }
-  // else if (user.accountType === "employer") {
-  //   return null
-  // }
-  
+            type="submit" 
+            className="trueBtn" 
+            onClick={() => letsTalkHandler(candidate.id)}
+            >
+              Let's Talk
+          </button> 
+        </section>
+        <br />
+        <br />
+        <br />
+        <br />
+      </React.Fragment>
+    )
+  }  
 };
