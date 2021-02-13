@@ -1,20 +1,30 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { UserProfileContext } from "../../providers/UserProfileProvider.jsx";
+import { MessageContext } from "../../providers/MessageProvider.jsx";
 import { useHistory } from "react-router-dom";
 
 
 const ChatCard = ({chat}) => {
 
-  const sessionUser = JSON.parse(sessionStorage.getItem("userProfile"))
+  const sessionUser = JSON.parse(sessionStorage.getItem("userProfile"));
   const history = useHistory();
+  const { messages, getAllMessages } = useContext(MessageContext);
+  let message = {};
+
+  messages.find(obj => {
+    if (obj.chatId === chat.id) {
+      message = obj
+      return obj
+    }
+    else {
+      return null
+    }
+  })
  
+  useEffect(() => {
+    getAllMessages()
+  }, []);
 
-  
-  
- console.log(chat)
-
-
-  if (!chat || !chat.reciprocatingUser || !chat.initiatingUser) {
+  if (!chat || !chat.reciprocatingUser || !chat.initiatingUser || !message) {
     return null
   }
 
@@ -37,7 +47,7 @@ const ChatCard = ({chat}) => {
               <h4>{chat.reciprocatingUser.candidate.firstName}</h4>
             </div>
             <p className="messagePreview">
-            {/* {message.content}  */}
+            {message.content} 
             </p>
           </div>
         </section>
@@ -61,7 +71,7 @@ const ChatCard = ({chat}) => {
               <h4>{chat.initiatingUser.candidate.firstName}</h4>
             </div>
             <p className="messagePreview">
-              {/* {message.content} */}
+              {message.content}
             </p>
           </div>
         </section>
