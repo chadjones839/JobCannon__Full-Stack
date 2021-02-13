@@ -1,50 +1,46 @@
-import React, { useState, useEffect } from 'react';
-import MessageManager from "../modules/MessageManager";
+import React, { useState, useEffect, useContext } from 'react';
+import { useHistory, useParams } from 'react-router-dom';
+import { MessageContext } from "../../providers/MessageProvider.jsx";
 import MessageCard from "../messages/MessageCard";
 import { Link } from "react-router-dom";
 
-const MessageList = props => {
+export default function MessageList() {
   
-  const sessionUser = JSON.parse(sessionStorage.getItem("user"));
-  const [messages, setMessages] = useState([]);
+  const sessionUser = JSON.parse(sessionStorage.getItem("userProfile"));
+  const history = useHistory();
+  const { id } = useParams()
+  const { messages, getAllChatMessages, addMessage } = useContext(MessageContext);
   const [isLoading, setIsLoading] = useState(false)
   const [message, setMessage] = useState(
     {
-      chatId: parseInt(props.match.params.chatId),
+      chatId: id,
       userId: sessionUser.id, 
       content: ""
     });
 
-  const handleFieldChange = event => {
+  const handleFieldChange = e => {
       const stateToChange = {...message}
-      stateToChange[event.target.id] = event.target.value
+      stateToChange[e.target.id] = e.target.value
       setMessage(stateToChange)
   }
   
-  const postNewMessage = event => {
-      event.preventDefault();
+  const postNewMessage = e => {
+      e.preventDefault();
       if (message.content === "") {
         window.alert("There's nothing to send")
       } 
       else {
         setIsLoading(true);
-        MessageManager.postMessage(message)
+        addMessage(message)
         .then(() => {
           document.querySelector("#content").value = ""
         })
       }   
     }
 
-  const getMessages = () => {
-    return MessageManager.getAllMessages()
-  };
-
   useEffect(() => {
-    getMessages()
-    .then((response) => {
-      setMessages(response)
-    })
-  }, [messages])
+    getAllChatMessages(id)
+  }, [])
 
   
   return (
@@ -65,8 +61,7 @@ const MessageList = props => {
           {messages.map(message =>
             <MessageCard 
               key={message.id} 
-              message={message}
-              {...props} />
+              message={message} />
           )}      
       </main> 
       <section className="messageInput">
@@ -101,5 +96,3 @@ const MessageList = props => {
     </div>
   );
 };
-
-export default MessageList;

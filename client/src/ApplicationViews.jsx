@@ -100,16 +100,14 @@ const ApplicationViews = (props) => {
          <Chat/> : <Redirect to="/" />
          }
       </Route>
-      {/* <Route 
-        exact
-        path="/chats/:chatId(\d+)" 
-        render={props => {
-          return <MessageList 
-            chatId={parseInt(props.match.params.chatId)}
-            {...props} />
-      }} 
-      />
 
+      <Route exact path="/chats/:id" >
+        {isLoggedIn ? 
+        <MessageList/> : <Redirect to="/" />
+        }
+      </Route>
+
+{/*
       <Route 
         exact
         path="/messages" 

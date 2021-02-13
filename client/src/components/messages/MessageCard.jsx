@@ -1,19 +1,17 @@
 /* eslint-disable eqeqeq */
-import React, { useState, useEffect } from 'react';
-import UserManager from "../modules/UserManager";
+import React, { useState, useEffect, useContext } from 'react';
+import { UserProfileContext } from "../../providers/UserProfileProvider.jsx";
+import { useHistory } from "react-router-dom";
 
-const MessageCard = props => {
+const MessageCard = ({message}) => {
 
-  const sessionUser = JSON.parse(sessionStorage.getItem("user"));
-  const [users, setUsers] = useState([]);
+  const sessionUser = JSON.parse(sessionStorage.getItem("userProfile"));
+  const history = useHistory();
+  const { users, getAllUsers } = useContext(UserProfileContext);
   let user = {}
   
-  const getUsers = () => {
-    return UserManager.getWithFriends()
-  };
-
   users.find(obj => {
-    if (props.message.userId === obj.id) {
+    if (message.userId === obj.id) {
       user = obj
       return obj
     }
@@ -23,63 +21,60 @@ const MessageCard = props => {
   });
 
   useEffect(() => {
-    getUsers()
-    .then((userResponse) => {
-      setUsers(userResponse)
-    })
+    getAllUsers()
   }, [])
-  
-  if (props.match.params.chatId == props.message.chatId) {
-    if (props.message.userId !== sessionUser.id) {
-      return (
-        <React.Fragment>
-          <main className="inboundUser">
-            <div className="userContainer">
-              <div className="userDetails">
-                  <div className="userImage">
-                    <img 
-                    src={user.image} 
-                    alt="userIcon"
-                    onClick={() => props.history.push(`/users/${props.message.userId}/details`)} />
-                  </div>
-                <div className="inboundUserMessage">
-                  {props.message.content}
-                </div>
-              </div>
-            </div>
-          </main>  
-        </React.Fragment>
-      )
-    }
-    else {
-      return (
-        <React.Fragment>
-          <main className="outboundUser">
-            <div className="userContainer">
-              <div className="outboundUserDetails">
-                <div className="userDetailsContainer">
-                  <div className="outboundUserMessage">
-                    {props.message.content}
-                  </div>
-                  <div className="outboundUserImage">
-                    <img 
-                    src={user.image} 
-                    alt="userIcon" 
-                    onClick={() => props.history.push(`/profile`)}
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </main>  
-        </React.Fragment>
-      )
-    }
-  }
-  else {
+
+  if (!message || !users) {
     return null
   }
-}
-
+  
+  console.log(user)
+  
+  if (message.userId !== sessionUser.id) {
+    return (
+      <React.Fragment>
+        <main className="inboundUser">
+          <div className="userContainer">
+            <div className="userDetails">
+                <div className="userImage">
+                  <img 
+                  src={user.imageUrl} 
+                  alt="userIcon"
+                  onClick={() => history.push(`/users/${message.userId}/details`)} />
+                </div>
+              <div className="inboundUserMessage">
+                {message.content}
+              </div>
+            </div>
+          </div>
+        </main>  
+      </React.Fragment>
+    )
+  }
+  else {
+    return (
+      <React.Fragment>
+        <main className="outboundUser">
+          <div className="userContainer">
+            <div className="outboundUserDetails">
+              <div className="userDetailsContainer">
+                <div className="outboundUserMessage">
+                  {message.content}
+                </div>
+                <div className="outboundUserImage">
+                  <img 
+                  src={user.imageUrl} 
+                  alt="userIcon" 
+                  onClick={() => history.push(`/profile`)}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>  
+      </React.Fragment>
+    )
+  }
+};
 
 export default MessageCard;
