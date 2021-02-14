@@ -17,7 +17,7 @@
 }
 
 .skillsContainer::-webkit-scrollbar {
-  width: 5px;
+  width: 0px;
 }
 
 .skillsContainer::-webkit-scrollbar-track {
@@ -106,7 +106,7 @@
 }
 
 .resumesContainer::-webkit-scrollbar {
-  width: 5px;
+  width: 0px;
 }
 
 .resumesContainer::-webkit-scrollbar-track {

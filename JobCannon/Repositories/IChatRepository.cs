@@ -6,6 +6,7 @@ namespace JobCannon.Repositories
     public interface IChatRepository
     {
         List<Chat> GetAllChats();
+        List<Chat> GetUserChats(int id);
         Chat GetChatById(int id);
         void Add(Chat chat);
         void Update(Chat chat);

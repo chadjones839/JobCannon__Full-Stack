@@ -5,10 +5,11 @@ import ChatCard from "../chat/ChatCard";
 
 export default function ChatList() {
 
-  const { chats, getAllChats } = useContext(ChatContext);
+  const sessionUser = JSON.parse(sessionStorage.getItem("userProfile"))
+  const { chats, getUserChats } = useContext(ChatContext);
 
   useEffect(() => {
-    getAllChats()
+    getUserChats(sessionUser.id)
   }, []);
 
   return (
@@ -25,7 +26,6 @@ export default function ChatList() {
             chat={chat}
           />
         )}
-
       </main>
       <div className="navpanel">
         <Navbar />

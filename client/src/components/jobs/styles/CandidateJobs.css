@@ -10,7 +10,7 @@
 }
 
 .jobsContainer::-webkit-scrollbar {
-  width: 5px;
+  width: 0px;
 }
 
 .jobsContainer::-webkit-scrollbar-track {

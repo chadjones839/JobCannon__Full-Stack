@@ -23,6 +23,19 @@ export const ChatProvider = (props) => {
       .then(setChats));
     };
 
+    const getUserChats = (id) => {
+      getToken().then((token) =>
+        fetch(`${apiUrl}/user/${id}`, {
+          method: "GET",
+          headers: {
+              Authorization: `Bearer ${token}`
+          }
+        }
+      ))
+      .then((resp) => resp.json())
+      .then(setChats);
+    };
+
     const getChatById = (id) => {
       getToken().then((token) =>
         fetch(`${apiUrl}/${id}`, {
@@ -77,7 +90,7 @@ export const ChatProvider = (props) => {
 
     return (
         <ChatContext.Provider value={{
-            chat, chats, getAllChats, getChatById, addChat, updateChat, deleteChat
+            chat, chats, getAllChats, getUserChats, getChatById, addChat, updateChat, deleteChat
         }}>
             {props.children}
         </ChatContext.Provider>

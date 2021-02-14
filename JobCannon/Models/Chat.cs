@@ -25,5 +25,9 @@ namespace JobCannon.Models
         [Required]
         public bool ReciprocatingInterested { get; set; }
 
+        public User InitiatingUser { get; set; }
+
+        public User ReciprocatingUser { get; set; }
+
     }
 }

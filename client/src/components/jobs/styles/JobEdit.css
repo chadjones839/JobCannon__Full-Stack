@@ -9,7 +9,7 @@
 }
 
 .editJobListing::-webkit-scrollbar {
-  width: 5px;
+  width: 0px;
 }
 
 .editJobListing::-webkit-scrollbar-track {

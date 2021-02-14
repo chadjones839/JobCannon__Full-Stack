@@ -13,7 +13,6 @@ export function UserProfileProvider(props) {
   const [user, setUser] = useState({});
   const [users, setUsers] = useState([]);
   const [candidates, setCandidates] = useState([]);
-  const [candidate, setCandidate] = useState({});
   const [employers, setEmployers] = useState([]);
 
   const [isFirebaseReady, setIsFirebaseReady] = useState(false);

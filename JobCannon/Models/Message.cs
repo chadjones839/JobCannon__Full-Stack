@@ -11,11 +11,11 @@ namespace JobCannon.Models
         public int Id { get; set; }
 
         [Required]
-        public string ChatId { get; set; }
+        public int ChatId { get; set; }
         public Chat Chat { get; set; }
 
         [Required]
-        public string UserId { get; set; }
+        public int UserId { get; set; }
         public User User { get; set; }
 
         [Required]

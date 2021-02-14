@@ -20,7 +20,7 @@ namespace JobCannon.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetCandidate(int id)
+        public IActionResult GetEmployer(int id)
         {
             return Ok(_employerRepo.GetEmployerById(id));
         }

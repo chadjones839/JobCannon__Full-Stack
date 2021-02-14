@@ -1,52 +1,80 @@
-import React, { useState, useEffect } from 'react';
-import MessageManager from "../modules/MessageManager";
+import React, { useState, useEffect, useContext } from 'react';
+import { useHistory, useParams } from 'react-router-dom';
+import { MessageContext } from "../../providers/MessageProvider.jsx";
+import { ChatContext } from "../../providers/ChatProvider.jsx";
 import MessageCard from "../messages/MessageCard";
 import { Link } from "react-router-dom";
+import CandidateJobListings from '../jobs/CandidateJobListings.jsx';
 
-const MessageList = props => {
+export default function MessageList() {
   
-  const sessionUser = JSON.parse(sessionStorage.getItem("user"));
-  const [messages, setMessages] = useState([]);
+  const sessionUser = JSON.parse(sessionStorage.getItem("userProfile"));
+  const { id } = useParams()
+  const { messages, getAllChatMessages, addMessage } = useContext(MessageContext);
+  const { chat, getChatById } = useContext(ChatContext);
   const [isLoading, setIsLoading] = useState(false)
-  const [message, setMessage] = useState(
-    {
-      chatId: parseInt(props.match.params.chatId),
+  const [message, setMessage] = useState({
+      chatId: id,
       userId: sessionUser.id, 
       content: ""
     });
 
-  const handleFieldChange = event => {
+
+  const setEmployerName = () => {
+    if (sessionUser.id === chat.initiatingUserId && chat.initiatingUser.employerId === null) {
+      chatName = chat.reciprocatingUser.employer.name
+    }
+    else if (sessionUser.id === chat.reciprocatingUserId && chat.reciprocatingUser.employerId === null) {
+      chatName = chat.initiatingUser.employer.name
+    }
+  }
+  
+  const setCandidateName = () => {
+    if (sessionUser.id === chat.initiatingUserId && chat.initiatingUser.candidateId === null) {
+      chatName = chat.reciprocatingUser.candidate.firstName
+    }
+    else if (sessionUser.id === chat.reciprocatingUserId && chat.reciprocatingUser.candidateId === null) {
+      chatName = chat.initiatingUser.candidate.firstName
+    }
+  }
+
+  let chatName;  
+  setEmployerName();
+  setCandidateName();
+
+  const handleFieldChange = e => {
       const stateToChange = {...message}
-      stateToChange[event.target.id] = event.target.value
+      stateToChange[e.target.id] = e.target.value
       setMessage(stateToChange)
   }
   
-  const postNewMessage = event => {
-      event.preventDefault();
-      if (message.content === "") {
-        window.alert("There's nothing to send")
-      } 
-      else {
-        setIsLoading(true);
-        MessageManager.postMessage(message)
-        .then(() => {
-          document.querySelector("#content").value = ""
-        })
-      }   
-    }
-
-  const getMessages = () => {
-    return MessageManager.getAllMessages()
-  };
+  const postNewMessage = e => {
+    e.preventDefault();
+    if (message.content === "") {
+      window.alert("There's nothing to send")
+    } 
+    else {
+      setIsLoading(true);
+      addMessage(message)
+      .then(() => {
+        document.querySelector("#content").value = ""
+      })
+    }   
+  }
 
   useEffect(() => {
-    getMessages()
-    .then((response) => {
-      setMessages(response)
-    })
+    getAllChatMessages(id)
   }, [messages])
 
+  useEffect(() => {
+    getChatById(id)
+  }, [])
   
+
+  if (!chat || !chat.reciprocatingUser || !chat.initiatingUser) {
+    return null
+  }
+
   return (
     <div id="root-wrapper">
         <div className="chatHeader">
@@ -56,7 +84,7 @@ const MessageList = props => {
             </div>
           </Link>
           <div className="chatName">
-            <h3>Chat</h3>
+            <h3>{chatName}</h3>
           </div>
           <div className="rightChat">
           </div>
@@ -65,22 +93,22 @@ const MessageList = props => {
           {messages.map(message =>
             <MessageCard 
               key={message.id} 
-              message={message}
-              {...props} />
+              message={message} />
           )}      
       </main> 
       <section className="messageInput">
         <div className="messageInput__compose">
           <form className="messageForm__form">
             <fieldset className="messageForm__fieldset">
-              <textarea
+              <input
                 className="messageForm__content" 
                 name="content"  
-                type="text"
+                type="textarea"
                 required
                 onChange={handleFieldChange}
                 id="content"
-                placeholder="Say something..."
+                wrap="on"
+                placeholder= {`Message ${chatName}`}
                 autoFocus
                 spellCheck={true}
                 />
@@ -101,5 +129,3 @@ const MessageList = props => {
     </div>
   );
 };
-
-export default MessageList;
