@@ -3,15 +3,20 @@
 @import "./ChatList.css";
 
 
-
 .chatContainer {
+  height: 700px;
   padding: 0px 10px 10px;
   overflow-y: scroll;
-  height: 680px;
+  overscroll-behavior-y: contain;
+  scroll-snap-type: y proximity;
+}
+
+.chatContainer > .messageContainer:last-child {
+  scroll-snap-align: end;
 }
 
 .chatContainer::-webkit-scrollbar {
-  width: 5px;
+  width: 0px;
 }
 
 .chatContainer::-webkit-scrollbar-track {

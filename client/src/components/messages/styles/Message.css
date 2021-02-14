@@ -29,17 +29,20 @@
   display: flex;
   flex-direction: row;
   width: 375px;
-  height: 75px;
+  height: 50px;
   position: relative; 
   bottom: 0px;
   background: white;
+  box-shadow: 0 -2px 5px -2px rgb(165, 165, 165);
 }
+
+
 
 .messageInput__compose {
   width: 90%;
   margin-left: 0;
   padding-top: 0px;
-  background: white;
+  background-color: rgba(255,0,0,0);
 }
 
 .messageForm__button {
@@ -63,7 +66,7 @@
 
 .messageForm__content {
   width: 95%;
-  height: 30px;
+  height: 40px;
   padding: 5px;
   margin: 0;
   margin-left: 10px;
@@ -73,8 +76,16 @@
   border: none;
   outline: none;
   position: relative;
-  bottom: -23px;
+  bottom: 0px;
 }
+
+input[type='textarea']::-webkit-input-placeholder {
+  color: grey;
+  line-height: 20px;
+  overflow-y: scroll;
+  overflow: auto;
+  resize: none
+} 
 
 .messageForm__submit {
   position: relative;
@@ -122,6 +133,13 @@
 .outboundUserImage > img {
   width: 50px;
   border-radius: 50%;
+}
+
+.inboundContainer,
+.outboundContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .inboundUserMessage {

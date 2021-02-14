@@ -28,22 +28,24 @@ const MessageCard = ({message}) => {
     return null
   }
   
-  console.log(user)
-  
   if (message.userId !== sessionUser.id) {
     return (
       <React.Fragment>
-        <main className="inboundUser">
-          <div className="userContainer">
-            <div className="userDetails">
+        <main className="messageContainer">
+          <div className="inboundUser">
+            <div className="userContainer">
+              <div className="userDetails">
                 <div className="userImage">
                   <img 
                   src={user.imageUrl} 
                   alt="userIcon"
                   onClick={() => history.push(`/users/${message.userId}/details`)} />
                 </div>
-              <div className="inboundUserMessage">
-                {message.content}
+                <div className="inboundContainer">
+                  <div className="inboundUserMessage">
+                    {message.content}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -54,19 +56,23 @@ const MessageCard = ({message}) => {
   else {
     return (
       <React.Fragment>
-        <main className="outboundUser">
-          <div className="userContainer">
-            <div className="outboundUserDetails">
-              <div className="userDetailsContainer">
-                <div className="outboundUserMessage">
-                  {message.content}
-                </div>
-                <div className="outboundUserImage">
-                  <img 
-                  src={user.imageUrl} 
-                  alt="userIcon" 
-                  onClick={() => history.push(`/profile`)}
-                  />
+        <main className="messageContainer">
+          <div className="outboundUser">
+            <div className="userContainer">
+              <div className="outboundUserDetails">
+                <div className="userDetailsContainer">
+                  <div className="outboundContainer">
+                    <div className="outboundUserMessage">
+                      {message.content}
+                    </div>
+                  </div>
+                  <div className="outboundUserImage">
+                    <img 
+                    src={user.imageUrl} 
+                    alt="userIcon" 
+                    onClick={() => history.push(`/profile`)}
+                    />
+                  </div>
                 </div>
               </div>
             </div>

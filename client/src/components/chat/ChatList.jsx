@@ -26,7 +26,6 @@ export default function ChatList() {
             chat={chat}
           />
         )}
-
       </main>
       <div className="navpanel">
         <Navbar />

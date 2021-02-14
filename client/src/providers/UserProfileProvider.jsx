@@ -12,6 +12,8 @@ export function UserProfileProvider(props) {
   const [isLoggedIn, setIsLoggedIn] = useState(userProfile != null);
   const [user, setUser] = useState({});
   const [users, setUsers] = useState([]);
+  const [candidates, setCandidates] = useState([]);
+  const [employers, setEmployers] = useState([]);
 
   const [isFirebaseReady, setIsFirebaseReady] = useState(false);
   useEffect(() => {
@@ -31,6 +33,26 @@ export function UserProfileProvider(props) {
         }
       }).then(resp => resp.json())
         .then(setUsers));
+
+  const getAllCandidates = () =>
+    getToken().then((token) =>
+      fetch(`${apiUrl}/candidates`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }).then(resp => resp.json())
+        .then(setCandidates));
+
+  const getAllEmployers = () =>
+    getToken().then((token) =>
+      fetch(`${apiUrl}/employers`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }).then(resp => resp.json())
+        .then(setEmployers));
 
   const login = (email, pw) => {
     return firebase.auth().signInWithEmailAndPassword(email, pw)
@@ -115,7 +137,7 @@ export function UserProfileProvider(props) {
         }))
 
   return (
-    <UserProfileContext.Provider value={{ user, users, isLoggedIn, userProfile, login, logout, register, getToken, setUsers, getAllUsers, getFirebaseUser, getLocalUser, addUser, updateUser, deleteUser }}>
+    <UserProfileContext.Provider value={{ user, users, candidates, employers, isLoggedIn, userProfile, login, logout, register, getToken, setUsers, getAllUsers, getAllCandidates, getAllEmployers, getFirebaseUser, getLocalUser, addUser, updateUser, deleteUser }}>
       {isFirebaseReady
         ? props.children
         : <Spinner className="app-spinner dark" />}

@@ -152,9 +152,9 @@ namespace JobCannon.Repositories
                     cmd.CommandText = @"INSERT INTO Messages (ChatId, UserId, Content)
                                         OUTPUT INSERTED.ID
                                         VALUES (@ChatId, @UserId, @Content)";
-                    DbUtils.AddParameter(cmd, "@InitiatingUserId", message.ChatId);
-                    DbUtils.AddParameter(cmd, "@ReciprocatingUserId", message.UserId);
-                    DbUtils.AddParameter(cmd, "@MutualInterest", message.Content);
+                    DbUtils.AddParameter(cmd, "@ChatId", message.ChatId);
+                    DbUtils.AddParameter(cmd, "@UserId", message.UserId);
+                    DbUtils.AddParameter(cmd, "@Content", message.Content);
                     message.Id = (int)cmd.ExecuteScalar();
                 }
             }

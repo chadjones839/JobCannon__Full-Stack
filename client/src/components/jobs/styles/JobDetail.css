@@ -60,7 +60,7 @@
 }
 
 .detailedJobListing::-webkit-scrollbar {
-  width: 5px;
+  width: 0px;
 }
 
 .detailedJobListing::-webkit-scrollbar-track {

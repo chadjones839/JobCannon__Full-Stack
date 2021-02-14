@@ -142,9 +142,21 @@ namespace JobCannon.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                       SELECT Id, InitiatingUserId, ReciprocatingUserId, MutualInterest, InitiatingInterested, ReciprocatingInterested
-                         FROM Chats
-                        WHERE Id = @Id";
+                       SELECT c.Id, c.InitiatingUserId, c.ReciprocatingUserId, c.MutualInterest, c.InitiatingInterested, c.ReciprocatingInterested,
+                              iu.Id, iu.ImageUrl, iu.Candidateid, iu.EmployerId,
+                              iuc.Id, iuc.FirstName,
+                              iue.Id, iue.Name,
+                              ru.Id, ru.ImageUrl AS RImageUrl, ru.CandidateId AS RCandidateId, ru.EmployerId AS REmployerId,
+                              ruc.Id, ruc.FirstName AS RFirstname,
+                              rue.Id, rue.Name AS RName
+                         FROM Chats c
+                    LEFT JOIN Users iu ON c.InitiatingUserId = iu.Id
+                    LEFT JOIN Candidates iuc ON iu.CandidateId = iuc.Id
+                    LEFT JOIN Employers iue ON iu.EmployerId = iue.Id
+                    LEFT JOIN Users ru ON c.ReciprocatingUserId = ru.Id
+                    LEFT JOIN Candidates ruc ON ru.CandidateId = ruc.Id
+                    LEFT JOIN Employers rue ON ru.EmployerId = rue.Id
+                        WHERE c.Id = @Id";
 
                     DbUtils.AddParameter(cmd, "@Id", id);
 
@@ -153,7 +165,47 @@ namespace JobCannon.Repositories
                     var reader = cmd.ExecuteReader();
                     if (reader.Read())
                     {
-                        chat = NewChatFromReader(reader);
+                        chat = new Chat()
+                        {
+                            Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                            InitiatingUserId = reader.GetInt32(reader.GetOrdinal("InitiatingUserId")),
+                            ReciprocatingUserId = reader.GetInt32(reader.GetOrdinal("ReciprocatingUserId")),
+                            MutualInterest = reader.GetString(reader.GetOrdinal("MutualInterest")),
+                            InitiatingInterested = reader.GetBoolean(reader.GetOrdinal("InitiatingInterested")),
+                            ReciprocatingInterested = reader.GetBoolean(reader.GetOrdinal("ReciprocatingInterested")),
+                            InitiatingUser = new User()
+                            {
+                                Id = reader.GetInt32(reader.GetOrdinal("InitiatingUserId")),
+                                ImageUrl = reader.GetString(reader.GetOrdinal("ImageUrl")),
+                                CandidateId = DbUtils.GetNullableInt(reader, "CandidateId"),
+                                Candidate = new Candidate()
+                                {
+                                    Id = DbUtils.GetNullableInt(reader, "CandidateId"),
+                                    FirstName = DbUtils.GetNullableString(reader, "FirstName")
+                                },
+                                Employer = new Employer()
+                                {
+                                    Id = DbUtils.GetNullableInt(reader, "CandidateId"),
+                                    Name = DbUtils.GetNullableString(reader, "Name")
+                                }
+                            },
+                            ReciprocatingUser = new User()
+                            {
+                                Id = reader.GetInt32(reader.GetOrdinal("ReciprocatingUserId")),
+                                ImageUrl = reader.GetString(reader.GetOrdinal("RImageUrl")),
+                                CandidateId = DbUtils.GetNullableInt(reader, "RCandidateId"),
+                                Candidate = new Candidate()
+                                {
+                                    Id = DbUtils.GetNullableInt(reader, "RCandidateId"),
+                                    FirstName = DbUtils.GetNullableString(reader, "RFirstName")
+                                },
+                                Employer = new Employer()
+                                {
+                                    Id = DbUtils.GetNullableInt(reader, "RCandidateId"),
+                                    Name = DbUtils.GetNullableString(reader, "RName")
+                                }
+                            }
+                        };
                     }
                     reader.Close();
 
