@@ -20,11 +20,12 @@ import UserDetail from "./components/profile/UserDetail.jsx";
 import Chat from "./components/chat/ChatList.jsx";
 import MessageList from "./components/messages/MessageList.jsx";
 
-import JobList from "./components/jobs/JobListingList.jsx";
+import EmployerJobList from "./components/jobs/EmployerJobList.jsx";
 import JobDetail from "./components/jobs/JobDetail.jsx";
-import JobListingEdit from "./components/jobs/JobListingEdit.jsx";
-import JobForm from "./components/jobs/JobForm.jsx";
-import CandidateJobListings from "./components/jobs/CandidateJobListings.jsx";
+import EmployerJobEdit from "./components/jobs/EmployerJobEdit.jsx";
+import EmployerJobForm from "./components/jobs/EmployerJobForm.jsx";
+import CandidateCompanySelect from "./components/jobs/CandidateCompanySelect.jsx";
+import OpenPositions from "./components/jobs/OpenPositions.jsx";
 
 import UserResume from "./components/resumes/UserResume.jsx";
 import ViewResume from "./components/resumes/ViewResume.jsx";
@@ -68,31 +69,26 @@ const ApplicationViews = (props) => {
       </Route>
 
       <Route exact path="/profile">
-          {!isLoggedIn ? <Redirect to="/"/> : 
-          sessionUser.candidateId != null ?
+          {!isLoggedIn ? 
+          <Redirect to="/"/> : sessionUser.candidateId != null ?
           <CandidateProfile/> : <EmployerProfile/>}
       </Route>
 
-       <Route
-        exact path="/user/edit/:id">
-          {!isLoggedIn ? <Redirect to="/"/> : sessionUser.candidateId === null ? <EditEmployer/> : <EditCandidate/>}
+       <Route exact path="/user/edit/:id">
+          {!isLoggedIn ? 
+          <Redirect to="/"/> : sessionUser.candidateId === null ? 
+          <EditEmployer/> : <EditCandidate/>}
       </Route>
 
-      {/*<Route
-        exact
-          path="/users/:userId(\d+)/details"
-          render={props => {
-            return <UserDetail
-              {...props} 
-              userId={props.match.params.userId} />
-          }}
-      />*/}
+      <Route exact path="/users/:id/details">
+          {!isLoggedIn ? 
+          <UserDetail/> : <Redirect to="/"/>}
+      </Route>
 
       <Route exact path="/discovery">
-          {!isLoggedIn ? <Redirect to="/"/> : 
-          sessionUser.employerId === null ?
-          <EmployerDiscovery/> : <CandidateDiscovery/>
-          }
+          {!isLoggedIn ? 
+          <Redirect to="/"/> : sessionUser.employerId === null ?
+          <EmployerDiscovery/> : <CandidateDiscovery/>}
       </Route>
 
       <Route exact path="/chat">
@@ -107,69 +103,38 @@ const ApplicationViews = (props) => {
         }
       </Route>
 
-{/*
-      <Route 
-        exact
-        path="/messages" 
-        render={props => {
-          if (hasUser) {
-            return <MessageList {...props} />
-          }
-          else {
-            return <Redirect to="/" />
-          }
-      }} 
-      />
-      <Route 
-        exact
-        path="/jobs" 
-        render={props => {
-            return <JobList 
-            {...props} />
-        }} 
-      />
-      <Route 
-        exact
-        path="/jobs/:userId(\d+)/listings" 
-        render={props => {
-            return <JobList 
-            userId={parseInt(props.match.params.userId)}
-            {...props} />
-        }} 
-      />
-      <Route 
-        exact
-        path="/companies" 
-        render={props => {
-          return <CandidateJobListings {...props} />
-        }} 
-      />
-      <Route
-        exact
-        path="/jobs/:jobId(\d+)"
-        render={props => {
-          return <JobDetail
-          jobId={parseInt(props.match.params.jobId)} 
-          {...props} />
-        }}
-      />
-      <Route
-        exact
-        path="/jobs/:jobId(\d+)/edit"
-        render={props => {
-          return <JobListingEdit 
-            {...props} 
-            jobId={props.match.params.jobId} />
-        }} 
-      />
-      <Route
-        exact
-        path="/jobs/new"
-        render={props => {
-          return <JobForm
-            {...props} />
-        }} 
-      />
+      <Route exact path="/jobs" >
+        {isLoggedIn ? 
+        <EmployerJobList/> : <Redirect to="/" />
+        }
+      </Route>
+
+      <Route exact path="/jobs/new">
+        {isLoggedIn ?
+         <EmployerJobForm/> : <Redirect to="/" />}
+      </Route>
+
+      <Route exact path="/jobs/edit/:id">
+        {isLoggedIn ?
+         <EmployerJobEdit/> : <Redirect to="/" />}
+      </Route>
+
+      <Route exact path="/job-listings" >
+        {isLoggedIn ? 
+        <CandidateCompanySelect/> : <Redirect to="/" />
+        }
+      </Route>
+
+      <Route exact path="/jobs-listings/:id/:employerId">
+        {isLoggedIn ?
+         <OpenPositions/> : <Redirect to="/" />}
+      </Route>
+
+      <Route exact path="/jobs/:id">
+        {isLoggedIn ?
+         <JobDetail/> : <Redirect to="/" />}
+      </Route>
+      {/*
       <Route 
         exact
         path="/resume" 

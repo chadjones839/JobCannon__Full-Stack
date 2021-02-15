@@ -49,6 +49,12 @@ namespace JobCannon.Controllers
             return Ok(_userRepo.GetUserById(id));
         }
 
+        [HttpGet("employer-user/{id}")]
+        public IActionResult GetEmployerUser(int id)
+        {
+            return Ok(_userRepo.GetEmployerIdByUserId(id));
+        }
+
         [HttpPost]
         public IActionResult Post(User user)
         {

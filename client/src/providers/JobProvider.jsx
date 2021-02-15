@@ -1,40 +1,49 @@
 import React, { useState, useContext } from "react";
 import { UserProfileContext } from "./UserProfileProvider";
 
-export const EmployerContext = React.createContext();
+export const JobContext = React.createContext();
 
-export const EmployerProvider = (props) => {
-  const apiUrl = "/api/employer";
+export const JobProvider = (props) => {
+  const apiUrl = "/api/job";
   const { getToken } = useContext(UserProfileContext);
 
-  const [employers, setEmployers] = useState([]);
-  const [employer, setEmployer] = useState({});
+  const [jobs, setJobs] = useState([]);
+  const [job, setJob] = useState({});
 
-  const getAllEmployers = () => {
+  const getAllJobs = () => {
     getToken().then((token) =>
       fetch(apiUrl, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`
         }
-      })
-    .then(resp => resp.json())
-    .then(setEmployers))
+      }).then(resp => resp.json())
+        .then(setJobs));
   };
 
-  const getEmployerById = (id) => {
+  const getAllEmployerJobs = (id) => {
+    getToken().then((token) =>
+      fetch(`${apiUrl}/employer-listings/${id}`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }).then(resp => resp.json())
+        .then(setJobs));
+  };
+
+  const getJobById = (id) => {
     getToken().then((token) =>
       fetch(`${apiUrl}/${id}`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`
         }
-      }))
-    .then((resp) => resp.json())
-    .then(setEmployer);
+      })).then((resp) => resp.json())
+      .then(setJob);
   };
 
-  const addEmployer = (employer) => {
+  const addJob = (job) => {
     return getToken().then((token) =>
       fetch(apiUrl, {
         method: "POST",
@@ -42,12 +51,11 @@ export const EmployerProvider = (props) => {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json"
         },
-        body: JSON.stringify(employer)
-      })
-    .then(resp => resp.json()));
+        body: JSON.stringify(job)
+      }).then(resp => resp.json()));
   };
 
-  const updateEmployer = (id, employer) => {
+  const updateJob = (id, job) => {
     return getToken().then((token) =>
       fetch(`${apiUrl}/edit/${id}`, {
         method: "PUT",
@@ -55,12 +63,11 @@ export const EmployerProvider = (props) => {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json"
         },
-        body: JSON.stringify(employer)
-      })
-    )
+        body: JSON.stringify(job)
+      }))
   };
 
-  const deleteEmployer = (id) => {
+  const deleteJob = (id) => {
     getToken().then((token) =>
       fetch(`${apiUrl}/delete/${id}`, {
         method: "DELETE",
@@ -68,15 +75,15 @@ export const EmployerProvider = (props) => {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json"
         },
-      })
-    )
+      }))
   };
 
   return (
-    <EmployerContext.Provider value={{
-      employer, employers, getAllEmployers, getEmployerById, addEmployer, updateEmployer, deleteEmployer
+    <JobContext.Provider value={{
+      job, jobs, getAllJobs, getAllEmployerJobs, getJobById, addJob, updateJob, deleteJob
     }}>
       {props.children}
-    </EmployerContext.Provider>
+    </JobContext.Provider>
   );
+
 }

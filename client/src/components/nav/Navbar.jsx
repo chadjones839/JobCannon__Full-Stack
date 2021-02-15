@@ -18,7 +18,7 @@ const NavBar = props => {
           ? <Link className="nav-link" to="/jobs"> 
               <img src="https://res.cloudinary.com/dhduglm4j/image/upload/v1596585155/icons/suitcase_x8vwp8.png" alt="jobs" /> 
           </Link>
-          : <Link className="nav-link" to="/companies"> 
+          : <Link className="nav-link" to="/job-listings"> 
             <img src="https://res.cloudinary.com/dhduglm4j/image/upload/v1596585155/icons/suitcase_x8vwp8.png" alt="jobs" /> 
       </Link> }
         </li>

@@ -42,15 +42,12 @@ namespace JobCannon.Models
         [StringLength(25)]
         public string Type { get; set; }
 
-        [Required]
         [StringLength(25)]
         public string Keyword1 { get; set; }
 
-        [Required]
         [StringLength(25)]
         public string Keyword2 { get; set; }
 
-        [Required]
         [StringLength(25)]
         public string Keyword3 { get; set; }
 
