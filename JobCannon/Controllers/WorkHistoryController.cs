@@ -25,13 +25,13 @@ namespace JobCannon.Controllers
             return Ok(_workHistoryRepo.GetAllWorkHistory());
         }
 
-        [HttpGet("candidates")]
+        [HttpGet("userId/{id}")]
         public IActionResult GetWorkHistoryByUserId(int id)
         {
             return Ok(_workHistoryRepo.GetAllWorkHistoryByUserId(id));
         }
 
-        [HttpGet("employers")]
+        [HttpGet("job-id/{id}")]
         public IActionResult GetWorkHistoryById(int id)
         {
             return Ok(_workHistoryRepo.GetWorkHistoryById(id));
@@ -41,7 +41,7 @@ namespace JobCannon.Controllers
         public IActionResult Post(WorkHistory workHistory)
         {
             _workHistoryRepo.Add(workHistory);
-            return CreatedAtAction("GetJob", new { id = workHistory.Id }, workHistory);
+            return CreatedAtAction("GetWorkHistory", new { id = workHistory.Id }, workHistory);
         }
 
         [HttpPut("edit/{id}")]

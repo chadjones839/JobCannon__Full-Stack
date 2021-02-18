@@ -1,12 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import ResumeManager from '../modules/ResumeManager';
+import React, { useState, useEffect, useContext } from 'react';
+import { useHistory, useParams } from "react-router-dom";
+import { ResumeContext } from "../../providers/ResumeProvider.jsx";
 
 const SchoolForm = props => {
 
-  const sessionUser = JSON.parse(sessionStorage.getItem("user"))
+  const sessionUser = JSON.parse(sessionStorage.getItem("userProfile"));
+  const history = useHistory();
+  const { id } = useParams();
+  const { school, updateSchool, getSchoolById } = useContext(ResumeContext);
   const [isLoading, setIsLoading] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
-  const [school, setSchool] = useState({
+  const [editedSchool, setEditedSchool] = useState({
     userId: sessionUser.id,
     schoolName: "",
     field: "",
@@ -18,11 +22,11 @@ const SchoolForm = props => {
     current: isChecked
   });
 
-  const checkBoxValue = evt => {
+  const checkBoxValue = e => {
     if (!isChecked) {
       school.current = true
-      school.endMonth = ""
-      school.endYear = ""
+      school.endMonth = null
+      school.endYear = null
       document.querySelector("#endDateFields").style.display = "none"
       setIsChecked(true);
     }
@@ -37,39 +41,37 @@ const SchoolForm = props => {
   const handleFieldChange = evt => {
     const stateToChange = { ...school };
     stateToChange[evt.target.id] = evt.target.value;
-    setSchool(stateToChange);
+    setEditedSchool(stateToChange);
   };
 
-  const updateSchool = event => {
+  const editSchool = event => {
     event.preventDefault();
     setIsLoading(true)
 
-    const editedSchool = {
+    updateSchool({
       userId: sessionUser.id,
-      schoolName: school.schoolName,
-      field: school.field,
-      degree: school.degree,
-      startMonth: school.startMonth,
-      startYear: school.startYear,
-      endMonth: school.endMonth,
-      endYear: school.endYear,
+      schoolName: editedSchool.schoolName,
+      field: editedSchool.field,
+      degree: editedSchool.degree,
+      startMonth: editedSchool.startMonth,
+      startYear: editedSchool.startYear,
+      endMonth: editedSchool.endMonth,
+      endYear: editedSchool.endYear,
       current: isChecked,
-      id: props.match.params.schoolId
-    }
+      id: id
+    });
 
-    ResumeManager.editSchool(editedSchool)
-      .then(() => {
-        props.history.push("/resume")
-      })
+    updateSchool(editedSchool.id, editedSchool)
+    history.push("/resume")
   }
 
   useEffect(() => {
-    ResumeManager.getSchool(props.match.params.schoolId)
-      .then((school) => {
-        setSchool(school)
-        setIsLoading(false)
-      })
-  }, [props.match.params.schoolId]);
+    getSchoolById(id)
+  }, [id]);
+
+  useEffect(() => {
+    setEditedSchool(school)
+  }, [school]);
 
   return (
     <div id="root-wrapper">
@@ -77,7 +79,7 @@ const SchoolForm = props => {
         <button
           type="submit"
           className="backBtn"
-          onClick={() => props.history.push("/resume")}>
+          onClick={() => history.push("/resume")}>
           <img src="https://res.cloudinary.com/dhduglm4j/image/upload/v1596490014/icons/backarrow_lfdpzw.png" className="backToResume" alt="back" />
         </button>
       </div>
@@ -103,7 +105,7 @@ const SchoolForm = props => {
               className="editInput"
               onChange={handleFieldChange}
               id="schoolName"
-              value={school.schoolName}
+              defaultValue={school.schoolName}
             />
 
             <label
@@ -116,7 +118,7 @@ const SchoolForm = props => {
               className="editInput"
               onChange={handleFieldChange}
               id="degree"
-              value={school.degree}
+              defaultValue={school.degree}
             />
 
             <label
@@ -129,7 +131,7 @@ const SchoolForm = props => {
               className="editInput"
               onChange={handleFieldChange}
               id="field"
-              value={school.field}
+              defaultValue={school.field}
             />
 
             <div className="dateFields">
@@ -145,19 +147,19 @@ const SchoolForm = props => {
                   max-length="9"
                   onChange={handleFieldChange}
                   id="startMonth"
-                  value={school.startMonth}>
-                  <option value="January">January</option>
-                  <option value="Febuary">Febuary</option>
-                  <option value="March">March</option>
-                  <option value="April">April</option>
-                  <option value="May">May</option>
-                  <option value="June">June</option>
-                  <option value="July">July</option>
-                  <option value="August">August</option>
-                  <option value="September">September</option>
-                  <option value="October">October</option>
-                  <option value="November">November</option>
-                  <option value="December">December</option>
+                  defaultValue={school.startMonth}>
+                  <option defaultValue="January">January</option>
+                  <option defaultValue="Febuary">Febuary</option>
+                  <option defaultValue="March">March</option>
+                  <option defaultValue="April">April</option>
+                  <option defaultValue="May">May</option>
+                  <option defaultValue="June">June</option>
+                  <option defaultValue="July">July</option>
+                  <option defaultValue="August">August</option>
+                  <option defaultValue="September">September</option>
+                  <option defaultValue="October">October</option>
+                  <option defaultValue="November">November</option>
+                  <option defaultValue="December">December</option>
                 </select>
               </div>
               <div className="start2">
@@ -174,7 +176,7 @@ const SchoolForm = props => {
                   max="2020"
                   onChange={handleFieldChange}
                   id="startYear"
-                  value={school.startYear}
+                  defaultValue={school.startYear}
                 />
               </div>
             </div>
@@ -191,19 +193,19 @@ const SchoolForm = props => {
                   max-length="9"
                   onChange={handleFieldChange}
                   id="endMonth"
-                  value={school.endMonth}>
-                  <option value="January">January</option>
-                  <option value="Febuary">Febuary</option>
-                  <option value="March">March</option>
-                  <option value="April">April</option>
-                  <option value="May">May</option>
-                  <option value="June">June</option>
-                  <option value="July">July</option>
-                  <option value="August">August</option>
-                  <option value="September">September</option>
-                  <option value="October">October</option>
-                  <option value="November">November</option>
-                  <option value="December">December</option>
+                  defaultValue={school.endMonth}>
+                  <option defaultValue="January">January</option>
+                  <option defaultValue="Febuary">Febuary</option>
+                  <option defaultValue="March">March</option>
+                  <option defaultValue="April">April</option>
+                  <option defaultValue="May">May</option>
+                  <option defaultValue="June">June</option>
+                  <option defaultValue="July">July</option>
+                  <option defaultValue="August">August</option>
+                  <option defaultValue="September">September</option>
+                  <option defaultValue="October">October</option>
+                  <option defaultValue="November">November</option>
+                  <option defaultValue="December">December</option>
                 </select>
               </div>
               <div className="end2">
@@ -220,7 +222,7 @@ const SchoolForm = props => {
                   max="2035"
                   onChange={handleFieldChange}
                   id="endYear"
-                  value={school.endYear}
+                  defaultValue={school.endYear}
                 />
               </div>
             </div>
@@ -230,7 +232,7 @@ const SchoolForm = props => {
               onChange={checkBoxValue}
               checked={isChecked}
               id="current"
-              value={school.current}
+              defaultValue={school.current}
             />
             <label
               className="editLabel"
@@ -248,7 +250,7 @@ const SchoolForm = props => {
           className="blueBtn__wide"
           id="submitBtn"
           disabled={isLoading}
-          onClick={updateSchool}>
+          onClick={editSchool}>
           Save Changes
         </button>
       </div>

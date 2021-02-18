@@ -134,38 +134,43 @@ const ApplicationViews = (props) => {
         {isLoggedIn ?
          <JobDetail/> : <Redirect to="/" />}
       </Route>
+      
+      <Route exact path="/resume"> 
+        {isLoggedIn ?
+        <UserResume /> : <Redirect to="/" />}
+      </Route>
+
+      <Route exact path="/candidates"> 
+        {isLoggedIn ?
+        <ResumeList /> : <Redirect to="/" />}
+      </Route>
+
+      <Route exact path="/work-history/new"> 
+        {isLoggedIn ?
+        <WorkHistory /> : <Redirect to="/" />}
+      </Route>
+
+      <Route exact path="/work-history/:id/edit"> 
+        {isLoggedIn ?
+        <WorkHistoryEdit  /> : <Redirect to="/" />}
+      </Route>
+
+      <Route exact path="/schools/new"> 
+        {isLoggedIn ?
+        <SchoolForm /> : <Redirect to="/" />}
+      </Route>
+
+      <Route exact path="/schools/:id/edit"> 
+        {isLoggedIn ?
+        <SchoolEdit /> : <Redirect to="/" />}
+      </Route>
+
+      <Route exact path="/user-resume/:id"> 
+        {isLoggedIn ?
+        <ViewResume /> : <Redirect to="/" />}
+      </Route>
+      
       {/*
-      <Route 
-        exact
-        path="/resume" 
-        render={props => {
-          return <UserResume {...props} />
-        }} 
-      />
-      <Route 
-        exact
-        path="/candidates" 
-        render={props => {
-          return <ResumeList {...props} />
-        }} 
-      />
-      <Route
-        exact
-        path="/work-history/new"
-        render={props => {
-          return <WorkHistory
-            {...props} />
-        }} 
-      />
-      <Route
-        exact
-        path="/work-history/:jobId(\d+)/edit"
-        render={props => {
-          return <WorkHistoryEdit 
-            {...props} 
-            jobId={props.match.params.jobId} />
-        }} 
-      />
       <Route
         exact
         path="/skills/new"
@@ -183,32 +188,7 @@ const ApplicationViews = (props) => {
             skillId={props.match.params.skillId} />
         }} 
       />
-      <Route
-        exact
-        path="/schools/new"
-        render={props => {
-          return <SchoolForm
-            {...props} />
-        }} 
-      />
-      <Route
-        exact
-        path="/schools/:schoolId(\d+)/edit"
-        render={props => {
-          return <SchoolEdit 
-            {...props} 
-            schoolId={props.match.params.schoolId} />
-        }} 
-      />
-      <Route
-        exact
-        path="/user-resume/:userId(\d+)"
-        render={props => {
-          return <ViewResume 
-            {...props} 
-            userId={props.match.params.userId} />
-        }} 
-      /> */}
+       */}
 
       </Switch>
     </main>

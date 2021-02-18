@@ -1,15 +1,19 @@
-import React, { useState } from 'react';
-import ResumeManager from '../modules/ResumeManager';
+import React, { useState, useContext } from 'react';
+import { useHistory } from "react-router-dom";
+import { ResumeContext } from "../../providers/ResumeProvider.jsx";
 
-const WorkHistory = props => {
+const WorkHistory = () => {
 
-  const sessionUser = JSON.parse(sessionStorage.getItem("user"))
+  const sessionUser = JSON.parse(sessionStorage.getItem("userProfile"))
+  const history = useHistory();
   const [isLoading, setIsLoading] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
+  const { addWorkHistory } = useContext(ResumeContext)
   const [job, setJob] = useState({
     userId: sessionUser.id,
     jobTitle: "",
     company: "",
+    location: "",
     startMonth: "",
     startYear: "",
     endMonth: "",
@@ -18,11 +22,11 @@ const WorkHistory = props => {
     description: "",
   });
 
-  const checkBoxValue = evt => {
+  const checkBoxValue = e => {
     if (!isChecked) {
       job.current = true
-      job.endMonth = ""
-      job.endYear = ""
+      job.endMonth = null
+      job.endYear = null
       document.querySelector("#endDateFields").style.display = "none"
       setIsChecked(true);
     }
@@ -31,8 +35,7 @@ const WorkHistory = props => {
       document.querySelector("#endDateFields").style.display = "flex"
       setIsChecked(false)
     }
-  }
-
+  };
 
   const handleFieldChange = evt => {
     const stateToChange = { ...job };
@@ -46,8 +49,8 @@ const WorkHistory = props => {
       window.alert("Hold up boss, you're missing a field or two!");
     } else {
       setIsLoading(true);
-      ResumeManager.postJob(job)
-        .then(() => props.history.push("/resume"));
+      addWorkHistory(job)
+      history.push("/resume");
     }
   };
 
@@ -59,7 +62,7 @@ const WorkHistory = props => {
           <button
             type="submit"
             className="backBtn"
-            onClick={() => props.history.push("/resume")}>
+            onClick={() => history.push("/resume")}>
             <img src="https://res.cloudinary.com/dhduglm4j/image/upload/v1596490014/icons/backarrow_lfdpzw.png" className="backToResume" alt="back" />
           </button>
         </div>
@@ -97,6 +100,19 @@ const WorkHistory = props => {
               className="editInput"
               onChange={handleFieldChange}
               id="company"
+            />
+
+            <label
+              className="editLabel"
+              htmlFor="location">
+              Location <span className="asterisk">*</span>
+            </label>
+            <input
+              type="text"
+              required
+              className="editInput"
+              onChange={handleFieldChange}
+              id="location"
             />
 
             <div className="dateFields">

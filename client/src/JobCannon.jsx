@@ -6,6 +6,7 @@ import { EmployerProvider } from "./providers/EmployerProvider";
 import { ChatProvider } from "./providers/ChatProvider";
 import { MessageProvider } from "./providers/MessageProvider";
 import { JobProvider } from "./providers/JobProvider";
+import { ResumeProvider } from "./providers/ResumeProvider";
 import ApplicationViews from "./ApplicationViews.jsx";
 import "./Main.css";
 
@@ -18,9 +19,11 @@ const JobCannon = () => {
             <ChatProvider>
               <MessageProvider>
                 <JobProvider>
+                  <ResumeProvider>
 
-                  <ApplicationViews/>
+                    <ApplicationViews/>
 
+                  </ResumeProvider>
                 </JobProvider>
               </MessageProvider>
             </ChatProvider>

@@ -43,11 +43,9 @@ const RegisterCandidate = props => {
       alert("Missing fields.");
     }
     else {
-      // debugger
       addCandidate(candidate)
       .then((c) => {
         console.log(c)
-        debugger
         user.candidateId = c.id;
         register(user, password)
           .then(() => history.push("/discovery"));

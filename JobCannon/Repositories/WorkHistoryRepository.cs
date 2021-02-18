@@ -37,7 +37,7 @@ namespace JobCannon.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                       SELECT Id, UserId, JobTitle, Company, Location, StartMonth, StartYear, EndMonth, EndYear, Current, Description
+                       SELECT Id, UserId, JobTitle, Company, Location, StartMonth, StartYear, EndMonth, EndYear, [Current], Description
                          FROM WorkHistory";
                     var reader = cmd.ExecuteReader();
 
@@ -63,7 +63,7 @@ namespace JobCannon.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                       SELECT Id, UserId, JobTitle, Company, Location, StartMonth, StartYear, EndMonth, EndYear, Current, Description
+                       SELECT Id, UserId, JobTitle, Company, Location, StartMonth, StartYear, EndMonth, EndYear, [Current], Description
                          FROM WorkHistory
                          WHERE UserId = @Id";
 
@@ -93,7 +93,7 @@ namespace JobCannon.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                       SELECT Id, UserId, JobTitle, Company, Location, StartMonth, StartYear, EndMonth, EndYear, Current, Description
+                       SELECT Id, UserId, JobTitle, Company, Location, StartMonth, StartYear, EndMonth, EndYear, [Current], Description
                          FROM WorkHistory
                         WHERE Id = @Id";
 
@@ -121,7 +121,7 @@ namespace JobCannon.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"INSERT INTO WorkHistory (JobTitle, UserId, Company, Location, StartMonth,
-                                                                 StartYear, EndMonth, EndYear, Current, Description)
+                                                                 StartYear, EndMonth, EndYear, [Current], Description)
                                         OUTPUT INSERTED.ID
                                         VALUES (@JobTitle, @UserId, @Company, @Location, @StartMonth, @StartYear, @EndMonth, @EndYear, @Current, @Description)";
                     DbUtils.AddParameter(cmd, "@JobTitle", workHistory.JobTitle);
@@ -158,7 +158,7 @@ namespace JobCannon.Repositories
                                 StartYear = @StartYear,
                                 EndMonth = @EndMonth,
                                 EndYear = @EndYear,
-                                Current = @Current,
+                                [Current] = @Current,
                                 Description = @Description
                             WHERE Id = @Id";
                     cmd.Parameters.AddWithValue("@Id", workHistory.Id);

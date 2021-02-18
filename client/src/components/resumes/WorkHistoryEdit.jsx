@@ -1,15 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import ResumeManager from '../modules/ResumeManager';
+import React, { useState, useEffect, useContext } from 'react';
+import { useHistory, useParams } from "react-router-dom";
+import { ResumeContext } from "../../providers/ResumeProvider.jsx";
 
-const WorkHistoryEdit = props => {
+const WorkHistoryEdit = () => {
 
-  const sessionUser = JSON.parse(sessionStorage.getItem("user"))
+  const sessionUser = JSON.parse(sessionStorage.getItem("userProfile"));
+  const history = useHistory();
+  const { id } = useParams();
+  const { workHistory, updateWorkHistory, getWorkHistoryById } = useContext(ResumeContext);
   const [isLoading, setIsLoading] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
   const [job, setJob] = useState({
     userId: sessionUser.id,
     jobTitle: "",
     company: "",
+    location: "",
     startMonth: "",
     startYear: "",
     endMonth: "",
@@ -18,11 +23,11 @@ const WorkHistoryEdit = props => {
     description: ""
   });
 
-  const checkBoxValue = evt => {
+  const checkBoxValue = e => {
     if (!isChecked) {
       job.current = true
-      job.endMonth = ""
-      job.endYear = ""
+      job.endMonth = null
+      job.endYear = null
       document.querySelector("#endDateFields").style.display = "none"
       setIsChecked(true);
     }
@@ -31,7 +36,7 @@ const WorkHistoryEdit = props => {
       document.querySelector("#endDateFields").style.display = "flex"
       setIsChecked(false)
     }
-  }
+  };
 
   const handleFieldChange = evt => {
     const stateToChange = { ...job };
@@ -39,36 +44,35 @@ const WorkHistoryEdit = props => {
     setJob(stateToChange);
   };
 
-  const updateJob = event => {
-    event.preventDefault();
+  const updateJob = e => {
+    e.preventDefault();
     setIsLoading(true)
 
-    const editedJob = {
-      id: props.match.params.jobId,
+    updateWorkHistory({
+      id: id,
       userId: sessionUser.id,
       jobTitle: job.jobTitle,
       company: job.company,
+      location: job.location,
       startMonth: job.startMonth,
       startYear: job.startYear,
       endMonth: job.endMonth,
       endYear: job.endYear,
       current: job.current,
       description: job.description
-    }
+    })
 
-    ResumeManager.editJob(editedJob)
-      .then(() => {
-        props.history.push("/resume")
-      })
+    updateWorkHistory(job.id, job)
+    history.push("/resume")
   }
 
   useEffect(() => {
-    ResumeManager.getJob(props.match.params.jobId)
-      .then((job) => {
-        setJob(job)
-        setIsLoading(false)
-      })
-  }, [props.match.params.jobId]);
+    getWorkHistoryById(id)
+  }, [id]);
+
+  useEffect(() => {
+    setJob(workHistory)
+  }, [workHistory]);
 
   return (
     <div id="root-wrapper">
@@ -78,7 +82,7 @@ const WorkHistoryEdit = props => {
           <button
             type="submit"
             className="backBtn"
-            onClick={() => props.history.push("/resume")}>
+            onClick={() => history.push("/resume")}>
             <img src="https://res.cloudinary.com/dhduglm4j/image/upload/v1596490014/icons/backarrow_lfdpzw.png" className="backToResume" alt="back" />
           </button>
         </div>
@@ -103,7 +107,7 @@ const WorkHistoryEdit = props => {
               className="editInput"
               onChange={handleFieldChange}
               id="jobTitle"
-              value={job.jobTitle}
+              defaultValue={job.jobTitle}
             />
 
             <label
@@ -117,7 +121,21 @@ const WorkHistoryEdit = props => {
               className="editInput"
               onChange={handleFieldChange}
               id="company"
-              value={job.company}
+              defaultValue={job.company}
+            />
+
+            <label
+              className="editLabel"
+              htmlFor="location">
+              Location <span className="asterisk">*</span>
+            </label>
+            <input
+              type="text"
+              required
+              className="editInput"
+              onChange={handleFieldChange}
+              id="location"
+              defaultValue={job.location}
             />
 
             <div className="dateFields">
@@ -132,7 +150,7 @@ const WorkHistoryEdit = props => {
                   className="editInput"
                   onChange={handleFieldChange}
                   id="startMonth"
-                  value={job.startMonth}
+                  defaultValue={job.startMonth}
                 />
               </div>
               <div className="start2">
@@ -146,7 +164,7 @@ const WorkHistoryEdit = props => {
                   className="editInput"
                   onChange={handleFieldChange}
                   id="startYear"
-                  value={job.startYear}
+                  defaultValue={job.startYear}
                 />
               </div>
             </div>
@@ -163,7 +181,7 @@ const WorkHistoryEdit = props => {
                   className="editInput"
                   onChange={handleFieldChange}
                   id="endMonth"
-                  value={job.endMonth}
+                  defaultValue={job.endMonth}
                 />
               </div>
               <div className="end2">
@@ -177,7 +195,7 @@ const WorkHistoryEdit = props => {
                   className="editInput"
                   onChange={handleFieldChange}
                   id="endYear"
-                  value={job.endYear}
+                  defaultValue={job.endYear}
                 />
               </div>
             </div>
@@ -188,7 +206,7 @@ const WorkHistoryEdit = props => {
               onChange={checkBoxValue}
               checked={isChecked}
               id="current"
-              value={job.current}
+              defaultValue={job.current}
             />
             <label
               className="editLabel"
@@ -209,7 +227,7 @@ const WorkHistoryEdit = props => {
               className="editInputTextarea"
               onChange={handleFieldChange}
               id="description"
-              value={job.description}
+              defaultValue={job.description}
             />
 
           </fieldset>
