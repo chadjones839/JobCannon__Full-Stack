@@ -1,19 +1,18 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 import Navbar from "../nav/Navbar.jsx"
 import { UserProfileContext } from "../../providers/UserProfileProvider.jsx";
 import { JobContext } from "../../providers/JobProvider.jsx";
-import { useHistory, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import OpenPositionsCard from "../jobs/OpenPositionsCard";
 
 export default function OpenPositions() {
 
-  const sessionUser = JSON.parse(sessionStorage.getItem("userProfile"))
-  const history = useHistory();
   const { id, employerId } = useParams();
   const { user, getLocalUser } = useContext(UserProfileContext);
   const { jobs, getAllEmployerJobs } = useContext(JobContext);
-
+  
+  console.log(id)
   useEffect(() => {
     getLocalUser(id)
   }, [id]);
@@ -21,10 +20,10 @@ export default function OpenPositions() {
   useEffect(() => {
     getAllEmployerJobs(employerId)
   }, []);
-  console.log(employerId)
-
   
-  if (!user || !user.employer) {
+  console.log(id)
+
+  if (!user.employer) {
     return null
   }
   

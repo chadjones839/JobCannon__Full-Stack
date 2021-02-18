@@ -6,11 +6,13 @@ import CandidateCompaniesCard from "./CandidateCompaniesCard";
 
 const CandidateCompanySelect = () => {
 
-  const { chats, getAllChats } = useContext(ChatContext);
+  const sessionUser = JSON.parse(sessionStorage.getItem("userProfile"));
+  const { chats, getUserMatchChats } = useContext(ChatContext);
 
   useEffect(() => {
-    getAllChats()
+    getUserMatchChats(sessionUser.id)
   }, []);
+  console.log(chats)
 
   return (
     <div id="root-wrapper">

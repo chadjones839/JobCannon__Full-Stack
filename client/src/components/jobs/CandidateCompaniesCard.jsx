@@ -10,20 +10,12 @@ const CandidateCompaniesCard = ({chat}) => {
   let user = {};
   let initiatingUser = {};
 
-  users.find(obj => {
+  users.map(obj => {
     if (obj.id === chat.reciprocatingUserId) {
       user = obj
-      return obj
     }
-    else {
-      return null
-    }
-  });
-
-  users.find(obj => {
-    if (obj.id === chat.initiatingUserId){
+    else if (obj.id === chat.initiatingUserId){
       initiatingUser = obj
-      return obj
     }
     else {
       return null
@@ -37,8 +29,10 @@ const CandidateCompaniesCard = ({chat}) => {
   if (!user || !user.employer) {
     return null
   }
-
-  if (sessionUser.id === chat.initiatingUserId && chat.mutualInterest === "matched") {
+  else if (!initiatingUser || !initiatingUser.employer) {
+    return null
+  }
+  else if (sessionUser.id === chat.initiatingUserId) {
     return (
       <React.Fragment>
         <section className="jobsCard">
@@ -68,7 +62,7 @@ const CandidateCompaniesCard = ({chat}) => {
               <img 
               src={initiatingUser.imageUrl} 
               alt={initiatingUser.employer.name}
-              onClick={() => history.push(`/job-listings/${initiatingUser.id}`)} />
+              onClick={() => history.push(`/job-listings/${initiatingUser.id}/${initiatingUser.employerId}`)} />
             </div>
           </div>
           <div className="messageDetailsContainer">
@@ -81,7 +75,7 @@ const CandidateCompaniesCard = ({chat}) => {
     )
   }
   else {
-    return <div className="empty"></div>;
+    return null
   }
 };
 
