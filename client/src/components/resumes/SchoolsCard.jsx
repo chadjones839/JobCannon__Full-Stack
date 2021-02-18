@@ -5,8 +5,8 @@ import { ResumeContext } from "../../providers/ResumeProvider.jsx";
 const SchoolsCard = ({school}) => {
 
   const sessionUser = JSON.parse(sessionStorage.getItem("userProfile"))
-  const { deleteSchool } = useContext(ResumeContext)
   const history = useHistory();
+  const { deleteSchool } = useContext(ResumeContext)
 
   const removeSchool = id => {
     if (window.confirm("Are you sure you want to delete this school? This cannot be undone.")) {
