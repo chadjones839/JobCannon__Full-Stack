@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { useHistory } from "react-router-dom";
 import { ResumeContext } from "../../providers/ResumeProvider.jsx";
 
-const WorkHistory = props => {
+const WorkHistory = () => {
 
   const sessionUser = JSON.parse(sessionStorage.getItem("userProfile"))
   const history = useHistory();
@@ -35,9 +35,7 @@ const WorkHistory = props => {
       document.querySelector("#endDateFields").style.display = "flex"
       setIsChecked(false)
     }
-  }
-
-  console.log(isChecked)
+  };
 
   const handleFieldChange = evt => {
     const stateToChange = { ...job };
@@ -51,7 +49,6 @@ const WorkHistory = props => {
       window.alert("Hold up boss, you're missing a field or two!");
     } else {
       setIsLoading(true);
-      debugger
       addWorkHistory(job)
       history.push("/resume");
     }

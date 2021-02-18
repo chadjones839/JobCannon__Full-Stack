@@ -12,9 +12,7 @@ const WorkHistoryCard = ({job}) => {
   const deleteJob = id => {
     if (window.confirm("Are you sure you want to delete this listing? This cannot be undone.")) {
       deleteWorkHistory(id)
-      .then(() =>{
-        window.location.reload(true)
-      })
+      window.location.reload(true)
     }
   };
 
