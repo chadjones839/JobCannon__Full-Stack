@@ -1,37 +1,42 @@
-import React from 'react';
-import ResumeManager from '../modules/ResumeManager';
+import React, { useContext } from 'react';
+import { useHistory } from "react-router-dom";
+import { ResumeContext } from "../../providers/ResumeProvider.jsx";
 
-const SchoolsCard = props => {
+const SchoolsCard = ({school}) => {
 
-  const sessionUser = JSON.parse(sessionStorage.getItem("user"))
-  const deleteSchool = id => {
+  const sessionUser = JSON.parse(sessionStorage.getItem("userProfile"))
+  const { deleteSchool } = useContext(ResumeContext)
+  const history = useHistory();
+
+  const removeSchool = id => {
     if (window.confirm("Are you sure you want to delete this school? This cannot be undone.")) {
-      ResumeManager.deleteSchool(id)
+      deleteSchool(id)
       .then(() =>{
         window.location.reload(true)
       })
     }
   };
+
   return (
     <React.Fragment>
       <div className="timelineContainer">
         <div className="bar">|</div>
         <div className="nextSchool">
-          {(props.school.current === false)
-          ? <h5>{props.school.startMonth}, {props.school.startYear} - {props.school.endMonth}, {props.school.endYear}</h5>
-          : <h5>{props.school.startMonth}, {props.school.startYear} - Present</h5>}
+          {(!school.current)
+          ? <h5>{school.startMonth}, {school.startYear} - {school.endMonth}, {school.endYear}</h5>
+          : <h5>{school.startMonth}, {school.startYear} - Present</h5>}
         </div>
       </div>
       <section className="experienceCard">
         <div className="titleContainer">
           <div className="jobTitle">
-            <h2>{props.school.schoolName}</h2>
+            <h2>{school.schoolName}</h2>
           </div>
-          { (sessionUser.accountType === "candidate")
+          { (sessionUser.candidateId)
           ? <div className="jobDetailBtnContainer">
               <div className="jobBtn__Delete">
                 <button 
-                  onClick={() => deleteSchool(props.school.id)}
+                  onClick={() => removeSchool(school.id)}
                   className="jobDetailDeleteBtn"
                   type="button"
                   >
@@ -40,7 +45,7 @@ const SchoolsCard = props => {
               </div>
               <div className="jobBtn__Edit">
                 <button 
-                  onClick={() => props.history.push(`/schools/${props.school.id}/edit`)}
+                  onClick={() => history.push(`/schools/${school.id}/edit`)}
                   className="jobDetailEditBtn"
                   type="button"
                   >
@@ -51,7 +56,7 @@ const SchoolsCard = props => {
           : null }
         </div>
         <div className="degreeContainer">
-          <h3>{props.school.field}, <span className="degreeType">{props.school.degree}</span></h3>
+          <h3>{school.field}, <span className="degreeType">{school.degree}</span></h3>
         </div>
       </section> 
 

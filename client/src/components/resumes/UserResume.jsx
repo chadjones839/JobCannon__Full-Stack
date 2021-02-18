@@ -1,10 +1,11 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable eqeqeq */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import Navbar from "../nav/Navbar.jsx"
-import UserManager from "../modules/UserManager";
-import ResumeManager from "../modules/ResumeManager";
+import { UserProfileContext } from "../../providers/UserProfileProvider.jsx";
+import { ResumeContext } from "../../providers/ResumeProvider.jsx";
+import { useHistory } from "react-router-dom";
 import WorkHistoryCard from "../resumes/WorkHistoryCard";
 import SchoolsCard from "../resumes/SchoolsCard";
 
@@ -12,53 +13,27 @@ import SchoolsCard from "../resumes/SchoolsCard";
 
 const UserResume = props => {
 
-  const sessionUser = JSON.parse(sessionStorage.getItem("user"))
-  const [user, setUser] = useState({})
-  const [jobs, setJobs] = useState([])
-  const [skills, setSkills] = useState([])
-  const [schools, setSchools] = useState([])
-  let skill = {}
+  const sessionUser = JSON.parse(sessionStorage.getItem("userProfile"))
+  const userId = sessionUser.id;
+  const history = useHistory();
+  const { user, getLocalUser } = useContext(UserProfileContext)
+  const { workHistories, 
+          schools, 
+          getWorkHistoryByUserId, 
+          getSchoolsByUserId } = useContext(ResumeContext)
 
-  skills.find(obj => {
-    skill = obj
-    return obj
-  });
-
-  const getUser = () => {
-    return UserManager.getUser(sessionUser.id)
-  }
-
-  const getJobs = () => {
-    return ResumeManager.getJobsForUser(sessionUser.id)
-  }
-
-  const getSkills = () => {
-    return ResumeManager.getSkillsForUser(sessionUser.id)
-  }
-
-  const getSchools = () => {
-    return ResumeManager.getSchoolsForUser(sessionUser.id)
-  }
 
   useEffect(() => {
-    getUser()
-      .then((userResponse) => {
-        getJobs()
-          .then((jobsResponse) => {
-            getSkills()
-              .then((skillsResponse) => {
-                getSchools()
-                  .then((schoolResponse) => {
-                    setSkills(skillsResponse)
-                    setUser(userResponse)
-                    setJobs(jobsResponse)
-                    setSchools(schoolResponse)
-                  })
-              })
-          })
-      });
+    getLocalUser(userId)
+    getWorkHistoryByUserId(userId)
+    getSchoolsByUserId(userId)
   }, []);
 
+  if (!user || !user.candidate) {
+    return null
+  }
+
+  console.log(user)
   return (
     <div id="root-wrapper">
       <div className="userResumeContainer">
@@ -68,7 +43,7 @@ const UserResume = props => {
           </div>
           <div className="userProfile__image">
             <div className="userImage__container">
-              <img src={user.image} alt={user.firstName} />
+              <img src={user.imageUrl} alt={user.firstName} />
             </div>
           </div>
           <div className="userProfile__right">
@@ -76,17 +51,17 @@ const UserResume = props => {
         </section>
         <section className="userProfile__details">
           <div className="userProfile__name">
-            <h2>{user.firstName} {user.lastName}</h2>
+            <h2>{user.candidate.firstName} {user.candidate.lastName}</h2>
           </div>
           <div className="userProfile__location">
-            {user.jobTitle}
+            {user.candidate.jobTitle}
           </div>
         </section>
         <main className="resumeContainer">
           <section className="editProfileButton">
             <div className="editBtnContainer">
               <button
-                onClick={() => props.history.push(`/user-resume/${user.id}`)}
+                onClick={() => history.push(`/user-resume/${user.id}`)}
                 className="blackBtn__wide"
                 type="button"
               >
@@ -100,7 +75,7 @@ const UserResume = props => {
 
             <div className="addWorkHistory">
               <button
-                onClick={() => props.history.push(`/work-history/new`)}
+                onClick={() => history.push(`/work-history/new`)}
                 className="addButton"
                 type="button"
               >
@@ -108,20 +83,19 @@ const UserResume = props => {
                 </button>
             </div>
 
-            {jobs.map(job =>
+            {workHistories.map(job =>
               <WorkHistoryCard
                 key={job.id}
-                job={job}
-                {...props} />
+                job={job} />
             )}
           </section>
 
           <h2 className="sectionTitle">Skills</h2>
           <section className="skills">
-            {(skill.userId !== sessionUser.id)
+            {/* {(skill.userId !== sessionUser.id)
               ? <div className="addSkills">
                 <button
-                  onClick={() => props.history.push(`/skills/new`)}
+                  onClick={() => history.push(`/skills/new`)}
                   className="addButton"
                   type="button"
                 >
@@ -130,7 +104,7 @@ const UserResume = props => {
               </div>
               : <><div className="editSkills">
                 <button
-                  onClick={() => props.history.push(`/skills/${skill.id}/edit`)}
+                  onClick={() => history.push(`/skills/${skill.id}/edit`)}
                   className="addButton"
                   type="button"
                 >
@@ -150,7 +124,7 @@ const UserResume = props => {
                     <span>{skill.skill9}</span>
                     <span>{skill.skill10}</span>
                   </div>
-                </article></>}
+                </article></>} */}
           </section>
 
           <h2 className="sectionTitle">Schools</h2>
@@ -158,7 +132,7 @@ const UserResume = props => {
 
             <div className="addWorkHistory">
               <button
-                onClick={() => props.history.push(`/schools/new`)}
+                onClick={() => history.push(`/schools/new`)}
                 className="addButton"
                 type="button"
               >
@@ -168,8 +142,7 @@ const UserResume = props => {
             {schools.map(school =>
               <SchoolsCard
                 key={school.id}
-                school={school}
-                {...props} />
+                school={school} />
             )}
           </section>
         </main>

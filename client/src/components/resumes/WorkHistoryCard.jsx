@@ -1,13 +1,17 @@
 /* eslint-disable jsx-a11y/accessible-emoji */
-import React from 'react';
-import ResumeManager from '../modules/ResumeManager';
+import React, { useContext } from 'react';
+import { useHistory } from "react-router-dom";
+import { ResumeContext } from "../../providers/ResumeProvider.jsx";
 
-const WorkHistoryCard = props => {
+const WorkHistoryCard = ({job}) => {
 
-  const sessionUser = JSON.parse(sessionStorage.getItem("user"))
+  const sessionUser = JSON.parse(sessionStorage.getItem("userProfile"));
+  const history = useHistory();
+  const { deleteWorkHistory } = useContext(ResumeContext);
+
   const deleteJob = id => {
     if (window.confirm("Are you sure you want to delete this listing? This cannot be undone.")) {
-      ResumeManager.deleteJob(id)
+      deleteWorkHistory(id)
       .then(() =>{
         window.location.reload(true)
       })
@@ -20,21 +24,21 @@ const WorkHistoryCard = props => {
       <div className="timelineContainer">
         <div className="bar">|</div>
         <div className="nextJob">
-          {(props.job.current === false)
-          ? <h5>{props.job.startMonth}, {props.job.startYear} - {props.job.endMonth}, {props.job.endYear}</h5>
-          : <h5>{props.job.startMonth}, {props.job.startYear} - Present</h5>}
+          {(job.current === false)
+          ? <h5>{job.startMonth}, {job.startYear} - {job.endMonth}, {job.endYear}</h5>
+          : <h5>{job.startMonth}, {job.startYear} - Present</h5>}
         </div>
       </div>
       <section className="experienceCard">
         <div className="titleContainer">
           <div className="jobTitle">
-            <h2>{props.job.jobTitle}</h2>
+            <h2>{job.jobTitle}</h2>
           </div>
-          { (sessionUser.accountType === "candidate")
+          { (sessionUser.candidateId)
           ?  <div className="jobDetailBtnContainer">
               <div className="jobBtn__Delete">
                 <button 
-                  onClick={() => deleteJob(props.job.id)}
+                  onClick={() => deleteJob(job.id)}
                   className="jobDetailDeleteBtn"
                   type="button"
                   >
@@ -43,7 +47,7 @@ const WorkHistoryCard = props => {
               </div>
               <div className="jobBtn__Edit">
                 <button 
-                  onClick={() => props.history.push(`/work-history/${props.job.id}/edit`)}
+                  onClick={() => history.push(`/work-history/${job.id}/edit`)}
                   className="jobDetailEditBtn"
                   type="button"
                   >
@@ -54,9 +58,9 @@ const WorkHistoryCard = props => {
             : null }
         </div>
         <div className="bodyContainer">
-          <h3>{props.job.company}</h3>
+          <h3>{job.company}</h3>
           <h4>Job Description</h4>
-          <p>{props.job.description}</p>
+          <p>{job.description}</p>
         </div>
       </section> 
     </React.Fragment>

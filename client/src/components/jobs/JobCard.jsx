@@ -1,5 +1,4 @@
 import React, { useEffect, useContext } from 'react';
-import JobManager from "../modules/JobManager";
 import { useHistory } from "react-router-dom";
 import { timeSince } from '../modules/HelperFunctions';
 import { JobContext } from "../../providers/JobProvider.jsx";
@@ -16,7 +15,7 @@ const JobCard = ({job}) => {
   
   const deleteListing = id => {
     if (window.confirm("Are you sure you want to delete this listing? This cannot be undone.")) {
-      JobManager.deleteJob(id)
+      deleteJob(id)
     }
   };
 
