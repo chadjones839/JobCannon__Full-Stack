@@ -33,9 +33,9 @@ namespace JobCannon.Models
         public int StartYear { get; set; }
 
         [StringLength(10)]
-        public string EndMonth { get; set; }
+        public string? EndMonth { get; set; }
 
-        public int EndYear { get; set; }
+        public int? EndYear { get; set; }
 
         [Required]
         public bool Current { get; set; }

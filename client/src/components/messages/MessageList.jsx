@@ -4,7 +4,7 @@ import { MessageContext } from "../../providers/MessageProvider.jsx";
 import { ChatContext } from "../../providers/ChatProvider.jsx";
 import MessageCard from "../messages/MessageCard";
 import { Link } from "react-router-dom";
-import CandidateJobListings from '../jobs/CandidateJobListings.jsx';
+import CandidateJobListings from '../jobs/CandidateCompanySelect.jsx';
 
 export default function MessageList() {
   

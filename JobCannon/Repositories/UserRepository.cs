@@ -206,6 +206,43 @@ namespace JobCannon.Repositories
             }
         }
 
+        public User GetEmployerIdByUserId(int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                       SELECT u.Id, u.EmployerId, e.Id
+                         FROM Users u
+                              LEFT JOIN Employers e ON u.EmployerId = e.Id
+                        WHERE u.Id = @Id";
+
+                    DbUtils.AddParameter(cmd, "@Id", id);
+
+                    User user = null;
+
+                    var reader = cmd.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        return new User()
+                        {
+                            Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                            EmployerId = reader.GetInt32(reader.GetOrdinal("EmployerId")),
+                            Employer = new Employer()
+                            {
+                                Id = reader.GetInt32(reader.GetOrdinal("EmployerId"))
+                            }
+                        };
+                    }
+                    reader.Close();
+
+                    return user;
+                }
+            }
+        }
+
         public void Add(User user)
         {
             using (var conn = Connection)

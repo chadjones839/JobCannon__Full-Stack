@@ -31,6 +31,12 @@ namespace JobCannon.Controllers
             return Ok(_chatRepo.GetUserChats(id));
         }
 
+        [HttpGet("user-match/{id}")]
+        public IActionResult GetUserMatchChats(int id)
+        {
+            return Ok(_chatRepo.GetUserMatchChats(id));
+        }
+
         [HttpGet("{id}")]
         public IActionResult GetChatById(int id)
         {

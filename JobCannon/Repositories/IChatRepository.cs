@@ -7,6 +7,7 @@ namespace JobCannon.Repositories
     {
         List<Chat> GetAllChats();
         List<Chat> GetUserChats(int id);
+        List<Chat> GetUserMatchChats(int id);
         Chat GetChatById(int id);
         void Add(Chat chat);
         void Update(Chat chat);

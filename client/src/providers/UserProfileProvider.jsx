@@ -101,6 +101,17 @@ export function UserProfileProvider(props) {
       .then(setUser));
   };
 
+  const getEmployerIdByUserId = (id) => {
+    return getToken().then((token) =>
+      fetch(`${apiUrl}/employer-user/${id}`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }).then(resp => resp.json())
+      .then(setUser));
+  };
+
   const addUser = (userProfile) => {
     return getToken().then((token) =>
       fetch(apiUrl, {
@@ -137,7 +148,7 @@ export function UserProfileProvider(props) {
         }))
 
   return (
-    <UserProfileContext.Provider value={{ user, users, candidates, employers, isLoggedIn, userProfile, login, logout, register, getToken, setUsers, getAllUsers, getAllCandidates, getAllEmployers, getFirebaseUser, getLocalUser, addUser, updateUser, deleteUser }}>
+    <UserProfileContext.Provider value={{ user, users, candidates, employers, isLoggedIn, userProfile, login, logout, register, getToken, setUsers, getAllUsers, getAllCandidates, getAllEmployers, getFirebaseUser, getLocalUser, getEmployerIdByUserId, addUser, updateUser, deleteUser }}>
       {isFirebaseReady
         ? props.children
         : <Spinner className="app-spinner dark" />}

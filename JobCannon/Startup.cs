@@ -25,6 +25,8 @@ namespace JobCannon
             services.AddTransient<IEmployerRepository, EmployerRepository>();
             services.AddTransient<IChatRepository, ChatRepository>();
             services.AddTransient<IMessageRepository, MessageRepository>();
+            services.AddTransient<IJobRepository, JobRepository>();
+            services.AddTransient<IWorkHistoryRepository, WorkHistoryRepository>();
 
             var firebaseProjectId = Configuration.GetValue<string>("FirebaseProjectId");
             var googleTokenUrl = $"https://securetoken.google.com/{firebaseProjectId}";
