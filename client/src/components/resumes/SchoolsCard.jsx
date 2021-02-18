@@ -11,9 +11,7 @@ const SchoolsCard = ({school}) => {
   const removeSchool = id => {
     if (window.confirm("Are you sure you want to delete this school? This cannot be undone.")) {
       deleteSchool(id)
-      .then(() =>{
-        window.location.reload(true)
-      })
+      window.location.reload(true)
     }
   };
 

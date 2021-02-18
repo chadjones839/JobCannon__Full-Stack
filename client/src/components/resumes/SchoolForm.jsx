@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
-import ResumeManager from '../modules/ResumeManager';
+import React, { useState, useContext } from 'react';
+import { useHistory } from "react-router-dom";
+import { ResumeContext } from "../../providers/ResumeProvider.jsx";
 
 const SchoolForm = props => {
 
-  const sessionUser = JSON.parse(sessionStorage.getItem("user"))
+  const sessionUser = JSON.parse(sessionStorage.getItem("userProfile"));
+  const history = useHistory();
+  const { addSchool } = useContext(ResumeContext);
   const [isLoading, setIsLoading] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
   const [school, setSchool] = useState({
@@ -18,11 +21,11 @@ const SchoolForm = props => {
     current: isChecked
   });
 
-  const checkBoxValue = evt => {
+  const checkBoxValue = e => {
     if (!isChecked) {
       school.current = true
-      school.endMonth = ""
-      school.endYear = ""
+      school.endMonth = null
+      school.endYear = null
       document.querySelector("#endDateFields").style.display = "none"
       setIsChecked(true);
     }
@@ -46,8 +49,8 @@ const SchoolForm = props => {
       window.alert("Hold up boss, you're missing a field or two!");
     } else {
       setIsLoading(true);
-      ResumeManager.postSchool(school)
-        .then(() => props.history.push("/resume"));
+      addSchool(school)
+      history.push("/resume");
     }
   };
 
@@ -58,7 +61,7 @@ const SchoolForm = props => {
         <button
           type="submit"
           className="backBtn"
-          onClick={() => props.history.push("/resume")}>
+          onClick={() => history.push("/resume")}>
           <img src="https://res.cloudinary.com/dhduglm4j/image/upload/v1596490014/icons/backarrow_lfdpzw.png" className="backToResume" alt="back" />
         </button>
       </div>
