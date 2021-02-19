@@ -46,12 +46,30 @@ const JobForm = () => {
     <div id="root-wrapper">
 
       <div className="listingHeader">
+        <div className="job__backButton">
+          <button
+            type="submit"
+            className="slimBackBtn"
+            onClick={() => history.push("/resume")}>
+            <img src="https://res.cloudinary.com/dhduglm4j/image/upload/v1596490014/icons/backarrow_lfdpzw.png" className="backToResume" alt="back" />
+          </button>
+        </div>
         <div className="jobListing__header">
           <h2>New Job Listing</h2>
         </div>
+        <div className="saveNewJob">
+          <button
+            type="button"
+            className="blueBtn__round"
+            id="submitBtn"
+            disabled={isLoading}
+            onClick={createListing}>
+            &#10004;
+          </button>
+        </div>
       </div>
       <section className="editJobListing">
-        <form className="editProfileForm">
+        <form className="jobForm">
           <fieldset className="editJobDetails">
 
             <label
@@ -176,21 +194,14 @@ const JobForm = () => {
                 id="keyword3"
               />
             </div>
+            <br />
+            <br />
+            <br />
+            <br />
 
           </fieldset>
         </form>
       </section>
-      <div className="saveEditChanges">
-        <button
-          type="button"
-          className="blueBtn90"
-          id="submitBtn"
-          disabled={isLoading}
-          onClick={createListing}>
-          Post
-        </button>
-      </div>
-      <br />
     </div>
   )
 };

@@ -1,11 +1,26 @@
+.jobForm {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  height: 700px;
+}
+
+.jobForm > fieldset {
+  border: none;
+}
+
 .jobListing__header > h2 {
   font-family: 'Comfortaa', sans-serif;
-  margin-bottom: 10px;
+  margin: 0px;
+}
+
+.job__backButton {
+  height: 40px;
 }
 
 .editJobListing {
   overflow-y: scroll;
-  height: 715px;
+  height: 744px;
 }
 
 .editJobListing::-webkit-scrollbar {
@@ -28,10 +43,21 @@
   padding: 5px 20px 0px;
 }
 
+.saveNewJob {
+  margin: 0 10px;
+  position: relative;
+  top: -15px;
+  left: 60px;
+  display: flex;
+  justify-content: flex-end;
+  height: 40px;
+}
 .saveEditChanges {
   margin: 0 30px;
   position: relative;
   bottom: 70px;
+  display: flex;
+  justify-content: center;
 }
 
 .saveEditChanges > button{
