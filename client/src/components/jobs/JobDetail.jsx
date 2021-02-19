@@ -40,7 +40,7 @@ const JobDetail = () => {
 
   useEffect(() => {
     getJobById(id)
-  }, [id]);
+  }, [id, job]);
 
   useEffect(() => {
     getUserByEmployerId(job.employerId)
@@ -61,7 +61,7 @@ const JobDetail = () => {
       <div className="listingHeader">
         <div className="jobListing__header">
           <div className="headerLeft">
-            {sessionUser.accountType === "employer"
+            {!sessionUser.candidateId
               ? <div className="jobImage">
                 <img
                   src={sessionUser.imageUrl}
@@ -80,7 +80,7 @@ const JobDetail = () => {
               <h3>{user.employer.name}</h3>
             </div>
             <div className="jobLocation">
-              <h4>{job.location}</h4>
+              <h4>{job.jobLocation}</h4>
             </div>
           </div>
         </div>
@@ -92,7 +92,7 @@ const JobDetail = () => {
               {job.type}
             </div>
           </div>
-          {sessionUser.accountType === "employer"
+          {!sessionUser.candidateId
             ? <div className="jobDetailBtnContainer">
               <div className="jobBtn__Delete">
                 <button
@@ -105,7 +105,7 @@ const JobDetail = () => {
               </div>
               <div className="jobBtn__Edit">
                 <button
-                  onClick={() => history.push(`/jobs/${job.id}/edit`)}
+                  onClick={() => history.push(`/jobs/edit/${job.id}`)}
                   className="jobDetailEditBtn"
                   type="button"
                 >
@@ -138,7 +138,7 @@ const JobDetail = () => {
             <h5>Job Summary</h5>
             <p>{job.jobSummary}</p>
           </div>
-          {sessionUser.accountType === "candidate"
+          {!sessionUser.employerId
             ? <div className="applyBtnContainer">
               <div className="jobBtn__delete">
                 <button

@@ -7,15 +7,14 @@ const JobForm = () => {
 
   const sessionUser = JSON.parse(sessionStorage.getItem("userProfile"));
   const currentTimeStamp = new Date().getTime();
-  console.log(currentTimeStamp)
   const history = useHistory();
   const { addJob } = useContext(JobContext);
   const [isLoading, setIsLoading] = useState(false);
   const [job, setJob] = useState({
-    employerId: sessionUser.id,
+    employerId: sessionUser.employerId,
     postDate: currentTimeStamp,
     jobTitle: "",
-    location: "",
+    jobLocation: "",
     salary: "",
     rate: "",
     requirements: "",
@@ -38,7 +37,6 @@ const JobForm = () => {
       window.alert("Hold up boss, you're missing a field or two!");
     } else {
       setIsLoading(true);
-      debugger
       addJob(job)
       history.push("/jobs");
     }
@@ -88,7 +86,7 @@ const JobForm = () => {
 
             <label
               className="editLabel"
-              htmlFor="location">
+              htmlFor="jobLocation">
               Job Location *
             </label>
             <input
@@ -96,7 +94,7 @@ const JobForm = () => {
               required
               className="editInput"
               onChange={handleFieldChange}
-              id="location"
+              id="jobLocation"
             />
 
             <div className="salaryFields">
@@ -107,7 +105,7 @@ const JobForm = () => {
                   Salary
                 </label>
                 <input
-                  type="text"
+                  type="number"
                   className="editInput"
                   onChange={handleFieldChange}
                   id="salary"

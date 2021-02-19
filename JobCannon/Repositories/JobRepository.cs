@@ -183,7 +183,7 @@ namespace JobCannon.Repositories
                                 Type = @Type,
                                 Keyword1 = @Keyword1,
                                 Keyword2 = @Keyword2,
-                                Keyword3 = @Keyword3
+                                Keyword3 = @Keyword3,
                                 EmployerId = @EmployerId
                             WHERE Id = @Id";
                     cmd.Parameters.AddWithValue("@Id", job.Id);

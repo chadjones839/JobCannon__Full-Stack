@@ -22,7 +22,6 @@ const JobCard = ({job}) => {
   if (job.employerId !== sessionUser.employerId) {
     return null
   }
-  console.log(currentTimeStamp)
 
   return (
     <React.Fragment>
