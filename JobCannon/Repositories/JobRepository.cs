@@ -115,7 +115,7 @@ namespace JobCannon.Repositories
                               e.Id, e.Name, e.Industry
                          FROM Jobs j
                               LEFT JOIN Employers e ON j.EmployerId = e.Id
-                        WHERE u.Id = @Id";
+                        WHERE j.Id = @Id";
 
                     DbUtils.AddParameter(cmd, "@Id", id);
 
