@@ -49,6 +49,7 @@ const JobDetail = () => {
   const deleteListing = id => {
     if (window.confirm("Are you sure you want to delete this listing? This cannot be undone.")) {
       deleteJob(id)
+      history.push("/jobs")
     }
   };
 

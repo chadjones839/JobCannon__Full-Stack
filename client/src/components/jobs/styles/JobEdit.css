@@ -77,7 +77,157 @@
   width: 35%;
 }
 
-#type {
-  width: 99%;
+.jobTypeButtons {
+  display: flex;
+  justify-content: space-between;
+  width: 98%;
+}
+
+.jobTypeBtn {
+  border-radius: 30px;
+  border: solid 1px black;
+  /* box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3); */
+  line-height: 0;
+  font-family: 'Roboto', sans-serif;
+  width: 100%;
+  height: 40px;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 2px 5px;
+  margin: 10px 0px;
+  background: none;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+  text-align: center;
+  outline: none;
+}
+
+.jobTypeBtn {
+  margin: 10px 0;
+  border: 2px solid black;
+  padding: 6px 10px;
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+	color: black;
+  background-color: white;
+	transition: all 0.25s ease-in-out;
+}
+
+.jobTypeBtn:nth-child(2) {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.jobTypeBtn:hover {
+  background-color: black;
+  border-color: black;
+  color: white;
+}
+
+.jobTypeBtn:active {
+  background-color: black;
+  border-color: black;
+  color: white;
+  box-shadow: none;
+  outline: none;
+}
+
+.jobTypeBtn:focus, :active:focus {
+  background-color: black;
+  border-color: black;
+  color: white;
+  outline: 5px auto black;
+  outline: none;
+}
+
+.jobTypeBtn:visited {
+  background-color: black;
+  border-color: black;
+  outline: none;
+}
+
+.rateBtn {
+  border-radius: 30px;
+  border: solid 1px black;
+  /* box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3); */
+  line-height: 0;
+  font-family: 'Roboto', sans-serif;
+  height: 40px;
+  font-size: 13px;
+  font-weight: 600;
+  background: none;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+  text-align: center;
+  outline: none;
+}
+
+.rateToggle {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 40px;
+  border: 1px solid black;
+  border-radius: 30px;
+  margin-top: 27px;
+}
+
+.rateBtn {
+  width: 60px;
+  margin: 0;
+  padding: 6px 10px;
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+	color: black;
+  background-color: white;
+	transition: all 0.25s ease-in-out;
+}
+
+.rateBtn:hover {
+  background-color: black;
+  border-color: black;
+  color: white;
+}
+
+/* .rateBtn:active {
+  background-color: black;
+  border-color: black;
+  color: white;
+  box-shadow: none;
+  outline: none;
+}
+
+.rateBtn:focus, :active:focus {
+  background-color: black;
+  border-color: black;
+  color: white;
+  outline: 5px auto black;
+  outline: none;
+} */
+
+.selected {
+  background-color: black;
+  border-color: black;
+  color: white;
+  outline: 5px auto black;
+  outline: none;
+}
+
+/* .jobTypeBtn:visited {
+  background-color: black;
+  border-color: black;
+  outline: none;
+} */
+
+.rateSalary {
+  border-radius: 30px 0 0 30px;
+}
+
+.rateHourly {
+  border-radius: 0 30px 30px 0;
 }
 

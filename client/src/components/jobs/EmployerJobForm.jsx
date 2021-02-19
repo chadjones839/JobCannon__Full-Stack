@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { useHistory } from "react-router-dom";
 import { JobContext } from "../../providers/JobProvider.jsx";
+import classNames from 'classnames'
 
 
 const JobForm = () => {
@@ -25,11 +26,88 @@ const JobForm = () => {
     keyword3: ""
   });
 
-  const handleFieldChange = evt => {
+  const handleFieldChange = e => {
     const stateToChange = { ...job };
-    stateToChange[evt.target.id] = evt.target.value;
+    console.log(e)
+    stateToChange[e.target.id] = e.target.value;
     setJob(stateToChange);
   };
+
+  const handleNameChange = e => {
+    const stateToChange = { ...job };
+    console.log(e)
+    stateToChange[e.target.id] = e.target.value;
+    setJob(stateToChange);
+  };
+
+  
+  
+
+  const fullTimeActive = e => {
+    const stateToChange = { ...job };
+    stateToChange[e.target.name] = e.target.value;
+    setJob(stateToChange);
+    const fullTime = document.getElementById("fullTime");
+    const partTime = document.getElementById("partTime");
+    const temp = document.getElementById("temp");
+    fullTime.classList.add("selected");
+    partTime.classList.remove("selected");
+    temp.classList.remove("selected")
+  }
+
+  const partTimeActive = e => {
+    const stateToChange = { ...job };
+    stateToChange[e.target.name] = e.target.value;
+    setJob(stateToChange);
+    const fullTime = document.getElementById("fullTime");
+    const partTime = document.getElementById("partTime");
+    const temp = document.getElementById("temp");
+    fullTime.classList.remove("selected");
+    partTime.classList.add("selected");
+    temp.classList.remove("selected")
+  }
+
+  const tempActive = e => {
+    const stateToChange = { ...job };
+    stateToChange[e.target.name] = e.target.value;
+    setJob(stateToChange);
+    const fullTime = document.getElementById("fullTime");
+    const partTime = document.getElementById("partTime");
+    const temp = document.getElementById("temp");
+    fullTime.classList.remove("selected");
+    partTime.classList.remove("selected");
+    temp.classList.add("selected")
+  }
+
+  const salRateActive = e => {
+    const stateToChange = { ...job };
+    stateToChange[e.target.name] = e.target.value;
+    setJob(stateToChange);
+    const salRate = document.getElementById("salRate");
+    const hrRate = document.getElementById("hrRate");
+    salRate.classList.add("selected");
+    hrRate.classList.remove("selected")
+  }
+
+  const hrRateActive = e => {
+    const stateToChange = { ...job };
+    stateToChange[e.target.name] = e.target.value;
+    setJob(stateToChange);
+    const salRate = document.getElementById("salRate");
+    const hrRate = document.getElementById("hrRate");
+    salRate.classList.remove("selected");
+    hrRate.classList.add("selected")
+  }
+
+
+  // $('button').on('click', function(){
+  //   $('button').removeClass('selected');
+  //   $(this).addClass('selected');
+  // });
+
+  console.log(job.rate)
+  
+  
 
   const createListing = evt => {
     evt.preventDefault();
@@ -85,22 +163,35 @@ const JobForm = () => {
               id="jobTitle"
             />
 
-            <label
-              className="editLabel"
-              htmlFor="type">
-              Type *
-            </label>
-            <select
-              type="text"
-              className="editInput"
-              onChange={handleFieldChange}
-              id="type"
-            >
-              <option selected disabled hidden></option>
-              <option value="Full-Time">Full-Time</option>
-              <option value="Part-Time">Part-Time</option>
-              <option value="Temp">Temp</option>
-            </select>
+            <div className="jobTypeButtons">
+              <button
+                type="button"
+                className="jobTypeBtn"
+                id="fullTime"
+                value="Full-Time"
+                name="type"
+                onClick={fullTimeActive}>
+                Full-Time
+              </button>
+              <button
+                type="button"
+                className="jobTypeBtn"
+                id="partTime"
+                value="Part-Time"
+                name="type"
+                onClick={partTimeActive}>
+                Part-Time
+              </button>
+              <button
+                type="button"
+                className="jobTypeBtn"
+                id="temp"
+                value="Full-Time"
+                name="type"
+                onClick={tempActive}>
+                Temp
+              </button>
+            </div>
 
             <label
               className="editLabel"
@@ -130,23 +221,35 @@ const JobForm = () => {
                 />
               </div>
               <div className="rateEdit">
-                <label
+                {/* <label
                   className="editLabel"
                   htmlFor="rate">
                   Rate
-                </label>
-                <select
-                  type="text"
-                  className="editInputRate"
-                  onChange={handleFieldChange}
-                  id="rate"
-                >
-                  <option selected disabled hidden></option>
-                  <option value="Annually">Sal</option>
-                  <option value="Hourly">Hr</option>
-                </select>
+                </label> */}
+                <div className="rateToggle">
+                  <button
+                    type="button"
+                    className="rateBtn rate rateSalary"
+                    id="salRate"
+                    value="Sal"
+                    name="rate"
+                    onClick={salRateActive}>
+                    Sal
+                  </button>
+                  <button
+                    type="button"
+                    className="rateBtn rate rateHourly"
+                    id="hrRate"
+                    value="Hr"
+                    name="rate"
+                    onClick={hrRateActive}>
+                    Hr
+                  </button>
+                </div>
               </div>
             </div>
+
+            
 
             <label
               className="editLabel"
