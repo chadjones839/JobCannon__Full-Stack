@@ -1,18 +1,22 @@
-import React, { useState } from 'react';
-import JobManager from '../modules/JobManager';
+import React, { useState, useContext } from 'react';
+import { useHistory } from "react-router-dom";
+import { JobContext } from "../../providers/JobProvider.jsx";
 
 
-const JobForm = props => {
+const JobForm = () => {
 
+  const sessionUser = JSON.parse(sessionStorage.getItem("userProfile"));
   const currentTimeStamp = new Date().getTime();
-  const sessionUser = JSON.parse(sessionStorage.getItem("user"))
+  console.log(currentTimeStamp)
+  const history = useHistory();
+  const { addJob } = useContext(JobContext);
   const [isLoading, setIsLoading] = useState(false);
   const [job, setJob] = useState({
-    userId: sessionUser.id,
+    employerId: sessionUser.id,
     postDate: currentTimeStamp,
     jobTitle: "",
-    jobLocation: "",
-    salaryActual: "",
+    location: "",
+    salary: "",
     rate: "",
     requirements: "",
     jobSummary: "",
@@ -30,12 +34,13 @@ const JobForm = props => {
 
   const createListing = evt => {
     evt.preventDefault();
-    if (job.jobTitle === "" || job.type === "" || job.jobLocation === "" || job.salaryActual === "" || job.rate === "" || job.requirements === "" || job.jobSummary === "") {
+    if (job.jobTitle === "" || job.type === "" || job.location === "" || job.salaryActual === "" || job.rate === "" || job.requirements === "" || job.jobSummary === "") {
       window.alert("Hold up boss, you're missing a field or two!");
     } else {
       setIsLoading(true);
-      JobManager.postJob(job)
-        .then(() => props.history.push("/jobs"));
+      debugger
+      addJob(job)
+      history.push("/jobs");
     }
   };
 
@@ -83,7 +88,7 @@ const JobForm = props => {
 
             <label
               className="editLabel"
-              htmlFor="jobLocation">
+              htmlFor="location">
               Job Location *
             </label>
             <input
@@ -91,21 +96,21 @@ const JobForm = props => {
               required
               className="editInput"
               onChange={handleFieldChange}
-              id="jobLocation"
+              id="location"
             />
 
             <div className="salaryFields">
               <div className="salaryEdit">
                 <label
                   className="editLabel"
-                  htmlFor="salaryActual">
+                  htmlFor="salary">
                   Salary
                 </label>
                 <input
                   type="text"
                   className="editInput"
                   onChange={handleFieldChange}
-                  id="salaryActual"
+                  id="salary"
                 />
               </div>
               <div className="rateEdit">

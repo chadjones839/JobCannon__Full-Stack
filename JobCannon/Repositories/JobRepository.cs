@@ -16,7 +16,7 @@ namespace JobCannon.Repositories
             return new Job()
             {
                 Id = reader.GetInt32(reader.GetOrdinal("Id")),
-                PostDate = reader.GetDateTime(reader.GetOrdinal("PostDate")),
+                PostDate = reader.GetInt64(reader.GetOrdinal("PostDate")),
                 JobTitle = reader.GetString(reader.GetOrdinal("JobTitle")),
                 JobLocation = DbUtils.GetNullableString(reader, "JobLocation"),
                 Salary = reader.GetInt32(reader.GetOrdinal("Salary")),

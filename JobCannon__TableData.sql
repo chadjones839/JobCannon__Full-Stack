@@ -73,7 +73,7 @@ CREATE TABLE [Messages] (
 CREATE TABLE [Jobs] (
   [Id] integer PRIMARY KEY IDENTITY,
   [EmployerId] int NOT NULL,
-  [PostDate] date NOT NULL,
+  [PostDate] int NOT NULL,
   [JobTitle] varchar(50) NOT NULL,
   [JobLocation] varchar(50) NOT NULL,
   [Salary] integer NOT NULL,

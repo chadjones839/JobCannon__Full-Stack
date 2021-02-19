@@ -15,6 +15,8 @@ const EmployerJobList = () => {
     getAllJobs()
   }, []);
 
+  console.log(jobs)
+
   return (
     <div id="root-wrapper">
       <main className="profileContainer">

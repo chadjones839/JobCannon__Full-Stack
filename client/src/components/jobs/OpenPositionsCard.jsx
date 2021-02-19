@@ -10,6 +10,8 @@ const OpenPositionsCard = ({job}) => {
   const currentTimeStamp = new Date().getTime();
   let time = job.postDate
   let timeStamp = timeSince(currentTimeStamp, time)
+
+  console.log(job)
  
   return (
     <React.Fragment>
