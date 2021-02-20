@@ -120,7 +120,6 @@ export default function EmployerDiscoveryCard({ employer }) {
     getAllChats();
   }, []);
 
-
   if (removeMatched) {
     return null
   }

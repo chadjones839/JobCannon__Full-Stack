@@ -28,20 +28,9 @@ const JobForm = () => {
 
   const handleFieldChange = e => {
     const stateToChange = { ...job };
-    console.log(e)
     stateToChange[e.target.id] = e.target.value;
     setJob(stateToChange);
   };
-
-  const handleNameChange = e => {
-    const stateToChange = { ...job };
-    console.log(e)
-    stateToChange[e.target.id] = e.target.value;
-    setJob(stateToChange);
-  };
-
-  
-  
 
   const fullTimeActive = e => {
     const stateToChange = { ...job };
@@ -98,17 +87,7 @@ const JobForm = () => {
     salRate.classList.remove("selected");
     hrRate.classList.add("selected")
   }
-
-
-  // $('button').on('click', function(){
-  //   $('button').removeClass('selected');
-  //   $(this).addClass('selected');
-  // });
-
-  console.log(job.rate)
   
-  
-
   const createListing = evt => {
     evt.preventDefault();
     if (job.jobTitle === "" || job.type === "" || job.location === "" || job.salaryActual === "" || job.rate === "" || job.requirements === "" || job.jobSummary === "") {
@@ -128,7 +107,7 @@ const JobForm = () => {
           <button
             type="submit"
             className="slimBackBtn"
-            onClick={() => history.push("/resume")}>
+            onClick={() => history.push("/jobs")}>
             <img src="https://res.cloudinary.com/dhduglm4j/image/upload/v1596490014/icons/backarrow_lfdpzw.png" className="backToResume" alt="back" />
           </button>
         </div>
@@ -186,7 +165,7 @@ const JobForm = () => {
                 type="button"
                 className="jobTypeBtn"
                 id="temp"
-                value="Full-Time"
+                value="temp"
                 name="type"
                 onClick={tempActive}>
                 Temp
@@ -221,11 +200,6 @@ const JobForm = () => {
                 />
               </div>
               <div className="rateEdit">
-                {/* <label
-                  className="editLabel"
-                  htmlFor="rate">
-                  Rate
-                </label> */}
                 <div className="rateToggle">
                   <button
                     type="button"

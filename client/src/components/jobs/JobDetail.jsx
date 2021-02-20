@@ -59,7 +59,7 @@ const JobDetail = () => {
 
   return (
     <div id="root-wrapper">
-      <div className="listingHeader">
+      <div className="detailListingHeader">
         <div className="jobListing__header">
           <div className="headerLeft">
             {!sessionUser.candidateId

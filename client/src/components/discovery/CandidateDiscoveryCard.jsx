@@ -1,8 +1,7 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable array-callback-return */
 import React, { useEffect, useContext } from 'react';
 import { ChatContext } from "../../providers/ChatProvider.jsx";
-
-/*END IMPORTS*****************************************************************/
 
 export default function CandidateDiscoveryCard({ candidate }) {
   
@@ -133,7 +132,7 @@ export default function CandidateDiscoveryCard({ candidate }) {
           </div>
           <div className="candidateDetails">
             <h2 className="candidateCard__name">{candidate.candidate.firstName}</h2>
-            <h4 className="candidateCard__industry">{candidate.candidate.jobTitle}</h4>
+            <h4 className="candidateCard__jobTitle">{candidate.candidate.jobTitle}</h4>
           </div>
           <div className="candidateCard__body">
             {candidate.bio}
