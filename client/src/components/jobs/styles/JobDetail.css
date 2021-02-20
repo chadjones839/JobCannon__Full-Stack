@@ -36,14 +36,23 @@
 }
 
 .listingHeader {
-  padding: 20px 0 10px 10px;
+  padding: 20px 0 8px 10px;
   background: #FFFFFF;
   position: -webkit-sticky;
   position: sticky; top: 19px;
-  margin-bottom: 10px;
   box-shadow: 0px 3px 5px -2px #333;
   display: flex;
 }
+
+.detailListingHeader {
+  padding: 20px 0 25px 10px;
+  background: #FFFFFF;
+  position: -webkit-sticky;
+  position: sticky; top: 19px;
+  box-shadow: 0px 3px 5px -2px #333;
+  display: flex;
+}
+
 
 .job__backButton {
   padding-right: 10px;
@@ -126,6 +135,7 @@
 .jobListing__header {
   display: flex;
   flex-direction: row;
+  height: 40px;
 }
 
 .jobImage > img {

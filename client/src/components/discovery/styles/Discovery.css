@@ -31,22 +31,26 @@
   box-shadow: 0px 3px 5px -2px #333;
 }
 
-.employerCard__image {
+.employerCard__image,
+.candidateCard__image {
   width: 100%;
   height: auto;
 }
 
-.employerCard__image > img {
+.employerCard__image > img,
+.candidateCard__image > img {
   width: 100%;
   height: auto;
 }
 
-.employerCard__name {
+.employerCard__name,
+.candidateCard__name {
   font-family: 'Roboto', sans-serif;
   margin: 10px 0 5px 0;
 }
 
-.employerCard__industry {
+.employerCard__industry,
+.candidateCard__jobTitle {
   font-family: 'Roboto', sans-serif;
   margin: 5px 0 20px 0;
 }
@@ -56,7 +60,8 @@
   font-style: italic;
 }
 
-.employerCard__body {
+.employerCard__body,
+.candidateCard__body {
   font-family: 'Roboto', sans-serif;
 }
 

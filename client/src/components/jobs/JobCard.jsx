@@ -78,7 +78,7 @@ const JobCard = ({job}) => {
           </div>
           <div className="jobBtn__edit">
             <button 
-              onClick={() => history.push(`/jobs/${job.id}/edit`)}
+              onClick={() => history.push(`/jobs/edit/${job.id}`)}
               className="jobEditBtn"
               type="button"
               >

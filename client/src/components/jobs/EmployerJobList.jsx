@@ -13,7 +13,7 @@ const EmployerJobList = () => {
 
   useEffect(() => {
     getAllJobs()
-  }, []);
+  }, [jobs]);
 
   return (
     <div id="root-wrapper">

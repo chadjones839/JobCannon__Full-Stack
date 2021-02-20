@@ -206,6 +206,40 @@ namespace JobCannon.Repositories
             }
         }
 
+        public User GetUserByEmployerId(int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                       SELECT u.Id, u.Email, u.FirebaseUserId, u.ImageUrl, u.Bio, u.CandidateId, u.EmployerId,
+
+                              c.Id, c.FirstName, c.LastName, c.Location AS CandidateLocation, c.JobTitle,
+
+                              e.Id, e.Name, e.Industry, e.Location AS EmployerLocation
+                         FROM Users u
+                              LEFT JOIN Candidates c ON u.CandidateId = c.Id
+                              LEFT JOIN Employers e ON u.EmployerId = e.Id
+                        WHERE u.EmployerId = @Id";
+
+                    DbUtils.AddParameter(cmd, "@Id", id);
+
+                    User user = null;
+
+                    var reader = cmd.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        user = NewUserFromReader(reader);
+                    }
+                    reader.Close();
+
+                    return user;
+                }
+            }
+        }
+
         public User GetEmployerIdByUserId(int id)
         {
             using (var conn = Connection)

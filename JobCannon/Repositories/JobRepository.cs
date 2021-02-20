@@ -16,7 +16,7 @@ namespace JobCannon.Repositories
             return new Job()
             {
                 Id = reader.GetInt32(reader.GetOrdinal("Id")),
-                PostDate = reader.GetDateTime(reader.GetOrdinal("PostDate")),
+                PostDate = reader.GetInt64(reader.GetOrdinal("PostDate")),
                 JobTitle = reader.GetString(reader.GetOrdinal("JobTitle")),
                 JobLocation = DbUtils.GetNullableString(reader, "JobLocation"),
                 Salary = reader.GetInt32(reader.GetOrdinal("Salary")),
@@ -115,7 +115,7 @@ namespace JobCannon.Repositories
                               e.Id, e.Name, e.Industry
                          FROM Jobs j
                               LEFT JOIN Employers e ON j.EmployerId = e.Id
-                        WHERE u.Id = @Id";
+                        WHERE j.Id = @Id";
 
                     DbUtils.AddParameter(cmd, "@Id", id);
 
@@ -183,7 +183,7 @@ namespace JobCannon.Repositories
                                 Type = @Type,
                                 Keyword1 = @Keyword1,
                                 Keyword2 = @Keyword2,
-                                Keyword3 = @Keyword3
+                                Keyword3 = @Keyword3,
                                 EmployerId = @EmployerId
                             WHERE Id = @Id";
                     cmd.Parameters.AddWithValue("@Id", job.Id);

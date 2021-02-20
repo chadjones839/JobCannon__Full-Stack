@@ -15,7 +15,7 @@ namespace JobCannon.Models
         public Employer Employer { get; set; }
 
         [Required]
-        public DateTime PostDate { get; set; }
+        public long PostDate { get; set; }
 
         [Required]
         [StringLength(50)]

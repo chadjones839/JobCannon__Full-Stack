@@ -14,5 +14,6 @@ namespace JobCannon.Repositories
         void Update(User user);
         void Delete(int id);
         User GetEmployerIdByUserId(int id);
+        User GetUserByEmployerId(int id);
     }
 }

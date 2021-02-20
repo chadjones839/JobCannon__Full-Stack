@@ -1,89 +1,84 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable eqeqeq */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Navbar from "../nav/Navbar.jsx"
-import JobManager from "../modules/JobManager";
-import UserManager from "../modules/UserManager";
+import { useHistory, useParams } from "react-router-dom";
+import { JobContext } from "../../providers/JobProvider.jsx";
+import { UserProfileContext } from "../../providers/UserProfileProvider.jsx";
 import { timeSince } from '../modules/HelperFunctions';
 
 /*END IMPORTS*****************************************************************/
 
-const JobDetail = props => {
+const JobDetail = () => {
 
   const currentTimeStamp = new Date().getTime();
-  const sessionUser = JSON.parse(sessionStorage.getItem("user"))
+  const { id } = useParams();
+  const history = useHistory();
+  const { job, getJobById, deleteJob } = useContext(JobContext);
+  const { user, getUserByEmployerId } = useContext(UserProfileContext);
+  const sessionUser = JSON.parse(sessionStorage.getItem("userProfile"));
 
-  const [user, setUser] = useState({})
-  const [job, setJob] = useState({
-    userId: "",
-    postDate: "",
-    jobTitle: "",
-    jobLocation: "",
-    salaryEstLow: "",
-    salaryEstHigh: "",
-    salaryActual: "",
-    requirements: "",
-    jobSummary: "",
-    type: "",
-    rate: ""
-  });
+  // const [jobListing, setJobListing] = useState({
+  //   id: id,
+  //   employerId: "",
+  //   postDate: "",
+  //   jobTitle: "",
+  //   jobLocation: "",
+  //   salary: "",
+  //   rate: "",
+  //   requirements: "",
+  //   jobSummary: "",
+  //   type: "",
+  //   keyword1: "",
+  //   keyword2: "",
+  //   keyword3: "",
+  // });
 
   let time = job.postDate
   let timeStamp = timeSince(currentTimeStamp, time)
 
   useEffect(() => {
-    JobManager.getJob(props.jobId)
-      .then(job => {
-        setJob({
-          userId: job.userId,
-          postDate: job.postDate,
-          jobTitle: job.jobTitle,
-          jobLocation: job.jobLocation,
-          salaryEstLow: job.salaryEstLow,
-          salaryEstHigh: job.salaryEstHigh,
-          salaryActual: job.salaryActual,
-          requirements: job.requirements,
-          jobSummary: job.jobSummary,
-          type: job.type,
-          rate: job.rate
-        });
-        UserManager.getUser(job.userId)
-          .then((response) => {
-            setUser(response)
-          })
-      });
-  }, [props.jobId]);
+    getJobById(id)
+  }, [id, job]);
 
+  useEffect(() => {
+    getUserByEmployerId(job.employerId)
+  }, [job]);
 
   const deleteListing = id => {
     if (window.confirm("Are you sure you want to delete this listing? This cannot be undone.")) {
-      JobManager.deleteJob(id)
+      deleteJob(id)
+      history.push("/jobs")
     }
   };
 
+  if (!user || !user.employer) {
+    return null
+  }
+
   return (
     <div id="root-wrapper">
-      <div className="listingHeader">
+      <div className="detailListingHeader">
         <div className="jobListing__header">
           <div className="headerLeft">
-            {sessionUser.accountType === "employer"
+            {!sessionUser.candidateId
               ? <div className="jobImage">
                 <img
-                  src={user.image}
-                  alt={user.companyName}
-                  onClick={() => props.history.push("/jobs")} />
+                  src={sessionUser.imageUrl}
+                  alt={sessionUser.employer.name}
+                  onClick={() => history.push("/jobs")} />
               </div>
               : <div className="jobImage">
                 <img
-                  src={user.image}
-                  alt={user.companyName}
-                  onClick={() => props.history.push(`/jobs/${user.id}/listings`)} />
+                  src={sessionUser.imageUrl}
+                  alt={sessionUser.employer.name}
+                  onClick={() => history.push(`/jobs/${user.id}/listings`)} />
               </div>}
           </div>
           <div className="headerRight">
             <div className="jobCompany">
-              <h3>{user.companyName}</h3>
+              <h3>{user.employer.name}</h3>
             </div>
             <div className="jobLocation">
               <h4>{job.jobLocation}</h4>
@@ -98,11 +93,11 @@ const JobDetail = props => {
               {job.type}
             </div>
           </div>
-          {sessionUser.accountType === "employer"
+          {!sessionUser.candidateId
             ? <div className="jobDetailBtnContainer">
               <div className="jobBtn__Delete">
                 <button
-                  onClick={() => deleteListing(props.jobId)}
+                  onClick={() => deleteListing(job.id)}
                   className="jobDetailDeleteBtn"
                   type="button"
                 >
@@ -111,7 +106,7 @@ const JobDetail = props => {
               </div>
               <div className="jobBtn__Edit">
                 <button
-                  onClick={() => props.history.push(`/jobs/${props.jobId}/edit`)}
+                  onClick={() => history.push(`/jobs/edit/${job.id}`)}
                   className="jobDetailEditBtn"
                   type="button"
                 >
@@ -134,7 +129,7 @@ const JobDetail = props => {
         <section className="jobDetails">
           <div className="jobSalary">
             <h5>Est.Salary</h5>
-            <p>${job.salaryActual}/{job.rate}</p>
+            <p>${job.salary}/{job.rate}</p>
           </div>
           <div className="jobRequirements">
             <h5>Requirements</h5>
@@ -144,11 +139,11 @@ const JobDetail = props => {
             <h5>Job Summary</h5>
             <p>{job.jobSummary}</p>
           </div>
-          {sessionUser.accountType === "candidate"
+          {!sessionUser.employerId
             ? <div className="applyBtnContainer">
               <div className="jobBtn__delete">
                 <button
-                  onClick={() => props.history.push("/apply-confirm")}
+                  onClick={() => history.push("/apply-confirm")}
                   className="applyBtn"
                   type="button"
                 >
