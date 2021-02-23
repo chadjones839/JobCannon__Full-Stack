@@ -1,10 +1,11 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable eqeqeq */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Navbar from "../nav/Navbar.jsx"
-import UserManager from "../modules/UserManager";
-import ResumeManager from "../modules/ResumeManager";
+import { UserProfileContext } from "../../providers/UserProfileProvider.jsx";
+import { ResumeContext } from "../../providers/ResumeProvider.jsx";
+import { useHistory, useParams } from "react-router-dom";
 import WorkHistoryCard from "../resumes/WorkHistoryCard";
 import SchoolsCard from "../resumes/SchoolsCard";
 
@@ -12,72 +13,24 @@ import SchoolsCard from "../resumes/SchoolsCard";
 
 const ViewResume = props => {
 
-  const sessionUser = JSON.parse(sessionStorage.getItem("user"))
-  const [user, setUser] = useState({})
-  const [jobs, setJobs] = useState([])
-  const [skills, setSkills] = useState([])
-  const [schools, setSchools] = useState([])
-  let skill = {}
-
-  skills.find(obj => {
-    skill = obj
-    return obj
-  });
-
-  const getUser = () => {
-    if (sessionUser.accountType === "candidate") {
-      return UserManager.getUser(sessionUser.id)
-    }
-    else {
-      return UserManager.getUser(props.match.params.userId)
-    }
-  }
-
-  const getJobs = () => {
-    if (sessionUser.accountType === "candidate") {
-      return ResumeManager.getJobsForUser(sessionUser.id)
-    }
-    else {
-      return ResumeManager.getJobsForUser(props.match.params.userId)
-    }
-  }
-
-  const getSkills = () => {
-    if (sessionUser.accountType === "candidate") {
-      return ResumeManager.getSkillsForUser(sessionUser.id)
-    }
-    else {
-      return ResumeManager.getSkillsForUser(props.match.params.userId)
-    }
-  }
-
-  const getSchools = () => {
-    if (sessionUser.accountType === "candidate") {
-      return ResumeManager.getSchoolsForUser(sessionUser.id)
-    }
-    else {
-      return ResumeManager.getSchoolsForUser(props.match.params.userId)
-    }
-  }
+  const sessionUser = JSON.parse(sessionStorage.getItem("userProfile"));
+  const { id } = useParams();
+  const { user, getLocalUser } = useContext(UserProfileContext);
+  const { workHistories, 
+          schools, 
+          getWorkHistoryByUserId, 
+          getSchoolsByUserId } = useContext(ResumeContext);
 
   useEffect(() => {
-    getUser()
-      .then((userResponse) => {
-        getJobs()
-          .then((jobsResponse) => {
-            getSkills()
-              .then((skillsResponse) => {
-                getSchools()
-                  .then((schoolResponse) => {
-                    setSkills(skillsResponse)
-                    setUser(userResponse)
-                    setJobs(jobsResponse)
-                    setSchools(schoolResponse)
-                  })
-              })
-          })
-      });
+    getLocalUser(id)
+    getWorkHistoryByUserId(id)
+    getSchoolsByUserId(id)
   }, []);
+
+  if (!user || !user.candidate) {
+  return null
+}
+
   return (
     <div id="root-wrapper">
       <div className="userResumeContainer">
@@ -87,7 +40,7 @@ const ViewResume = props => {
           </div>
           <div className="userProfile__image">
             <div className="userImage__container">
-              <img src={user.image} alt={user.firstName} />
+              <img src={user.imageUrl} alt={user.candidate.firstName} />
             </div>
           </div>
           <div className="userProfile__right">
@@ -95,25 +48,24 @@ const ViewResume = props => {
         </section>
         <section className="userProfile__details">
           <div className="userProfile__name">
-            <h2>{user.firstName} {user.lastName}</h2>
+            <h2>{user.candidate.firstName} {user.candidate.lastName}</h2>
           </div>
           <div className="userProfile__location">
-            {user.jobTitle}
+            {user.candidate.jobTitle}
           </div>
         </section>
         <main className="resumeContainer">
           <h2 className="viewSectionTitle"><span>Work History</span></h2>
           <section className="workHistory">
-            {jobs.map(job =>
+            {workHistories.map(job =>
               <WorkHistoryCard
                 key={job.id}
-                job={job}
-                {...props} />
+                job={job} />
             )}
           </section>
           <h2 className="viewSectionTitle"><span>Skills</span></h2>
           <article className="skillSet">
-            <div className="viewSkillList">
+            {/* <div className="viewSkillList">
               <span>{skill.skill1}</span>
               <span>{skill.skill2}</span>
               <span>{skill.skill3}</span>
@@ -124,7 +76,7 @@ const ViewResume = props => {
               <span>{skill.skill8}</span>
               <span>{skill.skill9}</span>
               <span>{skill.skill10}</span>
-            </div>
+            </div> */}
           </article>
           <h2 className="viewSectionTitle"><span>Schools</span></h2>
           <section className="schools">

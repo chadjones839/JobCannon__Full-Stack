@@ -145,6 +145,11 @@ const ApplicationViews = (props) => {
         <ResumeList /> : <Redirect to="/" />}
       </Route>
 
+      <Route exact path="/user-resume/:id/:employerId">
+        {isLoggedIn ?
+         <ViewResume/> : <Redirect to="/" />}
+      </Route>
+
       <Route exact path="/work-history/new"> 
         {isLoggedIn ?
         <WorkHistory /> : <Redirect to="/" />}
