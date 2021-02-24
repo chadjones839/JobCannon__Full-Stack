@@ -1,70 +1,74 @@
-import React, { useState, useEffect } from 'react';
-import UserManager from "../modules/UserManager.jsx";
+import React, { useContext, useEffect } from 'react';
+import { useHistory } from "react-router-dom";
+import { UserProfileContext } from "../../providers/UserProfileProvider.jsx";
 
 
-const ResumeCard = props => {
+const ResumeCard = ({chat}) => {
 
-  const sessionUser = JSON.parse(sessionStorage.getItem("user"))
-  const [users, setUsers] = useState([]); 
+  const sessionUser = JSON.parse(sessionStorage.getItem("userProfile"));
+  const history = useHistory();
+  const { users, getAllUsers } = useContext(UserProfileContext); 
   let user = {};
+  let initiatingUser = {};
 
-  users.find(obj => {
-    if (obj.id === props.chat.activeUserId) {
+  users.map(obj => {
+    if (obj.id === chat.reciprocatingUserId) {
       user = obj
-      return obj
+    }
+    else if (obj.id === chat.initiatingUserId){
+      initiatingUser = obj
     }
     else {
       return null
     }
   });
-  
-  const getUsers = () => {
-    return UserManager.getAllUsers()
-  }
 
   useEffect(() => {
-    getUsers()
-    .then((userResponse) => {
-      setUsers(userResponse)
-    })
+    getAllUsers()
   }, []);
 
-  if (sessionUser.id === props.chat.userId) {
+  if (!user || !user.candidate) {
+    return null
+  }
+  else if (!initiatingUser || !initiatingUser.candidate) {
+    return null
+  }
+  else if (sessionUser.id === chat.initiatingUserId) {
     return (
       <React.Fragment>
         <section className="jobsCard">
           <div className="jobsUserImageContainer">
             <div className="jobsUserImage">
               <img 
-                src={user.image} 
-                alt={user.firstName}
-                onClick={() => props.history.push(`/user-resume/${user.id}`)} />
+                src={user.imageUrl} 
+                alt={user.candidate.firstName}
+                onClick={() => history.push(`/user-resume/${user.id}/${user.candidateId}`)} />
             </div>
           </div>
           <div className="messageDetailsContainer">
             <div className="messageUserName">
-              <h4>{user.firstName} {user.lastName}</h4>
+              <h4>{user.candidate.firstName} {user.candidate.lastName}</h4>
             </div>
           </div>
         </section>
       </React.Fragment>
     )
   }
-  else if (sessionUser.id === props.chat.activeUserId) {
+  else if (sessionUser.id === chat.reciprocatingUserId) {
     return (
       <React.Fragment>
         <section className="jobsCard">
           <div className="jobsUserImageContainer">
             <div className="jobsUserImage">
               <img 
-              src={props.chat.user.image} 
-              alt={props.chat.user.firstName}
-              onClick={() => props.history.push(`/user-resume/${props.chat.user.id}`)} />
+              src={chat.user.image} 
+              alt={chat.user.firstName}
+              onClick={() => history.push(`/user-resume/${initiatingUser.id}/${initiatingUser.candidateId}`)} />
             </div>
           </div>
           <div className="messageDetailsContainer">
             <div className="messageUserName">
-              <h4>{props.chat.user.firstName} {props.chat.user.lastName}</h4>
+              <h4>{chat.user.firstName} {chat.user.lastName}</h4>
             </div>
           </div>
         </section>
@@ -72,7 +76,7 @@ const ResumeCard = props => {
     )
   }
   else {
-    return <div className="empty"></div>;
+    return null;
   }
 };
 

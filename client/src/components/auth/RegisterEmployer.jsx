@@ -1,65 +1,57 @@
 /* eslint-disable array-callback-return */
-import React, { useState } from "react";
-import UserManager from "../modules/UserManager";
+import React, { useState, useContext } from "react";
+import { useHistory } from "react-router-dom";
+import { UserProfileContext } from "../../providers/UserProfileProvider.jsx";
+import { EmployerContext } from "../../providers/EmployerProvider.jsx";
 
 
 const RegisterEmployer = props => {
-  const [user, setNewUser] = useState({
-    email: "",
-    password: "",
-    accountType: "employer",
-    image: "https://res.cloudinary.com/dhduglm4j/image/upload/v1596490031/icons/profileNav_lord6y.png",
-    companyName: "",
-    industry: "",
-    userLocation: "",
-    firstName: "",
-    lastName: "",
-    jobTitle: "",
-    bio: ""
-  })
 
-  const setUser = props.setUser
-  const [isLoading, setIsLoading] = useState(false);
+  const history = useHistory();
+  const { register, login } = useContext(UserProfileContext);
+  const { addEmployer } = useContext(EmployerContext);
+  const [name, setName] = useState();
+  const [industry, setIndustry] = useState();
+  const [location, setLocation] = useState();
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const [confirmPassword, setConfirmPassword] = useState();
+  const imageUrl = "https://res.cloudinary.com/dhduglm4j/image/upload/v1596490031/icons/profileNav_lord6y.png";
+  const bio = "";
+  const candidateId = null;
 
-  const handleFieldChange = evt => {
-    const stateToChange = { ...user };
-    stateToChange[evt.target.id] = evt.target.value;
-    setNewUser(stateToChange);
-  };
+  const employer = {
+    name: name,
+    industry: industry,
+    location: location
+  }
 
-  const constructNewUser = evt => {
-    evt.preventDefault();
-    let passwordConfirm = document.querySelector("#passwordConfirm").value
-    if (user.email === "" || user.password === "" || user.companyName === "" || user.industry === "" || user.userLocation === "") {
+  const user = {
+    email: email,
+    imageUrl: imageUrl,
+    bio: bio,
+    candidateId: candidateId
+  }
+
+  const constructNewUser = e => {
+    e.preventDefault();
+    if (name === "" || password === "" || name === "" || industry === "" || location === "") {
       window.alert("Missing fields")
     }
-    else if (user.password !== passwordConfirm) {
+    else if (password !== confirmPassword) {
       window.alert("Your password does not match")
     }
     else {
-      setIsLoading(true);
-      sessionStorage.setItem("user", JSON.stringify(user))
-      setNewUser(user)
-      setUser(user)
-      UserManager.postUser(user)
-        .then(() => {
-          UserManager.getAllUsers()
-            .then(arr => {
-              arr.find(obj => {
-                if (obj.email === user.email) {
-                  sessionStorage.setItem("user", JSON.stringify(obj))
-                  setNewUser(obj)
-                  setUser(obj)
-                }
-              })
-            })
+      addEmployer(employer)
+      .then((e) => {
+        console.log(e.id)
+        user.employerId = e.id
+        register(user, password)
+        .then((u) => {
+          login(u.email, password)
+          .then(() => history.push("/discovery"));
         })
-        .then(() => {
-          props.history.push("/discovery")
-        })
-        .then(() => {
-          window.location.reload(true)
-        })
+      })
     }
   };
 
@@ -69,7 +61,7 @@ const RegisterEmployer = props => {
         <button
           type="submit"
           className="backbutton"
-          onClick={() => props.history.push("/register")}>
+          onClick={() => history.push("/register")}>
           <img src="https://res.cloudinary.com/dhduglm4j/image/upload/v1596490014/icons/backarrow_lfdpzw.png" className="backToHome" alt="back" />
         </button>
       </div>
@@ -85,7 +77,7 @@ const RegisterEmployer = props => {
                 id="email"
                 type="text"
                 placeholder="Email"
-                onChange={handleFieldChange} />
+                onChange={e => setEmail(e.target.value)} />
             </div>
 
             <div className="form-input">
@@ -95,7 +87,7 @@ const RegisterEmployer = props => {
                 type="password"
                 id="password"
                 placeholder="Password"
-                onChange={handleFieldChange} />
+                onChange={e => setPassword(e.target.value)} />
             </div>
 
             <div className="form-input">
@@ -104,27 +96,28 @@ const RegisterEmployer = props => {
                 className="inputField"
                 type="password"
                 placeholder="Confirm Password"
-                id="passwordConfirm" />
+                id="passwordConfirm" 
+                onChange= {e => setConfirmPassword(e.target.value)}/>
             </div>
 
             <div className="form-input">
               <input
                 required
                 className="inputField"
-                id="companyName"
+                id="name"
                 type="text"
                 placeholder="Company Name"
-                onChange={handleFieldChange} />
+                onChange={e => setName(e.target.value)} />
             </div>
 
             <div className="form-input">
               <input
                 required
                 className="inputField"
-                id="userLocation"
+                id="location"
                 type="text"
                 placeholder="Location (i.e. Nashville, TN)"
-                onChange={handleFieldChange} />
+                onChange={e => setLocation(e.target.value)} />
             </div>
 
             <div className="form-input">
@@ -134,13 +127,12 @@ const RegisterEmployer = props => {
                 id="industry"
                 type="text"
                 placeholder="Company Industry"
-                onChange={handleFieldChange} />
+                onChange={e => setIndustry(e.target.value)} />
             </div>
             <div className="createAccountBtn">
               <button
                 type="submit"
                 className="loginBtn"
-                disabled={isLoading}
                 onClick={constructNewUser}>
                 Create Account
                 </button>

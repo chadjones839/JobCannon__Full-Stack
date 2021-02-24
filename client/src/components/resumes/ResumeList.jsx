@@ -1,23 +1,18 @@
-import React, { useState, useEffect } from "react";
-import ChatManager from "../modules/ChatManager";
+import React, { useEffect, useContext } from "react";
+import { ChatContext } from "../../providers/ChatProvider.jsx";
 import Navbar from "../nav/Navbar.jsx"
 import ResumeCard from "../resumes/ResumeCard";
 
 
 const ResumeList = props => {
 
-  const [chats, setChats] = useState([]);
-
-  const getChats = () => {
-    return ChatManager.getWithUsers()
-  }
+  const sessionUser = JSON.parse(sessionStorage.getItem("userProfile"));
+  const { chats, getUserMatchChats } = useContext(ChatContext);
 
   useEffect(() => {
-    getChats()
-      .then((chatResponse) => {
-        setChats(chatResponse)
-      })
+    getUserMatchChats(sessionUser.id)
   }, []);
+  console.log(chats)
 
   return (
     <div id="root-wrapper">
@@ -34,7 +29,6 @@ const ResumeList = props => {
           <ResumeCard
             key={chat.id}
             chat={chat}
-            {...props}
           />
         )}
 

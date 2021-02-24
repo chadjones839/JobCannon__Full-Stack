@@ -21,7 +21,7 @@ const CandidateCompaniesCard = ({chat}) => {
       return null
     }
   });
-  
+
   useEffect(() => {
     getAllUsers()
   }, []);
@@ -41,7 +41,7 @@ const CandidateCompaniesCard = ({chat}) => {
               <img 
                 src={user.imageUrl} 
                 alt={user.employer.name}
-                onClick={() => history.push(`/jobs-listings/${user.id}/${user.employerId}`)} />
+                onClick={() => history.push(`/job-listings/${user.id}/${user.employerId}`)} />
             </div>
           </div>
           <div className="messageDetailsContainer">
