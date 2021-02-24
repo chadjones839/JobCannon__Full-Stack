@@ -12,7 +12,6 @@ const CandidateCompanySelect = () => {
   useEffect(() => {
     getUserMatchChats(sessionUser.id)
   }, []);
-  console.log(chats)
 
   return (
     <div id="root-wrapper">

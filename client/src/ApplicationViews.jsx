@@ -125,7 +125,7 @@ const ApplicationViews = (props) => {
         }
       </Route>
 
-      <Route exact path="/jobs-listings/:id/:employerId">
+      <Route exact path="/job-listings/:id/:employerId">
         {isLoggedIn ?
          <OpenPositions/> : <Redirect to="/" />}
       </Route>

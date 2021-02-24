@@ -3,13 +3,14 @@ import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { UserProfileContext } from "../../providers/UserProfileProvider.jsx";
 import { CandidateContext } from "../../providers/CandidateProvider.jsx";
+import Login from "./Login.jsx";
 
 
 const RegisterCandidate = props => {
   
   const history = useHistory();
-  const { register, addCandidate } = useContext(UserProfileContext);
-  // const { addCandidate } = useContext(CandidateContext);
+  const { register, login } = useContext(UserProfileContext);
+  const { addCandidate } = useContext(CandidateContext);
   const [firstName, setFirstName] = useState();
   const [lastName, setLastName] = useState();
   const [location, setLocation] = useState();
@@ -34,6 +35,7 @@ const RegisterCandidate = props => {
     employerId: employerId
   }
 
+
   const registerUser = (e) => {
     e.preventDefault();
     if (password && password !== confirmPassword) {
@@ -45,10 +47,12 @@ const RegisterCandidate = props => {
     else {
       addCandidate(candidate)
       .then((c) => {
-        console.log(c)
         user.candidateId = c.id;
         register(user, password)
+        .then((u) => {
+          login(u.email, password)
           .then(() => history.push("/discovery"));
+        })
       })
     }
   };
@@ -59,7 +63,7 @@ const RegisterCandidate = props => {
         <button
           type="submit"
           className="backbutton"
-          onClick={() => props.history.push("/register")}>
+          onClick={() => history.push("/register")}>
           <img src="https://res.cloudinary.com/dhduglm4j/image/upload/v1596490014/icons/backarrow_lfdpzw.png" className="backToHome" alt="back" />
         </button>
       </div>

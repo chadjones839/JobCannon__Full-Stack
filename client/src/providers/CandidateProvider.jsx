@@ -21,28 +21,6 @@ export const CandidateProvider = (props) => {
                 .then(setCandidates));
     };
 
-    const getAllLeads = () => {
-        getToken().then((token) =>
-            fetch(`${apiUrl}/leads`, {
-                method: "GET",
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            }).then(resp => resp.json())
-                .then(setCandidates));
-    };
-
-    const getAllCandidatesByUser = (id) => {
-        return getToken().then((token) =>
-            fetch(`/api/candidate/mycandidates${id}`, {
-                method: "GET",
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            }).then((resp) => resp.json())
-                .then(setCandidates));
-    }
-
     const getCandidateById = (id) => {
         getToken().then((token) =>
             fetch(`${apiUrl}/${id}`, {
@@ -91,7 +69,7 @@ export const CandidateProvider = (props) => {
 
     return (
         <CandidateContext.Provider value={{
-            candidate, candidates, getAllCandidates, getAllLeads, getCandidateById, addCandidate, updateCandidate, deleteCandidate, setCandidate, getAllCandidatesByUser
+            candidate, candidates, getAllCandidates, getCandidateById, addCandidate, updateCandidate, deleteCandidate, setCandidate
         }}>
             {props.children}
         </CandidateContext.Provider>

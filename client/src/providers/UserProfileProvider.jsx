@@ -74,10 +74,6 @@ export function UserProfileProvider(props) {
   const register = (userProfile, password) => {
     return firebase.auth().createUserWithEmailAndPassword(userProfile.email, password)
       .then((createResponse) => addUser({ ...userProfile, firebaseUserId: createResponse.user.uid }))
-      .then((savedUserProfile) => {
-        sessionStorage.setItem("userProfile", JSON.stringify(savedUserProfile))
-        setIsLoggedIn(true);
-      });
   };
 
   const getFirebaseUser = (firebaseUserProfileId) => {
@@ -148,19 +144,18 @@ export function UserProfileProvider(props) {
       }));
   };
 
-  const deleteUser = (id) =>
-    getToken().then((token) =>
-        fetch(`${apiUrl}/delete/${id}`, {
-            method: "DELETE",
-            headers: {
-                Authorization: `Bearer ${token}`,
-                "Content-Type": "application/json"
-            },
+  const disableUser = (uid) =>{
+    return firebase.auth().updateUser(uid, { disabled: true })
+    .then(() => {
+      sessionStorage.clear()
+      setIsLoggedIn(false);
+    })
+  };
 
-        }))
+  
 
   return (
-    <UserProfileContext.Provider value={{ user, users, candidates, employers, isLoggedIn, userProfile, login, logout, register, getToken, setUsers, getAllUsers, getAllCandidates, getAllEmployers, getFirebaseUser, getLocalUser, getUserByEmployerId, getEmployerIdByUserId, addUser, updateUser, deleteUser }}>
+    <UserProfileContext.Provider value={{ user, users, candidates, employers, isLoggedIn, userProfile, login, logout, register, getToken, setUsers, getAllUsers, getAllCandidates, getAllEmployers, getFirebaseUser, getLocalUser, getUserByEmployerId, getEmployerIdByUserId, addUser, updateUser, disableUser }}>
       {isFirebaseReady
         ? props.children
         : <Spinner className="app-spinner dark" />}

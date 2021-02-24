@@ -8,7 +8,7 @@ const EmployerProfile = () => {
 
   const sessionUser = JSON.parse(sessionStorage.getItem("userProfile"));
   const history = useHistory();
-  const { user, getLocalUser, deleteUser } = useContext(UserProfileContext);  
+  const { user, getLocalUser, disableUser } = useContext(UserProfileContext);  
 
   useEffect(() => {
     getLocalUser(sessionUser.id)
@@ -21,7 +21,7 @@ const EmployerProfile = () => {
 
   const deleteAccount = id => {
     if (window.confirm("Are you sure you want to delete your account? This cannot be undone.")) {
-      deleteUser(id)
+      disableUser(id)
         .then(() => {
           clearUser()
         })
