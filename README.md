@@ -1,12 +1,10 @@
 # JobCannon
 
-JobCannon is a React app built with full CRUD functionality that lets users register as either an employer or a job seeker, browse user profiles (job seekers browse employers and vice versa), and create connections when there is a shared interest between users. The main match-based feature is also accompanied with a private chat, resume builder, and job listings feature.
+JobCannon is a ReactJS app that uses a SQL database and C#/.NET on the backend. This app allows users to register as a job seeker or employer and peruse a list of registered employers or job seekers, respectively. The discovery feature allows them to match based on mutual interest, which then opens a new set of options between matched users.
 
-The main feature can be found on the `Discovery` page, which is where users are directed after login or account registration. Depending on the user type, a job seeker will be displayed all employer profiles and an employer will be displayed all job seeker profiles. Each profile card has a pair of buttons for "Hard Pass" and "Let's Talk". Clicking the Hard Pass button will remove that user from the active user's list of potential matches. Clicking the Let's Talk button can do either of two things:
+Matched users can subsequently engage in a private chat with one another. Employers can view matched job seekers' resumes and job seekers can view matched employers' job listings. Either user also has the option to unmatch with the user at any given time, update their profile details, delete their profile, or add, update, or delete job listings/resume fields.
 
-1. If the active user clicks "Let's Talk" and there isn't already a partial match in the database, a new partial match is created.
-
-2. If a partial match exists, meaning the other user has already clicked "Let's Talk" on the active user's profile, then the partial match is updated to a complete match, and a new chat is created.
+The backend was written in C#, and references a SQL database through their respective models. The controller files will utilize the correct methods obtain data from a repository when a user takes such an action on the DOM. The front end is linked through these multiple endpoints using javascript fetch calls, and interpolated to the DOM. Most of these calls are broadly capturing the objects, but future iterations of this app will see them become more granular to fetch only the necessary data.
 
 ## Two User Types
 
@@ -34,12 +32,11 @@ The main feature can be found on the `Discovery` page, which is where users are 
 ## Installation
 
 - In your terminal run git clone SSH KEY
-- cd into the JobCannon folder
-- In your terminal, run `npx create-react-app .` to install React library
-- Then run `npm install --save react-router-dom`
-- After installations, run `npm start` to host app on localhost:3000
-- In browser, open dev tools and view in iPhone X format. (currently only supported for this device's dimensions)
-- Then start a json server on port 5002 for sample.json
+- run `npm install` to install all needed node modules
+- open the `JobCannon.sln` file in visual studio, and start the debugger on localhost:5001
+- Open a new SQL query and run both the Table data and seed data files.
+- open a separate terminal window and open `JobCannon/client` folder
+- run `npm start` to host app on localhost:3000
 
 ## Usage
 
@@ -48,7 +45,7 @@ To get the best experience from JobCannon in it's early stages, it's best to use
 ### Test an Established Job Seeker Account
 
 1. Click the "Login" button on the home page.
-2. Login with email: "charlie@paddyspub.com" and password: "nitecroller"
+2. Login with email: "charlie@paddyspub.comx" and password: "nitecroller"
 3. On the `Discovery` page, browse through employers and click either "Hard Pass" to pass on a company or "Let's Talk" to indicate your interest in connecting with that company.
 4. Navigate to the `Profile` feature by clicking the profile button on the navbar.
 5. Click edit profile to change text field details, or upload a new profile picture. Click "Save Changes"
@@ -69,7 +66,7 @@ To get the best experience from JobCannon in it's early stages, it's best to use
 ### Test an Established Employer Account
 
 1. Click the "Login" button on the home page.
-2. Login with email: "hiring@spacerschoice.com" and password: "spacer"
+2. Login with email: "warren.vidic@abstergo.comx" and password: "nitecroller"
 3. On the `Discovery` page, browse through job seekers and click either "Hard Pass" to pass on a company or "Let's Talk" to indicate your interest in connecting with that job seeker.
 4. Navigate to the `Profile` feature by clicking the profile button on the navbar.
 5. Click edit profile to change text field details, or upload a new profile picture. Click "Save Changes"
