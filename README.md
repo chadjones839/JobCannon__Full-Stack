@@ -27,11 +27,9 @@ The main feature can be found on the `Discovery` page, which is where users are 
 
 ## Screenshots
 
-<img src="https://res.cloudinary.com/dhduglm4j/image/upload/v1597609592/techtok/home-sample_zboksi.png" height="303" width="133"><img src="https://res.cloudinary.com/dhduglm4j/image/upload/v1597609622/techtok/discovery-sample_fjfooo.png" height="303" width="133"><img src="https://res.cloudinary.com/dhduglm4j/image/upload/v1597609653/techtok/profile-sample_cgosjc.png" height="303" width="133">
+<img src="https://res.cloudinary.com/dhduglm4j/image/upload/v1618952347/discovery_ooimgr.png" height="303" width="133"><img src="https://res.cloudinary.com/dhduglm4j/image/upload/v1618952347/chats_bhjhq4.png" height="303" width="133"><img src="https://res.cloudinary.com/dhduglm4j/image/upload/v1618952347/chat-private_ga14uj.png" height="303" width="133">
 
-<img src="https://res.cloudinary.com/dhduglm4j/image/upload/v1597609578/techtok/chat-sample_q7wjro.png" height="303" width="133"><img src="https://res.cloudinary.com/dhduglm4j/image/upload/v1597609608/techtok/resume-sample_cfitg4.png" height="303" width="133"><img src="https://res.cloudinary.com/dhduglm4j/image/upload/v1597609563/techtok/jobs-sample_fyibaa.png" height="303" width="133">
-
-<img src="https://res.cloudinary.com/dhduglm4j/image/upload/v1618952256/Job-Listing-Creater_dkdeax.png" height="303" width="133">
+<img src="https://res.cloudinary.com/dhduglm4j/image/upload/v1597609608/techtok/resume-sample_cfitg4.png" height="303" width="133"><img src="https://res.cloudinary.com/dhduglm4j/image/upload/v1618952347/job-listings_lbota6.png" height="303" width="133"><img src="https://res.cloudinary.com/dhduglm4j/image/upload/v1618952256/Job-Listing-Creater_dkdeax.png" height="303" width="133">
 
 ## Installation
 
