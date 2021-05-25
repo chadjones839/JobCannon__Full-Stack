@@ -1,6 +1,6 @@
 # JobCannon
 
-JobCannon is a ReactJS app that uses a SQL database and C#/.NET on the backend. This app allows users to register as a job seeker or employer and peruse a list of registered employers or job seekers, respectively. The discovery feature allows them to match based on mutual interest, which then opens a new set of options between matched users.
+JobCannon is a React app that uses a SQL database and C#/.NET on the backend. This app allows users to register as a job seeker or employer and peruse a list of registered employers or job seekers, respectively. The discovery feature allows them to match based on mutual interest, which then opens a new set of options between matched users.
 
 Matched users can subsequently engage in a private chat with one another. Employers can view matched job seekers' resumes and job seekers can view matched employers' job listings. Either user also has the option to unmatch with the user at any given time, update their profile details, delete their profile, or add, update, or delete job listings/resume fields.
 
