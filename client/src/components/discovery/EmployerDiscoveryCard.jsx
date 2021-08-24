@@ -118,7 +118,7 @@ export default function EmployerDiscoveryCard({ employer }) {
 
   useEffect(() => {
     getAllChats();
-  }, []);
+  }, [chats]);
 
   if (removeMatched) {
     return null

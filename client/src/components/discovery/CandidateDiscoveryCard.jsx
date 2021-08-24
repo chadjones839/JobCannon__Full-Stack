@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable array-callback-return */
-import React, { useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { ChatContext } from "../../providers/ChatProvider.jsx";
 
 export default function CandidateDiscoveryCard({ candidate }) {
@@ -8,6 +8,7 @@ export default function CandidateDiscoveryCard({ candidate }) {
   const sessionUser = JSON.parse(sessionStorage.getItem("userProfile"));
   const { chats, getAllChats, addChat, updateChat } = useContext(ChatContext);
 
+  // removes any employer that is matched with the current user or the current user has already taken an action on the employer
   const removeMatched = chats.find(chat => {
     if (
       chat.initiatingUserId === candidate.id && 
@@ -37,23 +38,27 @@ export default function CandidateDiscoveryCard({ candidate }) {
     }
   });
 
+  // the "Let's Talk" affordance is clicked
   const letsTalkHandler = (id) => { 
+    // Locates an existing instance of chat where current user is reciprocatingUserId and the card is initiatingUserId
     const existingChat = chats.find(chat => {
       if (id === chat.initiatingUserId && sessionUser.id === chat.reciprocatingUserId) {
         return chat
       }
     });
 
+    // If an existing chat cannot be found, this will create a new chat
     if (existingChat === undefined) {
       const newChat = ({
         initiatingUserId: sessionUser.id,
         reciprocatingUserId: id,
-        mutualInterest: "holding",
+        mutualInterest: "holding", // holding indicates that the reciprocating user has not yet taken an action on the current user
         initiatingInterested: true,
         reciprocatingInterested: false
       })
       addChat(newChat)
     }
+    // if a chat between the two id's exists, then the chat is updated as a match, and the chat appears in both users chat list
     else if (
     existingChat.initiatingUserId === id && 
     existingChat.initiatingInterested === true &&
@@ -69,6 +74,7 @@ export default function CandidateDiscoveryCard({ candidate }) {
       })
       updateChat(existingChat.id, editChat)
     }
+    // if a chat instance exists between the two id's, and the reciprocating user clicks hard pass, the chat is updated as a noMatch and the chat does not appear in either users chat list.
     else if (
     existingChat.initiatingUserId === id && 
     existingChat.mutualInterest === "noMatch" &&
@@ -82,17 +88,18 @@ export default function CandidateDiscoveryCard({ candidate }) {
         reciprocatingInterested: true
       })
       updateChat(existingChat.id, editChat)
-    };     
+    };   
   };
 
- 
-   const passHandler = (id) => {
+  // the "Hard Pass" affordance is clicked
+  const passHandler = (id) => {
+    // Locates exisiting chat where current user is reciprocatingUserId and the card is initiatingUserId
     const existingChat = chats.find(chat => {
       if (candidate.id === chat.initiatingUserId && sessionUser.id === chat.reciprocatingUserId) {
         return chat
       }
     })
-
+    // if there is no existing chat, a new chat is created and the reciprocating user is removed from the current users list
     if(existingChat === undefined) {
       const newChat = ({
         initiatingUserId: sessionUser.id,
@@ -103,6 +110,7 @@ export default function CandidateDiscoveryCard({ candidate }) {
       })
       addChat(newChat)
     }
+    // if a chat exists, it is updated and the initiating user is removed from the current users list
     else {
       const editChat = ({
         id: existingChat.id,
@@ -118,9 +126,10 @@ export default function CandidateDiscoveryCard({ candidate }) {
 
   useEffect(() => {
     getAllChats();
-  }, []);
+  }, [chats]);
   
   if (removeMatched) {
+    // loops through user array and removes employers already matched or otherwise have had an action taken on them
     return null
   }
   else {

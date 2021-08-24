@@ -52,6 +52,7 @@
   justify-content: flex-end;
   height: 40px;
 }
+
 .saveEditChanges {
   margin: 0 30px;
   position: relative;
@@ -125,28 +126,6 @@
   border-color: black;
   color: white;
 }
-
-/* .jobTypeBtn:active {
-  background-color: black;
-  border-color: black;
-  color: white;
-  box-shadow: none;
-  outline: none;
-}
-
-.jobTypeBtn:focus, :active:focus {
-  background-color: black;
-  border-color: black;
-  color: white;
-  outline: 5px auto black;
-  outline: none;
-}
-
-.jobTypeBtn:visited {
-  background-color: black;
-  border-color: black;
-  outline: none;
-} */
 
 .rateBtn {
   border-radius: 30px;

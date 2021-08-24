@@ -76,6 +76,14 @@ export function UserProfileProvider(props) {
       .then((createResponse) => addUser({ ...userProfile, firebaseUserId: createResponse.user.uid }))
   };
 
+  const disableUser = (uid) =>{
+    return firebase.auth().updateUser(uid, { disabled: true })
+    .then(() => {
+      sessionStorage.clear()
+      setIsLoggedIn(false);
+    })
+  };
+
   const getFirebaseUser = (firebaseUserProfileId) => {
     return getToken().then((token) =>
       fetch(`${apiUrl}/${firebaseUserProfileId}`, {
@@ -144,14 +152,7 @@ export function UserProfileProvider(props) {
       }));
   };
 
-  const disableUser = (uid) =>{
-    return firebase.auth().updateUser(uid, { disabled: true })
-    .then(() => {
-      sessionStorage.clear()
-      setIsLoggedIn(false);
-    })
-  };
-
+  
   
 
   return (

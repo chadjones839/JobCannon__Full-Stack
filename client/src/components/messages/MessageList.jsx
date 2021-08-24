@@ -55,10 +55,8 @@ export default function MessageList() {
     } 
     else {
       setIsLoading(true);
-      addMessage(message)
-      .then(() => {
-        document.querySelector("#content").value = ""
-      })
+      addMessage(message);
+      document.querySelector("#content").value = "";
     }   
   }
 
@@ -106,6 +104,7 @@ export default function MessageList() {
                 type="textarea"
                 required
                 onChange={handleFieldChange}
+                defaultValue = ""
                 id="content"
                 wrap="on"
                 placeholder= {`Message ${chatName}`}

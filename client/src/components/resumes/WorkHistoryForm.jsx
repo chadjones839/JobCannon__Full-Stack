@@ -57,8 +57,29 @@ const WorkHistory = () => {
   return (
     <div id="root-wrapper">
       
-      <section className="formHeaderContainer">
-        <div className="resume__backButton">
+      <section className="workHistoryForm">
+        <div className="job__backButton">
+          <button
+            type="submit"
+            className="slimBackBtn"
+            onClick={() => history.push("/jobs")}>
+            <img src="https://res.cloudinary.com/dhduglm4j/image/upload/v1596490014/icons/backarrow_lfdpzw.png" className="backToResume" alt="back" />
+          </button>
+        </div>
+        <div className="jobListing__header">
+          <h2>New Job Listing</h2>
+        </div>
+        <div className="saveNewJob">
+          <button
+            type="button"
+            className="blueBtn__round"
+            id="submitBtn"
+            disabled={isLoading}
+            onClick={createJob}>
+            &#10004;
+          </button>
+        </div>
+        {/* <div className="resume__backButton">
           <button
             type="submit"
             className="backBtn"
@@ -70,7 +91,7 @@ const WorkHistory = () => {
           <div className="jobHistory__header">
             <h2>Add Work History</h2>
           </div>
-        </div>
+        </div> */}
       </section>
       <section className="createWorkHistory">
         <form className="editProfileForm">
@@ -237,16 +258,6 @@ const WorkHistory = () => {
           </fieldset>
         </form>
       </section>
-      <div className="saveEditChanges">
-        <button
-          type="button"
-          className="blueBtn__wide"
-          id="submitBtn"
-          disabled={isLoading}
-          onClick={createJob}>
-          Save
-        </button>
-      </div>
       <br />
       <br />
       <br />

@@ -139,6 +139,7 @@
   display: inline-block;
   cursor: pointer;
   text-align: center;
+  outline: none;
 }
 
 .trueBtn {
@@ -162,6 +163,7 @@
   display: inline-block;
   cursor: pointer;
   text-align: center;
+  outline: none;
 }
 
 .blueBtn90 {
